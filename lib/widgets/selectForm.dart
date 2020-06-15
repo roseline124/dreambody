@@ -4,20 +4,20 @@ import 'package:direct_select_flutter/direct_select_list.dart';
 import 'package:flutter/material.dart';
 
 class SelectForm extends StatefulWidget {
-  SelectForm({Key key, this.label}) : super(key: key);
+  SelectForm({@required this.label, @required this.data});
 
   final String label;
+  final List<dynamic> data;
 
   @override
-  _SelectFormState createState() => _SelectFormState(label: label);
+  _SelectFormState createState() => _SelectFormState(label: label, data: data);
 }
 
 class _SelectFormState extends State<SelectForm> {
-  _SelectFormState({Key key, this.label});
+  _SelectFormState({@required this.label, @required this.data});
 
   final String label;
-
-  List<dynamic> _values = ["Chicken", "Pork", "Vegetables", "Cheese", "Bread"];
+  final List<dynamic> data;
 
   int selectedFoodVariants = 0;
   int selectedPortionCounts = 0;
@@ -28,7 +28,7 @@ class _SelectFormState extends State<SelectForm> {
         itemHeight: 56,
         value: value,
         itemBuilder: (context, value) {
-          return Text(value);
+          return Text(value.toString());
         });
   }
 
@@ -51,7 +51,7 @@ class _SelectFormState extends State<SelectForm> {
                   child: Column(
                     children: <Widget>[
                       SizedBox(height: 20.0),
-                      Selector(data: _values, label: label),
+                      Selector(data: data, label: label),
                     ],
                   ),
                 ),
@@ -65,12 +65,12 @@ class _SelectFormState extends State<SelectForm> {
 }
 
 class Selector extends StatelessWidget {
+  Selector({@required this.data, @required this.label});
+
   final buttonPadding = const EdgeInsets.fromLTRB(0, 8, 0, 0);
 
   final List<dynamic> data;
   final String label;
-
-  Selector({@required this.data, @required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +115,7 @@ class Selector extends StatelessWidget {
         itemHeight: 56,
         value: value,
         itemBuilder: (context, value) {
-          return Text(value);
+          return Text(value.toString());
         });
   }
 
