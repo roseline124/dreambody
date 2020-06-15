@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 
-// import './screens/questionScreen/questionOne.dart';
-import 'package:dreambody/widgets/selectForm.dart';
+import './screens/homeScreen/homeScreen.dart';
 
 void main() {
   runApp(DreamBodyApp());
 }
 
 class DreamBodyApp extends StatelessWidget {
-  final List<dynamic> data = [1, 2, 3, 4, 5];
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Dream Body',
-      home: SelectForm(
-        label: 'sdjfkljsdlf',
-        data: data,
+      theme: ThemeData(
+        primaryColor: Color.fromRGBO(127, 102, 255, 1),
       ),
+      title: 'Dream Body',
+      home: HomeScreen(),
     );
   }
 }
