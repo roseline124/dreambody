@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // import './screens/questionScreen/questionOne.dart';
-import 'package:dreambody/components/directSelectForm.dart';
+import 'package:dreambody/widgets/directSelectForm.dart';
 
 void main() {
   runApp(DreamBodyApp());
