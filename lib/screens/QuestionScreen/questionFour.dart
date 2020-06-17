@@ -1,37 +1,35 @@
 import 'package:flutter/material.dart';
-
 import 'package:dreambody/widgets/selectForm.dart';
 import 'package:dreambody/widgets/button.dart';
-import './questionTwo.dart';
 
-class QuestionOne extends StatelessWidget {
-  const QuestionOne({Key key}) : super(key: key);
+class QuestionFour extends StatelessWidget {
+  const QuestionFour({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('5개 중 1번째 질문'),
+        title: Text('5개 중 4번째 질문'),
         leading: BackButton(
             color: Colors.white, onPressed: () => Navigator.of(context).pop()),
       ),
       body: Container(
         padding: EdgeInsets.all(20),
-        child: QuestionOneForm(),
+        child: QuestionFourForm(),
       ),
     );
   }
 }
 
-class QuestionOneForm extends StatefulWidget {
-  QuestionOneForm({Key key}) : super(key: key);
+class QuestionFourForm extends StatefulWidget {
+  QuestionFourForm({Key key}) : super(key: key);
 
   @override
-  _QuestionOneFormState createState() => _QuestionOneFormState();
+  _QuestionFourFormState createState() => _QuestionFourFormState();
 }
 
-class _QuestionOneFormState extends State<QuestionOneForm> {
-  final List<int> weight = new List.generate(200, (index) => index + 1);
+class _QuestionFourFormState extends State<QuestionFourForm> {
+  final List<int> weight = new List.generate(250, (index) => index + 1);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +42,7 @@ class _QuestionOneFormState extends State<QuestionOneForm> {
               alignment: Alignment.centerLeft,
               child: Container(
                 child: Text(
-                  '현재 체중은 얼마인가요?',
+                  '귀하의 키는 얼마인가요?',
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.w500,
@@ -54,15 +52,17 @@ class _QuestionOneFormState extends State<QuestionOneForm> {
             ),
           ),
           Flex(
-            children: [Text('추정치도 괜찮습니다. 시작 체중은 나중에 언제든 변경할 수 있습니다.')],
+            children: [
+              Text('귀하를 위한 맞춤형 계획을 만들고 하루 칼로리 목표를 계산하기 위해, 다음 질문에 답해주세요.')
+            ],
             direction: Axis.vertical,
           ),
           SizedBox(height: 100),
           SelectForm(
-            label: '현재 몸무게',
-            unit: '킬로그램',
+            label: '현재 키',
+            unit: '센티미터',
             data: weight,
-            defaultItemIndex: 59,
+            defaultItemIndex: 175,
           ),
           SizedBox(height: 50),
           Flex(
@@ -74,7 +74,7 @@ class _QuestionOneFormState extends State<QuestionOneForm> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => QuestionTwo()),
+                        MaterialPageRoute(builder: (context) => QuestionFour()),
                       );
                     },
                     label: '다음'),
