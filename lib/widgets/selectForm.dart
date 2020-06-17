@@ -4,20 +4,25 @@ import 'package:direct_select_flutter/direct_select_list.dart';
 import 'package:flutter/material.dart';
 
 class SelectForm extends StatefulWidget {
-  SelectForm({@required this.label, @required this.data});
+  SelectForm(
+      {@required this.label, @required this.data, this.defaultItemIndex});
 
   final String label;
   final List<dynamic> data;
+  final int defaultItemIndex;
 
   @override
-  _SelectFormState createState() => _SelectFormState(label: label, data: data);
+  _SelectFormState createState() => _SelectFormState(
+      label: label, data: data, defaultItemIndex: defaultItemIndex);
 }
 
 class _SelectFormState extends State<SelectForm> {
-  _SelectFormState({@required this.label, @required this.data});
+  _SelectFormState(
+      {@required this.label, @required this.data, this.defaultItemIndex});
 
   final String label;
   final List<dynamic> data;
+  final int defaultItemIndex;
 
   int selectedFoodVariants = 0;
   int selectedPortionCounts = 0;
@@ -32,45 +37,26 @@ class _SelectFormState extends State<SelectForm> {
         });
   }
 
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  final GlobalKey<State> selectFormKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      body: DirectSelectContainer(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              verticalDirection: VerticalDirection.down,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 20.0),
-                      Selector(data: data, label: label),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+    return DirectSelectContainer(
+      key: selectFormKey,
+      child: Selector(data: data, label: label),
     );
   }
 }
 
 class Selector extends StatelessWidget {
-  Selector({@required this.data, @required this.label});
+  Selector(
+      {@required this.data, @required this.label, this.defaultItemIndex = 0});
 
   final buttonPadding = const EdgeInsets.fromLTRB(0, 8, 0, 0);
 
   final List<dynamic> data;
   final String label;
+  final int defaultItemIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +78,7 @@ class Selector extends StatelessWidget {
                     child: Padding(
                         child: DirectSelectList<dynamic>(
                           values: data,
-                          defaultItemIndex: 0,
+                          defaultItemIndex: defaultItemIndex,
                           itemBuilder: (dynamic value) =>
                               getDropDownMenuItem(value),
                           focusedItemDecoration: _getDslDecoration(),
@@ -143,8 +129,8 @@ class Selector extends StatelessWidget {
 
   Icon _getDropdownIcon() {
     return Icon(
-      Icons.unfold_more,
-      color: Colors.blueAccent,
+      Icons.arrow_drop_down,
+      color: Colors.black,
     );
   }
 }
