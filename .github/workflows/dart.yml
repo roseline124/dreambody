@@ -1,0 +1,17 @@
+name: Dart CI
+
+on:
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image:  google/dart:latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Assign size label
+      uses: pascalgn/size-label-action@v0.2.2
