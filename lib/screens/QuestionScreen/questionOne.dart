@@ -12,7 +12,10 @@ class QuestionOne extends StatelessWidget {
         leading: BackButton(
             color: Colors.white, onPressed: () => Navigator.of(context).pop()),
       ),
-      body: Container(padding: EdgeInsets.all(20), child: QuestionOneForm()),
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: QuestionOneForm(),
+      ),
     );
   }
 }
@@ -51,11 +54,14 @@ class _QuestionOneFormState extends State<QuestionOneForm> {
             children: [Text('추정치도 괜찮습니다. 시작 체중은 나중에 언제든 변경할 수 있습니다.')],
             direction: Axis.vertical,
           ),
+          SizedBox(height: 50),
           SelectForm(
             label: '현재 몸무게',
+            unit: '킬로그램',
             data: weight,
-            defaultItemIndex: 60,
+            defaultItemIndex: 50,
           ),
+          SizedBox(height: 50),
         ],
       ),
     );

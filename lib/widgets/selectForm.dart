@@ -3,30 +3,36 @@ import 'package:direct_select_flutter/direct_select_item.dart';
 import 'package:direct_select_flutter/direct_select_list.dart';
 import 'package:flutter/material.dart';
 
+const DEFAULT_SELECTED_INDEX = 60;
+
 class SelectForm extends StatefulWidget {
   SelectForm(
-      {@required this.label, @required this.data, this.defaultItemIndex});
+      {@required this.label,
+      @required this.unit,
+      @required this.data,
+      this.defaultItemIndex});
 
   final String label;
+  final String unit;
   final List<dynamic> data;
   final int defaultItemIndex;
 
   @override
   _SelectFormState createState() => _SelectFormState(
-      label: label, data: data, defaultItemIndex: defaultItemIndex);
+      label: label, unit: unit, data: data, defaultItemIndex: defaultItemIndex);
 }
 
 class _SelectFormState extends State<SelectForm> {
   _SelectFormState(
-      {@required this.label, @required this.data, this.defaultItemIndex});
+      {@required this.label,
+      @required this.unit,
+      @required this.data,
+      this.defaultItemIndex});
 
   final String label;
+  final String unit;
   final List<dynamic> data;
   final int defaultItemIndex;
-
-  int selectedFoodVariants = 0;
-  int selectedPortionCounts = 0;
-  int selectedPortionSize = 0;
 
   DirectSelectItem<dynamic> getDropDownMenuItem(dynamic value) {
     return DirectSelectItem<dynamic>(
@@ -42,10 +48,17 @@ class _SelectFormState extends State<SelectForm> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 5,
+      flex: 1,
       child: DirectSelectContainer(
         key: selectFormKey,
-        child: SingleChildScrollView(child: Selector(data: data, label: label)),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          SingleChildScrollView(
+              child: Selector(
+            data: data,
+            label: label,
+            unit: unit,
+          ))
+        ]),
       ),
     );
   }
@@ -53,12 +66,16 @@ class _SelectFormState extends State<SelectForm> {
 
 class Selector extends StatelessWidget {
   Selector(
-      {@required this.data, @required this.label, this.defaultItemIndex = 0});
+      {@required this.data,
+      @required this.label,
+      @required this.unit,
+      this.defaultItemIndex = DEFAULT_SELECTED_INDEX});
 
   final buttonPadding = const EdgeInsets.fromLTRB(0, 8, 0, 0);
 
   final List<dynamic> data;
   final String label;
+  final String unit;
   final int defaultItemIndex;
 
   @override
@@ -73,28 +90,46 @@ class Selector extends StatelessWidget {
             child: Text(label)),
         Padding(
           padding: buttonPadding,
-          child: Container(
-            decoration: _getShadowDecoration(),
-            child: Card(
-                child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Expanded(
-                    child: Padding(
-                        child: DirectSelectList<dynamic>(
-                          values: data,
-                          defaultItemIndex: defaultItemIndex,
-                          itemBuilder: (dynamic value) =>
-                              getDropDownMenuItem(value),
-                          focusedItemDecoration: _getDslDecoration(),
-                        ),
-                        padding: EdgeInsets.only(left: 12))),
-                Padding(
-                  padding: EdgeInsets.only(right: 8),
-                  child: _getDropdownIcon(),
-                )
-              ],
-            )),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                flex: 7,
+                child: Container(
+                  decoration: _getShadowDecoration(),
+                  child: Card(
+                      child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Expanded(
+                          child: Padding(
+                              child: DirectSelectList<dynamic>(
+                                values: data,
+                                defaultItemIndex: defaultItemIndex,
+                                itemBuilder: (dynamic value) =>
+                                    getDropDownMenuItem(value),
+                                focusedItemDecoration: _getDslDecoration(),
+                              ),
+                              padding: EdgeInsets.only(left: 12))),
+                      Padding(
+                        padding: EdgeInsets.only(right: 8),
+                        child: _getDropdownIcon(),
+                      )
+                    ],
+                  )),
+                ),
+              ),
+              Expanded(
+                  flex: 3,
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 5),
+                      child: Text(
+                        unit,
+                        style: TextStyle(fontSize: 18),
+                      ))),
+            ],
           ),
         ),
       ],
