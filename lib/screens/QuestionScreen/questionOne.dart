@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:dreambody/widgets/selectForm.dart';
 
 class QuestionOne extends StatelessWidget {
   const QuestionOne({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          primaryColor: Color.fromRGBO(127, 102, 255, 1),
-        ),
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('5개 중 첫번째 질문'),
-            leading: BackButton(
-                color: Colors.white,
-                onPressed: () => Navigator.of(context).pop()),
-          ),
-          body:
-              Container(padding: EdgeInsets.all(20), child: QuestionOneForm()),
-        ));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('5개 중 첫번째 질문'),
+        leading: BackButton(
+            color: Colors.white, onPressed: () => Navigator.of(context).pop()),
+      ),
+      body: Container(padding: EdgeInsets.all(20), child: QuestionOneForm()),
+    );
   }
 }
 
@@ -30,6 +25,8 @@ class QuestionOneForm extends StatefulWidget {
 }
 
 class _QuestionOneFormState extends State<QuestionOneForm> {
+  final List<int> weight = new List.generate(200, (index) => index + 1);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +47,15 @@ class _QuestionOneFormState extends State<QuestionOneForm> {
               ),
             ),
           ),
-          Expanded(child: Text('추정치도 괜찮습니다. 시작 체중은 나중에 언제든 변경할 수 있습니다.'))
+          Flex(
+            children: [Text('추정치도 괜찮습니다. 시작 체중은 나중에 언제든 변경할 수 있습니다.')],
+            direction: Axis.vertical,
+          ),
+          SelectForm(
+            label: '현재 몸무게',
+            data: weight,
+            defaultItemIndex: 60,
+          ),
         ],
       ),
     );

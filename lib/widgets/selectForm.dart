@@ -41,9 +41,12 @@ class _SelectFormState extends State<SelectForm> {
 
   @override
   Widget build(BuildContext context) {
-    return DirectSelectContainer(
-      key: selectFormKey,
-      child: Selector(data: data, label: label),
+    return Expanded(
+      flex: 5,
+      child: DirectSelectContainer(
+        key: selectFormKey,
+        child: SingleChildScrollView(child: Selector(data: data, label: label)),
+      ),
     );
   }
 }
@@ -61,6 +64,8 @@ class Selector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
+      verticalDirection: VerticalDirection.down,
       children: [
         Container(
             alignment: AlignmentDirectional.centerStart,
