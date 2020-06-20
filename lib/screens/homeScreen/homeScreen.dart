@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:dreambody/screens/questionScreen/questionOne.dart';
+import 'package:dreambody/screens/SignScreen/signIn.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => QuestionOne()),
+              MaterialPageRoute(builder: (context) => SignIn()),
             );
           },
           child: Text('DreamBody Start'),
