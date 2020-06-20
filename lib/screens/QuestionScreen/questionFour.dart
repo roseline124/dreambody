@@ -11,7 +11,7 @@ class QuestionFour extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('5개 중 4번째 질문'),
+        title: Text('6개 중 4번째 질문'),
         leading: BackButton(
             color: Colors.white, onPressed: () => Navigator.of(context).pop()),
       ),

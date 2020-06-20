@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'widgets/HexColor.dart';
+import 'widgets/hexColor.dart';
 import './screens/homeScreen/homeScreen.dart';
 
 void main() {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../questionFour.dart';
 import 'package:dreambody/widgets/button.dart';
+import '../questionFour.dart';
 import './imageButton.dart';
 
 class QuestionThree extends StatelessWidget {
@@ -11,7 +11,7 @@ class QuestionThree extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('5개 중 3번째 질문'),
+        title: Text('6개 중 3번째 질문'),
         leading: BackButton(
             color: Colors.white, onPressed: () => Navigator.of(context).pop()),
       ),
