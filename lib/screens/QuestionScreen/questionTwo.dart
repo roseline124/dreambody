@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:dreambody/widgets/selectForm.dart';
 import 'package:dreambody/widgets/button.dart';
-import './questionThree.dart';
+import './questionThree/questionThree.dart';
 
 class QuestionTwo extends StatelessWidget {
   const QuestionTwo({Key key}) : super(key: key);

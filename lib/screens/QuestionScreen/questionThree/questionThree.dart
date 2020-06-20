@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dreambody/widgets/button.dart';
+import './imageButton.dart';
 
 class QuestionThree extends StatelessWidget {
   const QuestionThree({Key key}) : super(key: key);
@@ -30,6 +31,14 @@ class QuestionThreeForm extends StatefulWidget {
 class _QuestionThreeFormState extends State<QuestionThreeForm> {
   @override
   Widget build(BuildContext context) {
+    void showMessage(String msg) {
+      final snackbar = SnackBar(content: Text(msg));
+
+      Scaffold.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(snackbar);
+    }
+
     return Container(
       child: Column(
         children: <Widget>[
@@ -51,13 +60,26 @@ class _QuestionThreeFormState extends State<QuestionThreeForm> {
           Flex(
             children: [
               Text('귀하를 위한 맞춤형 계획을 만들고 하루 칼로리 목표를 계산하기 위해, 다음 질문에 답해주세요.'),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(50.0),
-                child: Image.asset(
-                  'static/images/maleUser_128.png',
-                  height: 70.0,
-                  width: 70.0,
-                ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 70.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      InkWell(
+                          child: ImageButton(
+                            src: 'static/images/maleUser_128.png',
+                            label: '남성',
+                            isSelected: true,
+                          ),
+                          onTap: () => showMessage('남성')),
+                      InkWell(
+                          child: ImageButton(
+                            src: 'static/images/femaleUser_128.png',
+                            label: '여성',
+                            isSelected: false,
+                          ),
+                          onTap: () => showMessage('여성')),
+                    ]),
               )
             ],
             direction: Axis.vertical,
