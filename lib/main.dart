@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'widgets/hexColor.dart';
 import './screens/homeScreen/homeScreen.dart';
 
 void main() {
@@ -12,6 +13,7 @@ class DreamBodyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Color.fromRGBO(127, 102, 255, 1),
+        accentColor: HexColor('#ffcc00'),
       ),
       title: 'Dream Body',
       home: HomeScreen(),

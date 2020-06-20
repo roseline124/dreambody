@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import './questionFive.dart';
 import 'package:dreambody/widgets/selectForm.dart';
 import 'package:dreambody/widgets/button.dart';
 
@@ -9,7 +11,7 @@ class QuestionFour extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('5개 중 4번째 질문'),
+        title: Text('6개 중 4번째 질문'),
         leading: BackButton(
             color: Colors.white, onPressed: () => Navigator.of(context).pop()),
       ),
@@ -74,7 +76,7 @@ class _QuestionFourFormState extends State<QuestionFourForm> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => QuestionFour()),
+                        MaterialPageRoute(builder: (context) => QuestionFive()),
                       );
                     },
                     label: '다음'),

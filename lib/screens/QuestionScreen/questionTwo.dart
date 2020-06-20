@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:dreambody/widgets/selectForm.dart';
 import 'package:dreambody/widgets/button.dart';
+import './questionThree/questionThree.dart';
 
 class QuestionTwo extends StatelessWidget {
   const QuestionTwo({Key key}) : super(key: key);
@@ -9,7 +11,7 @@ class QuestionTwo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('5개 중 2번째 질문'),
+        title: Text('6개 중 2번째 질문'),
         leading: BackButton(
             color: Colors.white, onPressed: () => Navigator.of(context).pop()),
       ),
@@ -74,7 +76,8 @@ class _QuestionTwoFormState extends State<QuestionTwoForm> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => QuestionTwo()),
+                        MaterialPageRoute(
+                            builder: (context) => QuestionThree()),
                       );
                     },
                     label: '다음'),

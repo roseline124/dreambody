@@ -57,6 +57,7 @@ class _SelectFormState extends State<SelectForm> {
             data: data,
             label: label,
             unit: unit,
+            defaultItemIndex: defaultItemIndex,
           ))
         ]),
       ),
