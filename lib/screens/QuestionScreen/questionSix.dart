@@ -34,22 +34,21 @@ class QuestionSixForm extends StatefulWidget {
 // 매우 활동적(운동선수와 비슷한 강도로 매일 운동): BMR x 1.9
 
 class _QuestionSixFormState extends State<QuestionSixForm> {
-  // BMR 가중치
-  // final Map<int, String> activityAmount = {
-  //   1: 'VeryInactive',
-  //   2: 'Inactive',
-  //   3: 'Normal',
-  //   4: 'Active',
-  //   5: 'VeryActive',
-  // };
+  final Map<double, String> sliderLabel = {
+    0.0: '주 0회 운동',
+    1.0: '주 1~3회 운동',
+    2.0: '주 3~5회 운동',
+    3.0: '매일 운동',
+    4.0: '운동선수와 비슷한 강도로 매일 운동',
+  };
 
-  // final Map<String, double> _bmrWeightByActivityAmount = {
-  //   'VeryInactive': 1.2,
-  //   'Inactive': 1.3,
-  //   'Normal': 1.5,
-  //   'Active': 1.7,
-  //   'VeryActive': 1.9,
-  // };
+  double _value;
+
+  @override
+  void initState() {
+    super.initState();
+    _value = 2;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +85,39 @@ class _QuestionSixFormState extends State<QuestionSixForm> {
             children: [
               Padding(
                 padding: EdgeInsets.only(bottom: 50.0),
-                child: Text(''),
+                child: SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    activeTrackColor: Colors.yellow[700],
+                    inactiveTrackColor: Colors.amber[100],
+                    trackShape: RectangularSliderTrackShape(),
+                    trackHeight: 4.0,
+                    thumbColor: Theme.of(context).accentColor,
+                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
+                    overlayColor: Colors.amber.withAlpha(32),
+                    overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
+                    // track
+                    tickMarkShape: RoundSliderTickMarkShape(),
+                    activeTickMarkColor: Colors.yellow[700],
+                    inactiveTickMarkColor: Colors.amber[100],
+                    valueIndicatorShape: PaddleSliderValueIndicatorShape(),
+                    valueIndicatorColor: Theme.of(context).accentColor,
+                    valueIndicatorTextStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  child: Slider(
+                    min: 0,
+                    max: 4,
+                    divisions: 4,
+                    label: '${sliderLabel[_value]}',
+                    value: _value,
+                    onChanged: (value) {
+                      setState(() {
+                        _value = value;
+                      });
+                    },
+                  ),
+                ),
               )
             ],
             direction: Axis.vertical,
