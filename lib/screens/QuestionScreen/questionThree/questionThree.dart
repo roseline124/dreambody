@@ -29,16 +29,10 @@ class QuestionThreeForm extends StatefulWidget {
 }
 
 class _QuestionThreeFormState extends State<QuestionThreeForm> {
+  String gender; // F or M
+
   @override
   Widget build(BuildContext context) {
-    void showMessage(String msg) {
-      final snackbar = SnackBar(content: Text(msg));
-
-      Scaffold.of(context)
-        ..removeCurrentSnackBar()
-        ..showSnackBar(snackbar);
-    }
-
     return Container(
       child: Column(
         children: <Widget>[
@@ -69,16 +63,16 @@ class _QuestionThreeFormState extends State<QuestionThreeForm> {
                           child: ImageButton(
                             src: 'static/images/maleUser_128.png',
                             label: '남성',
-                            isSelected: true,
+                            isSelected: gender == 'M',
                           ),
-                          onTap: () => showMessage('남성')),
+                          onTap: () => setState(() => gender = 'M')),
                       InkWell(
                           child: ImageButton(
                             src: 'static/images/femaleUser_128.png',
                             label: '여성',
-                            isSelected: false,
+                            isSelected: gender == 'F',
                           ),
-                          onTap: () => showMessage('여성')),
+                          onTap: () => setState(() => gender = 'F')),
                     ]),
               )
             ],
