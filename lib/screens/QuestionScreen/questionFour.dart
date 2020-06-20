@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import './questionFive.dart';
 import 'package:dreambody/widgets/selectForm.dart';
 import 'package:dreambody/widgets/button.dart';
 
@@ -74,7 +76,7 @@ class _QuestionFourFormState extends State<QuestionFourForm> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => QuestionFour()),
+                        MaterialPageRoute(builder: (context) => QuestionFive()),
                       );
                     },
                     label: '다음'),
