@@ -1,38 +1,33 @@
 import 'package:flutter/material.dart';
-
-import 'package:dreambody/widgets/selectForm.dart';
 import 'package:dreambody/widgets/button.dart';
-import './questionThree.dart';
 
-class QuestionTwo extends StatelessWidget {
-  const QuestionTwo({Key key}) : super(key: key);
+class QuestionThree extends StatelessWidget {
+  const QuestionThree({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('5개 중 2번째 질문'),
+        title: Text('5개 중 3번째 질문'),
         leading: BackButton(
             color: Colors.white, onPressed: () => Navigator.of(context).pop()),
       ),
       body: Container(
         padding: EdgeInsets.all(20),
-        child: QuestionTwoForm(),
+        child: QuestionThreeForm(),
       ),
     );
   }
 }
 
-class QuestionTwoForm extends StatefulWidget {
-  QuestionTwoForm({Key key}) : super(key: key);
+class QuestionThreeForm extends StatefulWidget {
+  QuestionThreeForm({Key key}) : super(key: key);
 
   @override
-  _QuestionTwoFormState createState() => _QuestionTwoFormState();
+  _QuestionThreeFormState createState() => _QuestionThreeFormState();
 }
 
-class _QuestionTwoFormState extends State<QuestionTwoForm> {
-  final List<int> weight = new List.generate(200, (index) => index + 1);
-
+class _QuestionThreeFormState extends State<QuestionThreeForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,7 +39,7 @@ class _QuestionTwoFormState extends State<QuestionTwoForm> {
               alignment: Alignment.centerLeft,
               child: Container(
                 child: Text(
-                  '귀하의 목표 체중은 얼마인가요?',
+                  '귀하의 성별은 무엇인가요?',
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.w500,
@@ -55,18 +50,18 @@ class _QuestionTwoFormState extends State<QuestionTwoForm> {
           ),
           Flex(
             children: [
-              Text('귀하를 위한 맞춤형 계획을 만들고 하루 칼로리 목표를 계산하기 위해, 다음 질문에 답해주세요.')
+              Text('귀하를 위한 맞춤형 계획을 만들고 하루 칼로리 목표를 계산하기 위해, 다음 질문에 답해주세요.'),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(50.0),
+                child: Image.asset(
+                  'static/images/maleUser_128.png',
+                  height: 70.0,
+                  width: 70.0,
+                ),
+              )
             ],
             direction: Axis.vertical,
           ),
-          SizedBox(height: 100),
-          SelectForm(
-            label: '목표 몸무게',
-            unit: '킬로그램',
-            data: weight,
-            defaultItemIndex: 59,
-          ),
-          SizedBox(height: 50),
           Flex(
             direction: Axis.horizontal,
             children: [
