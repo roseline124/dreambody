@@ -43,14 +43,11 @@ class _SelectFormState extends State<SelectForm> {
         });
   }
 
-  final GlobalKey<State> selectFormKey = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: 1,
       child: DirectSelectContainer(
-        key: selectFormKey,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           SingleChildScrollView(
               child: Selector(
@@ -82,8 +79,6 @@ class Selector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
-      verticalDirection: VerticalDirection.down,
       children: [
         Container(
             alignment: AlignmentDirectional.centerStart,
@@ -92,8 +87,6 @@ class Selector extends StatelessWidget {
         Padding(
           padding: buttonPadding,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
@@ -117,7 +110,7 @@ class Selector extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(right: 8),
                         child: _getDropdownIcon(),
-                      )
+                      ),
                     ],
                   )),
                 ),
@@ -126,9 +119,11 @@ class Selector extends StatelessWidget {
                   flex: 3,
                   child: Padding(
                       padding: EdgeInsets.only(left: 5),
-                      child: Text(
-                        unit,
-                        style: TextStyle(fontSize: 18),
+                      child: Center(
+                        child: Text(
+                          unit,
+                          style: TextStyle(fontSize: 18),
+                        ),
                       ))),
             ],
           ),
