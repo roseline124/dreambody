@@ -35,27 +35,37 @@ class _QuestionThreeFormState extends State<QuestionThreeForm> {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(bottom: 10.0),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                child: Text(
-                  '귀하의 성별은 무엇인가요?',
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w500,
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '귀하의 성별은 무엇인가요?',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text(
+                          '귀하를 위한 맞춤형 계획을 만들고 하루 칼로리 목표를 계산하기 위해, 다음 질문에 답해주세요.'),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
           Flex(
             children: [
-              Text('귀하를 위한 맞춤형 계획을 만들고 하루 칼로리 목표를 계산하기 위해, 다음 질문에 답해주세요.'),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 70.0),
+                padding: EdgeInsets.only(bottom: 50.0),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
