@@ -45,12 +45,6 @@ class QuestionLayout extends StatelessWidget {
             ),
           ),
           formWidget,
-          // Flex(
-          //   direction: Axis.vertical,
-          //   children: [
-          //     Padding(padding: EdgeInsets.only(bottom: 50.0), child: formWidget)
-          //   ],
-          // ),
           Flex(
             direction: Axis.horizontal,
             children: [
