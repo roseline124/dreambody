@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'widgets/hexColor.dart';
-import './screens/homeScreen/homeScreen.dart';
+// import './screens/homeScreen/homeScreen.dart';
+import 'package:dreambody/graphqlClient.dart';
 import './screens/questionScreen/questionOne.dart';
 
 void main() {
@@ -19,7 +20,7 @@ class DreamBodyApp extends StatelessWidget {
       title: 'Dream Body',
       initialRoute: '/',
       routes: {
-        '/': (context) => HomeScreen(),
+        '/': (context) => GraphqlWidget(),
         '/questions': (context) => QuestionOne(),
       },
     );
