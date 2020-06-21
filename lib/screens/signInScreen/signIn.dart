@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:dreambody/screens/typeSelectionScreen/typeSelection.dart';
+// import 'package:dreambody/screens/typeSelectionScreen/typeSelection.dart';
+import './googleSignInScreen.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key key}) : super(key: key);
@@ -23,7 +23,10 @@ class SignIn extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TypeSelection()),
+                  MaterialPageRoute(
+                      builder: (context) => Flex(
+                          direction: Axis.vertical,
+                          children: [Expanded(child: GoogleSignInScreen())])),
                 );
               },
               child: Text('Google Login'),
