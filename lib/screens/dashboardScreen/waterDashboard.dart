@@ -43,31 +43,42 @@ class _WaterDashboardState extends State<WaterDashboard> {
                 child: WaterWave(value: glassesOfWater),
                 padding: EdgeInsets.symmetric(vertical: 70),
               ),
-              MaterialButton(
-                  onPressed: () {
-                    if (!(glassesOfWater >= 20)) {
-                      setState(() {
-                        glassesOfWater += 1;
-                      });
-                    }
-                  },
-                  child: Text('+')),
-              MaterialButton(
-                  onPressed: () {
-                    if (!(glassesOfWater <= 0)) {
-                      setState(() {
-                        glassesOfWater -= 1;
-                      });
-                    }
-                  },
-                  child: Text('-')),
-              MaterialButton(
-                  onPressed: () {
-                    setState(() {
-                      glassesOfWater = 0;
-                    });
-                  },
-                  child: Text('reset')),
+              Expanded(
+                child: GridView.count(
+                  crossAxisCount: 3,
+                  children: <Widget>[
+                    MaterialButton(
+                      onPressed: () {
+                        if (!(glassesOfWater >= 20)) {
+                          setState(() {
+                            glassesOfWater += 1;
+                          });
+                        }
+                      },
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                    ),
+                    MaterialButton(
+                        onPressed: () {
+                          if (!(glassesOfWater <= 0)) {
+                            setState(() {
+                              glassesOfWater -= 1;
+                            });
+                          }
+                        },
+                        child: Icon(Icons.remove, color: Colors.white)),
+                    MaterialButton(
+                        onPressed: () {
+                          setState(() {
+                            glassesOfWater = 0;
+                          });
+                        },
+                        child: Icon(Icons.refresh, color: Colors.white)),
+                  ],
+                ),
+              )
             ]),
       ),
     );
