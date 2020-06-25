@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'widgets/hexColor.dart';
 import './screens/homeScreen/homeScreen.dart';
 import './screens/questionScreen/questionOne.dart';
+import './screens/dashboardScreen/waterDashboard.dart';
 
 void main() {
   runApp(DreamBodyApp());
@@ -21,6 +22,7 @@ class DreamBodyApp extends StatelessWidget {
       routes: {
         '/': (context) => HomeScreen(),
         '/questions': (context) => QuestionOne(),
+        '/water': (context) => WaterDashboard()
       },
     );
   }
