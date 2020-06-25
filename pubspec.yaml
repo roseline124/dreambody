@@ -31,7 +31,7 @@ dependencies:
   # for datepicker
   flutter_cupertino_date_picker: ^1.0.26+2
   # water dashboard
-  liquid_progress_indicator: ^0.3.2
+  wave: ^0.0.8
 
 dev_dependencies:
   flutter_test:

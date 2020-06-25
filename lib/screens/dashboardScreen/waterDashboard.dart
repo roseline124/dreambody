@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import './waterWave.dart';
 
 class WaterDashboard extends StatefulWidget {
   const WaterDashboard({Key key}) : super(key: key);
@@ -9,59 +9,66 @@ class WaterDashboard extends StatefulWidget {
 }
 
 class _WaterDashboardState extends State<WaterDashboard> {
+  int glassesOfWater = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.purple, Colors.blue])),
-      child: Stack(
-        children: [
-          // WaterIndicator(progress: 0.3, progressColor: Colors.amber),
-          WaterIndicator(progress: 0.35, progressColor: Colors.amber[100]),
-        ],
-      ),
-    ));
-  }
-}
-
-class WaterIndicator extends StatelessWidget {
-  const WaterIndicator({
-    this.progressColor,
-    this.borderColor = Colors.transparent,
-    this.progress = 0.5,
-    this.width = 200,
-    this.height = 200,
-    this.opacity = 0.3,
-  });
-
-  final double width;
-  final double height;
-  final double opacity;
-  final double progress;
-  final Color borderColor;
-  final Color progressColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Opacity(
-      opacity: opacity,
-      child: Center(
-        child: SizedBox(
-          width: width,
-          height: height,
-          child: LiquidCircularProgressIndicator(
-            value: progress,
-            valueColor: AlwaysStoppedAnimation(progressColor),
-            backgroundColor: Colors.transparent,
-            borderColor: borderColor,
-            borderWidth: 1.0,
-            direction: Axis.vertical,
-          ),
-        ),
+      body: Container(
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.purple, Colors.blue])),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                  padding: EdgeInsets.symmetric(vertical: 50),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Drink More Water',
+                        style: TextStyle(color: Colors.white, fontSize: 20.0),
+                      ),
+                      Text(
+                        'Have a glass of water and Record it',
+                        style: TextStyle(color: Colors.white70, fontSize: 16.0),
+                      )
+                    ],
+                  )),
+              Container(
+                child: WaterWave(value: glassesOfWater),
+                padding: EdgeInsets.symmetric(vertical: 70),
+              ),
+              MaterialButton(
+                  onPressed: () {
+                    if (!(glassesOfWater >= 20)) {
+                      setState(() {
+                        glassesOfWater += 1;
+                      });
+                    }
+                  },
+                  child: Text('+')),
+              MaterialButton(
+                  onPressed: () {
+                    if (!(glassesOfWater <= 0)) {
+                      setState(() {
+                        glassesOfWater -= 1;
+                      });
+                    }
+                  },
+                  child: Text('-')),
+              MaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      glassesOfWater = 0;
+                    });
+                  },
+                  child: Text('reset')),
+            ]),
       ),
     );
   }
