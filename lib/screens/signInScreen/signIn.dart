@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-// import 'package:dreambody/screens/typeSelectionScreen/typeSelection.dart';
-import './googleSignInScreen.dart';
+import 'googleSignIn.dart';
 
-class SignIn extends StatelessWidget {
-  const SignIn({Key key}) : super(key: key);
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
