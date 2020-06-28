@@ -55,7 +55,7 @@ class _QuestionSixFormState extends State<QuestionSixForm> {
   Widget build(BuildContext context) {
     return QuestionLayout(
       questionText: '평소에 얼마나 운동하고 계신가요?',
-      nextQuestion: WaterDashboard(),
+      nextQuestion: WaterDashboard(),//WaterDashboard(),
       formWidget: Flex(
         children: [
           Padding(
