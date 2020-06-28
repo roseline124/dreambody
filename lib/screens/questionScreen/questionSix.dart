@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'questionLayout.dart';
 import 'package:dreambody/screens/dashboardScreen/waterDashboard.dart';
-//test
-import 'package:dreambody/screens/dashboardScreen/perDayDashboard.dart';
 
 class QuestionSix extends StatelessWidget {
   const QuestionSix({Key key}) : super(key: key);
@@ -57,7 +55,7 @@ class _QuestionSixFormState extends State<QuestionSixForm> {
   Widget build(BuildContext context) {
     return QuestionLayout(
       questionText: '평소에 얼마나 운동하고 계신가요?',
-      nextQuestion: PerDayDashboard(),//WaterDashboard(),
+      nextQuestion: WaterDashboard(),//WaterDashboard(),
       formWidget: Flex(
         children: [
           Padding(

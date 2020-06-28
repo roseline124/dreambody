@@ -21,19 +21,14 @@ class _PerDayDashboardState extends State<PerDayDashboard> {
                   child: Container(
                     child: Column(
                       children: <Widget>[
-                        CalorieCounter(current: 500, goal: 1300),
+                        CalorieCounter(current: 500, goal:2280, consume: 300),
+                        SizedBox(height: 5),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            InkWell(
-                                child: NutrientsCounter(title: '탄수화물', current: 3, goal: 3,),
-                            ),
-                            InkWell(
-                                child: NutrientsCounter(title: '단백질', current: 5, goal: 5),
-                            ),
-                            InkWell(
-                                child: NutrientsCounter(title: '지방', current: 3, goal: 3),
-                            ),
+                            NutrientsCounter(title: '탄수화물', current: 1, goal: 3,),
+                            NutrientsCounter(title: '단백질', current: 3, goal: 5),
+                            NutrientsCounter(title: '지방', current: 0, goal: 3),
                           ]),
                       ],
                     ),
