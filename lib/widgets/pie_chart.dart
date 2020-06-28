@@ -49,6 +49,7 @@ class PieChart extends CustomPainter {
   }
   
   double getFontSize(Size size, String text, double textScaleFactor) {
+    if(text == null ) return 0;
     return size.width / text.length * textScaleFactor;
   }
   @override
