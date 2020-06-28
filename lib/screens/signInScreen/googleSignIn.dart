@@ -3,10 +3,10 @@ import 'dart:async';
 // import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:dreambody/config.dart';
 
 const loginRedirectUrl =
-    'http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:8080/oauth2/redirect';
-
+    '$SERVER_BASE_URL/oauth2/authorize/google?redirect_uri=$SERVER_BASE_URL/oauth2/redirect';
 const kAndroidUserAgent =
     'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
 
