@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'widgets/hexColor.dart';
 import './screens/homeScreen/homeScreen.dart';
-import './screens/questionScreen/questionOne.dart';
+import 'package:dreambody/screens/typeSelectionScreen/typeSelection.dart';
+import './screens/dashboardScreen/waterDashboard.dart';
+import './screens/signInScreen/signIn.dart';
 
 void main() {
   runApp(DreamBodyApp());
@@ -20,7 +22,9 @@ class DreamBodyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => HomeScreen(),
-        '/questions': (context) => QuestionOne(),
+        '/login': (context) => SignInScreen(),
+        '/questions': (context) => TypeSelection(),
+        '/water': (context) => WaterDashboard()
       },
     );
   }
