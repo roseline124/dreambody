@@ -24,8 +24,9 @@ class DreamBodyApp extends StatelessWidget {
         '/': (context) => HomeScreen(),
         '/login': (context) => SignInScreen(),
         '/questions': (context) => TypeSelection(),
-        '/water': (context) => WaterDashboard()
+        '/water': (context) => WaterDashboard(),
       },
     );
   }
+  
 }

@@ -30,3 +30,20 @@ Future<Union2<QueryResult, void>> query(
 
   return result.asFirst();
 }
+
+Future<Union2<QueryResult, void>> performMutation(
+    {DocumentNode documentNode, Map<String, dynamic> variables}) async {
+  final GraphQLClient _client = client();
+
+  final MutationOptions options =
+      MutationOptions(documentNode: documentNode, variables: variables);
+
+  final QueryResult result = await _client.mutate(options);
+
+  if (result.hasException) {
+    print(result.exception.toString());
+    return null.asSecond();
+  }
+
+  return result.asFirst();
+}
