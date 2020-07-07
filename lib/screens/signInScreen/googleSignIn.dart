@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:dreambody/.env.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dreambody/blocs/login/loginBloc.dart';
+import 'package:dreambody/blocs/login/events.dart';
+
 final serverBaseUrl = environment['SERVER_BASE_URL'];
 final loginUrl =
     '$serverBaseUrl/oauth2/authorize/google?redirect_uri=$serverBaseUrl/oauth2/redirect';
@@ -36,9 +40,9 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
             RegExp regExp = new RegExp("(?<=token=)(.*)");
             this.token = regExp.firstMatch(url)?.group(1);
 
-            print(this.token);
-            // http.get('http://localhost:8080/user/me',
-            //     headers: {'Authorization': 'Bearer ${this.token}'});
+            BlocProvider.of<LoginBloc>(context)
+                .add(LoginButtonPressed(token: token));
+
             Navigator.of(context).pushNamed("/questions");
             flutterWebviewPlugin.close();
           }
