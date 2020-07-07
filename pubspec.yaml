@@ -26,6 +26,8 @@ dependencies:
 
   graphql: ^3.0.0
   graphql_flutter: ^3.0.1
+  flutter_bloc: ^5.0.1
+  equatable: ^1.2.0
   # OAuth
   http: ^0.12.1
   flutter_webview_plugin: ^0.3.11
