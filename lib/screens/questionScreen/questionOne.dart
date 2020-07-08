@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
+//
+import 'package:dreambody/bloc/BlocProvider.dart';
+import 'package:dreambody/bloc/CounterBloc.dart';
+
 import 'package:direct_select_flutter/direct_select_container.dart';
 import 'package:dreambody/widgets/selectForm.dart';
 import 'package:dreambody/widgets/button.dart';
 import './questionTwo.dart';
+
+import 'package:dreambody/bloc/models/models.dart';
 
 class QuestionOne extends StatefulWidget {
   QuestionOne({Key key}) : super(key: key);
@@ -19,6 +25,12 @@ class _QuestionOneState extends State<QuestionOne> {
 
   @override
   Widget build(BuildContext context) {
+
+    //
+    final CounterBloc bloc = BlocProvider.of(context);
+    final CounterBloc counterBloc = BlocProvider.of<CounterBloc>(context);
+    //
+
     return Scaffold(
         appBar: AppBar(
           title: Text('6개 중 1번째 질문'),
@@ -57,6 +69,18 @@ class _QuestionOneState extends State<QuestionOne> {
                     data: weight,
                     defaultItemIndex: 59,
                   ),
+                  StreamBuilder(
+            initialData: UserInfo(counter_: 0),
+            stream: counterBloc.counterStream,
+            builder: (BuildContext context, snapshot) {
+              return Center(
+                child: Text(
+                  "Clicked " + snapshot.data.counter.toString() + " times!",
+                  style: TextStyle(fontSize: 18),
+                ),
+              );
+            },
+          ),
                   SizedBox(height: 185),
                   Flex(
                     direction: Axis.horizontal,
@@ -79,6 +103,15 @@ class _QuestionOneState extends State<QuestionOne> {
               ),
             ),
           ),
+        ),
+        //
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            bloc.incrementCounter();
+          },
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
         ));
+        //
   }
 }
