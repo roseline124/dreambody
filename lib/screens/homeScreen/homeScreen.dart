@@ -23,12 +23,12 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: Column(children: <Widget>[
           StreamBuilder(
-            initialData: UserInfo(counter_: 0),
+            initialData: UserInfo(currentWeight_: 0),
             stream: counterBloc.counterStream,
             builder: (BuildContext context, snapshot) {
               return Center(
                 child: Text(
-                  "Clicked " + snapshot.data.counter.toString() + " times!",
+                  "Clicked " + snapshot.data.currentWeight.toString() + " times!",
                   style: TextStyle(fontSize: 18),
                 ),
               );
@@ -48,9 +48,9 @@ class HomeScreen extends StatelessWidget {
       //
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          bloc.incrementCounter();
+          bloc.UpdateUserInfo('{"currentWeight": 2.0}');
         },
-        tooltip: 'Increment',
+        tooltip: 'Update',
         child: Icon(Icons.add),
       ),
       //

@@ -70,12 +70,12 @@ class _QuestionOneState extends State<QuestionOne> {
                     defaultItemIndex: 59,
                   ),
                   StreamBuilder(
-            initialData: UserInfo(counter_: 0),
+            initialData: UserInfo(currentWeight_: 0),
             stream: counterBloc.counterStream,
             builder: (BuildContext context, snapshot) {
               return Center(
                 child: Text(
-                  "Clicked " + snapshot.data.counter.toString() + " times!",
+                  "Clicked " + snapshot.data.currentWeight.toString() + " times!",
                   style: TextStyle(fontSize: 18),
                 ),
               );
@@ -107,9 +107,9 @@ class _QuestionOneState extends State<QuestionOne> {
         //
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            bloc.incrementCounter();
+            bloc.UpdateUserInfo('{"currentWeight": 3.0}');
           },
-          tooltip: 'Increment',
+          tooltip: 'update',
           child: Icon(Icons.add),
         ));
         //

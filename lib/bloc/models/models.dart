@@ -1,34 +1,59 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
-
 class UserInfo{
-  final int counter_;
-  final int weight_;
-  /*
-  final String _id;
-  final double _currentWeight;
-  final int _dailyIntakeCalorie;
-  final String _dateOfBirth;
-  final int _goalWeight;
-  final int _height;
-  final int _gender; // id, gender
-  final int _goal; // id, goal
-  final int _activity; // id, activity
-  */
+  final String id_;
+  final double currentWeight_;
+  final int dailyIntakeCalorie_;
+  final String dateOfBirth_;
+  final int goalWeight_;
+  final int height_;
+  final int gender_; // id, gender
+  final int goal_; // id, goal
+  final int activity_; // id, activity
+  
   const UserInfo({
-    this.counter_,
-    this.weight_,
+    this.id_,
+    this.currentWeight_,
+    this.dailyIntakeCalorie_,
+    this.dateOfBirth_,
+    this.goalWeight_,
+    this.gender_,
+    this.height_,
+    this.goal_,
+    this.activity_,
   });
 
   UserInfo concat(Map<String,dynamic> json){
-    final int _counter = json['counter'] == null ?  counter_ : json['counter'];
-    final int _weight = json['counter'] == null ?  weight_ : json['counter'];
+    final String _id = json['id'] == null ? id_ : json['id'];
+    final double _currentWeight = json['currentWeight'] == null ? currentWeight_ : json['currentWeight'];
+    final int _dailyIntakeCalorie = json['dailyIntakeCalorie'] == null ? dailyIntakeCalorie_ : json['dailyIntakeCalorie'];
+    final String _dateOfBirth = json['dateOfBirth'] == null ? dateOfBirth_ : json['dateOfBirth'];
+    final int _goalWeight = json['goalWeight'] == null ? goalWeight_ : json['goalWeight'];
+    final int _height = json['height'] == null ? height_ : json['height'];
+    final int _gender = json['gender'] == null ? gender_ : json['gender'];
+    final int _goal = json['goal'] == null ? goal_ : json['goal'];
+    final int _activity = json['activity'] == null ? activity_ : json['activity'];
 
-    return UserInfo(counter_: _counter, weight_:_weight);
+    return UserInfo(
+      id_: _id,
+      currentWeight_: _currentWeight,
+      dailyIntakeCalorie_: _dailyIntakeCalorie,
+      dateOfBirth_: _dateOfBirth,
+      goalWeight_: _goalWeight,
+      gender_: _gender,
+      height_: _height,
+      goal_: _goal,
+      activity_: _activity,
+    );
   }
   
-  int get counter => counter_;
+  String get id => id_;
+  double get currentWeight => currentWeight_;
+  int get dailyIntakeCalorie => dailyIntakeCalorie_;
+  String get dateOfBirth => dateOfBirth_;
+  int get goalWeight => goalWeight_;
+  int get height => height_;
+  int get gender => gender_; // id, gender
+  int get goal => goal_; // id, goal
+  int get activity => activity_; 
 }
 /*
 class UserInfo{
