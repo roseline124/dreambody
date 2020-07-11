@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+
 import 'package:dreambody/graphql/user/getUserInfo.dart';
+import 'package:dreambody/models/User.dart';
+import './nutritionSearch.dart';
 
 class NutritionScreen extends StatelessWidget {
+  NutritionScreen({Key key, this.token});
+  final String token;
+
   @override
   Widget build(BuildContext context) {
     return Query(
@@ -17,9 +23,20 @@ class NutritionScreen extends StatelessWidget {
           return Text('Loading');
         }
 
-        String username = result.data['getUserInfo']['user']['name'];
+        User user = User.fromJSON(result.data['getUserInfo']['user']);
 
-        return Scaffold(body: Container(child: Text(username)));
+        return Scaffold(
+            body: Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Text(user.name),
+                    Text(user.email),
+                    NutritionSearch(
+                      token: token,
+                    )
+                  ],
+                )));
       },
     );
   }
