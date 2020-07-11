@@ -48,7 +48,7 @@ class DreamBodyApp extends StatelessWidget {
         title: 'Dream Body',
         initialRoute: '/',
         routes: {
-          '/': (context) => HomeScreen(),
+          '/': (context) => HomeScreen(authRepository: authRepository),
           '/login': (context) => SignInScreen(authRepository: authRepository),
           '/questions': (context) => TypeSelection(),
           '/water': (context) => WaterDashboard(),
