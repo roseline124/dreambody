@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'widgets/hexColor.dart';
 import 'services/graphqlService.dart';
+import 'services/authService.dart';
 import 'package:dreambody/screens/typeSelectionScreen/typeSelection.dart';
 import './screens/homeScreen/homeScreen.dart';
 import './screens/dashboardScreen/waterDashboard.dart';
@@ -13,10 +14,13 @@ void main() {
 }
 
 class DreamBodyApp extends StatelessWidget {
+  final AuthService auth;
+  const DreamBodyApp({Key key, this.auth}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GraphQLProvider(
-      client: graphqlService.client,
+      client: graphqlService.getClient(),
       child: CacheProvider(
           child: MaterialApp(
         theme: ThemeData(

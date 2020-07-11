@@ -1,18 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:dreambody/.env.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dreambody/blocs/login/loginBloc.dart';
-import 'package:dreambody/blocs/login/events.dart';
-
-final serverBaseUrl = environment['SERVER_BASE_URL'];
-final loginUrl =
-    '$serverBaseUrl/oauth2/authorize/google?redirect_uri=$serverBaseUrl/oauth2/redirect';
-const kAndroidUserAgent =
-    'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
+import 'package:dreambody/config.dart';
+import 'package:dreambody/services/authService.dart';
 
 class GoogleSignInScreen extends StatefulWidget {
   @override
@@ -21,6 +12,7 @@ class GoogleSignInScreen extends StatefulWidget {
 
 class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
   final flutterWebviewPlugin = new FlutterWebviewPlugin();
+  final AuthService authService = AuthService();
 
   StreamSubscription _onDestroy;
   StreamSubscription<String> _onUrlChanged;
@@ -39,9 +31,7 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
           if (url.startsWith('$serverBaseUrl/oauth2/redirect')) {
             RegExp regExp = new RegExp("(?<=token=)(.*)");
             this.token = regExp.firstMatch(url)?.group(1);
-
-            BlocProvider.of<LoginBloc>(context)
-                .add(LoginButtonPressed(token: token));
+            authService.saveToken(token: this.token);
 
             Navigator.of(context).pushNamed("/questions");
             flutterWebviewPlugin.close();
@@ -62,8 +52,8 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new WebviewScaffold(
-      userAgent: kAndroidUserAgent,
+    return WebviewScaffold(
+      userAgent: K_Android_UserAgent,
       url: loginUrl,
       appBar: new AppBar(
         title: const Text('구글 로그인'),
