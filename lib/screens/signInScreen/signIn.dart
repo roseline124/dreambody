@@ -1,7 +1,11 @@
+import 'package:dreambody/blocs/auth/authRepository.dart';
 import 'package:flutter/material.dart';
 import 'googleSignIn.dart';
 
 class SignInScreen extends StatelessWidget {
+  final AuthRepository authRepository;
+  SignInScreen({Key key, this.authRepository});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,9 +25,13 @@ class SignInScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Flex(
-                          direction: Axis.vertical,
-                          children: [Expanded(child: GoogleSignInScreen())])),
+                      builder: (context) =>
+                          Flex(direction: Axis.vertical, children: [
+                            Expanded(
+                                child: GoogleSignInScreen(
+                              authRepository: authRepository,
+                            ))
+                          ])),
                 );
               },
               child: Text('Google Login'),

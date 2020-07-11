@@ -1,17 +1,17 @@
 // https://pub.dev/packages/graphql_flutter#-readme-tab-
+import 'package:dreambody/blocs/auth/authRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import 'authService.dart';
 import 'package:dreambody/config.dart';
 
 class GraphqlService {
-  static final _serverBaseUrl = serverBaseUrl;
+  static final String _serverBaseUrl = serverBaseUrl;
 
-  ValueNotifier<GraphQLClient> getClient() {
-    final _auth = AuthService();
-    final _authLink = AuthLink(getToken: () => _auth.getToken());
-
+  ValueNotifier<GraphQLClient> getClient({authRepository: AuthRepository}) {
+    final _authRepository = authRepository;
+    final _authLink =
+        AuthLink(getToken: () => 'Bearer ${_authRepository.token}');
     final HttpLink _httpLink = HttpLink(
       uri: '$_serverBaseUrl/graphql',
     );
