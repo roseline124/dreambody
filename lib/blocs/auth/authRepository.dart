@@ -8,12 +8,16 @@ class AuthRepository {
     return;
   }
 
-  Future<void> persistToken(String token) async {
-    this.token = token;
-    return;
+  String getToken() {
+    return this.token;
   }
 
-  Future<bool> hasToken() async {
+  bool hasToken() {
     return this.token != null;
+  }
+
+  void saveToken({String token}) {
+    this.token = token;
+    return;
   }
 }

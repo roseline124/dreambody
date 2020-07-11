@@ -20,7 +20,7 @@ class AuthenticationBloc
     AuthenticationEvent event,
   ) async* {
     if (event is AuthenticationStarted) {
-      final bool hasToken = await authRepository.hasToken();
+      final bool hasToken = authRepository.hasToken();
 
       if (hasToken) {
         yield AuthenticationSuccess();
@@ -31,13 +31,13 @@ class AuthenticationBloc
 
     if (event is AuthenticationLoggedIn) {
       yield AuthenticationInProgress();
-      await authRepository.persistToken(event.token);
+      authRepository.saveToken(token: event.token);
       yield AuthenticationSuccess();
     }
 
     if (event is AuthenticationLoggedOut) {
       yield AuthenticationInProgress();
-      await authRepository.deleteToken();
+      authRepository.deleteToken();
       yield AuthenticationFailure();
     }
   }
