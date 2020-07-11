@@ -16,7 +16,6 @@ import 'screens/typeSelectionScreen/typeSelection.dart';
 import 'screens/homeScreen/homeScreen.dart';
 import 'screens/dashboardScreen/waterDashboard.dart';
 import 'screens/signInScreen/signIn.dart';
-import 'screens/nutritionScreen.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
@@ -53,7 +52,6 @@ class DreamBodyApp extends StatelessWidget {
           '/login': (context) => SignInScreen(authRepository: authRepository),
           '/questions': (context) => TypeSelection(),
           '/water': (context) => WaterDashboard(),
-          '/nutrition': (context) => NutritionScreen()
         },
       )),
     );
