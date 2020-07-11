@@ -12,3 +12,4 @@
 ## 0.1.0+beta3
 
 - [GRAPHQL] add graphql client (#17) @roseline124
+- [BLOC] add auth, login blocs for updating auth token (#21) @roseline124
