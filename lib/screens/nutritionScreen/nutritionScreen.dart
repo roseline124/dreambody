@@ -16,14 +16,14 @@ class NutritionScreen extends StatelessWidget {
       builder: (QueryResult result,
           {VoidCallback refetch, FetchMore fetchMore}) {
         if (result.hasException) {
-          return Text(result.exception.toString());
+          return null;
         }
 
         if (result.loading) {
           return Text('Loading');
         }
 
-        User user = User.fromJSON(result.data['getUserInfo']['user']);
+        User user = User.fromJSON(result.data['userInfo']['user']);
 
         return Scaffold(
             body: Container(
