@@ -1,12 +1,12 @@
 import 'dart:async';
 
-// import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:dreambody/config.dart';
+import 'package:dreambody/.env.dart';
 
-const loginRedirectUrl =
-    '$SERVER_BASE_URL/oauth2/authorize/google?redirect_uri=$SERVER_BASE_URL/oauth2/redirect';
+final serverBaseUrl = environment['SERVER_BASE_URL'];
+final loginUrl =
+    '$serverBaseUrl/oauth2/authorize/google?redirect_uri=$serverBaseUrl/oauth2/redirect';
 const kAndroidUserAgent =
     'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
 
@@ -32,13 +32,10 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
     _onUrlChanged = flutterWebviewPlugin.onUrlChanged.listen((String url) {
       if (mounted) {
         setState(() {
-          // todo: 환경변수, constants로 빼기
-          // constant: https://stackoverflow.com/questions/54069239/whats-the-best-practice-to-keep-all-the-constants-in-flutter
-          if (url.startsWith('http://localhost:8080/oauth2/redirect')) {
+          if (url.startsWith('$serverBaseUrl/oauth2/redirect')) {
             RegExp regExp = new RegExp("(?<=token=)(.*)");
             this.token = regExp.firstMatch(url)?.group(1);
 
-            // todo: login with token
             print(this.token);
             // http.get('http://localhost:8080/user/me',
             //     headers: {'Authorization': 'Bearer ${this.token}'});
@@ -63,7 +60,7 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
   Widget build(BuildContext context) {
     return new WebviewScaffold(
       userAgent: kAndroidUserAgent,
-      url: loginRedirectUrl,
+      url: loginUrl,
       appBar: new AppBar(
         title: const Text('구글 로그인'),
       ),

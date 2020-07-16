@@ -1,5 +1,5 @@
 const String getUserInfo = r'''
-  query getUserInfo {
+  query getUser {
     getUserInfo {
         id
         currentWeight
