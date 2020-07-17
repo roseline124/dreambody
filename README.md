@@ -22,6 +22,15 @@ A new Flutter project.
 - open Android or iOS simulator
 - run main.dart
 
+4. before building app
+
+- [command `flutter pub run tool/env.dart`. It makes `lib/.env.dart` for env variables used in runtime.](https://medium.com/flutter-community/use-environment-variables-in-ci-cd-for-flutter-apps-cbd6d9ac82c)
+
+## Todos
+
+- [x] env variable 사용
+- [x] graphql -> graphql_flutter 로 변경
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

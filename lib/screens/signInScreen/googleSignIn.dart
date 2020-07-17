@@ -1,22 +1,25 @@
 import 'dart:async';
-
-// import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:dreambody/config.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-const loginRedirectUrl =
-    '$SERVER_BASE_URL/oauth2/authorize/google?redirect_uri=$SERVER_BASE_URL/oauth2/redirect';
-const kAndroidUserAgent =
-    'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
+import 'package:dreambody/config.dart';
+import 'package:dreambody/blocs/auth/authRepository.dart';
+import 'package:dreambody/blocs/auth/authBloc.dart';
+import 'package:dreambody/blocs/login/loginBloc.dart';
+import 'package:dreambody/blocs/login/events.dart';
 
 class GoogleSignInScreen extends StatefulWidget {
+  final AuthRepository authRepository;
+  GoogleSignInScreen({Key key, this.authRepository});
+
   @override
   _GoogleSignInScreenState createState() => _GoogleSignInScreenState();
 }
 
 class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
   final flutterWebviewPlugin = new FlutterWebviewPlugin();
+  LoginBloc _loginBloc;
 
   StreamSubscription _onDestroy;
   StreamSubscription<String> _onUrlChanged;
@@ -26,22 +29,21 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
   @override
   void initState() {
     super.initState();
+    _loginBloc = LoginBloc(
+        authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
+        authRepository: widget.authRepository);
     flutterWebviewPlugin.close();
 
     _onDestroy = flutterWebviewPlugin.onDestroy.listen((_) {});
     _onUrlChanged = flutterWebviewPlugin.onUrlChanged.listen((String url) {
       if (mounted) {
         setState(() {
-          // todo: 환경변수, constants로 빼기
-          // constant: https://stackoverflow.com/questions/54069239/whats-the-best-practice-to-keep-all-the-constants-in-flutter
-          if (url.startsWith('http://localhost:8080/oauth2/redirect')) {
+          if (url.startsWith('$serverBaseUrl/oauth2/redirect')) {
             RegExp regExp = new RegExp("(?<=token=)(.*)");
-            this.token = regExp.firstMatch(url)?.group(1);
 
-            // todo: login with token
-            print(this.token);
-            // http.get('http://localhost:8080/user/me',
-            //     headers: {'Authorization': 'Bearer ${this.token}'});
+            this.token = regExp.firstMatch(url)?.group(1);
+            _loginBloc.add(LoginButtonPressed(token: this.token));
+
             Navigator.of(context).pushNamed("/questions");
             flutterWebviewPlugin.close();
           }
@@ -61,28 +63,31 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new WebviewScaffold(
-      userAgent: kAndroidUserAgent,
-      url: loginRedirectUrl,
-      appBar: new AppBar(
-        title: const Text('구글 로그인'),
-      ),
-      withZoom: true,
-      withLocalStorage: true,
-      hidden: true,
-      initialChild: Container(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 30),
-              Text(
-                '잠시만 기다려주세요.',
-                style: TextStyle(fontSize: 16, color: Colors.black54),
-              )
-            ],
+    return BlocProvider<LoginBloc>(
+      create: (context) => _loginBloc,
+      child: WebviewScaffold(
+        userAgent: K_Android_UserAgent,
+        url: loginUrl,
+        appBar: new AppBar(
+          title: const Text('구글 로그인'),
+        ),
+        withZoom: true,
+        withLocalStorage: true,
+        hidden: true,
+        initialChild: Container(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 30),
+                Text(
+                  '잠시만 기다려주세요.',
+                  style: TextStyle(fontSize: 16, color: Colors.black54),
+                )
+              ],
+            ),
           ),
         ),
       ),
