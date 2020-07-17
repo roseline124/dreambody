@@ -1,13 +1,16 @@
+import 'package:dreambody/bloc/IntakeInfoBloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dreambody/bloc/BlocProvider.dart';
-import 'package:dreambody/bloc/CounterBloc.dart';
+import 'package:dreambody/bloc/UserInfoBloc.dart';
 
 import 'widgets/hexColor.dart';
 import './screens/homeScreen/homeScreen.dart';
 import 'package:dreambody/screens/typeSelectionScreen/typeSelection.dart';
 import './screens/dashboardScreen/waterDashboard.dart';
 import './screens/signInScreen/signIn.dart';
+
+import './screens/dashboardScreen/perDayDashboard.dart';
 
 void main() {
   runApp(DreamBodyApp());
@@ -18,7 +21,7 @@ class DreamBodyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      bloc: CounterBloc(),
+      bloc: UserInfoBloc(),
       child: MaterialApp(
         theme: ThemeData(
           primaryColor: Color.fromRGBO(127, 102, 255, 1),

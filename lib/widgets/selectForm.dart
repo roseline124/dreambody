@@ -3,6 +3,8 @@ import 'package:direct_select_flutter/direct_select_item.dart';
 import 'package:direct_select_flutter/direct_select_list.dart';
 import 'package:flutter/material.dart';
 
+import 'package:dreambody/bloc/models/PrimitiveWrapper.dart';
+
 const DEFAULT_SELECTED_INDEX = 60;
 
 class SelectForm extends StatefulWidget {
@@ -50,11 +52,11 @@ class _SelectFormState extends State<SelectForm> {
       child: DirectSelectContainer(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           SingleChildScrollView(
-              child: Selector(
-            data: data,
-            label: label,
-            unit: unit,
-            defaultItemIndex: defaultItemIndex,
+            child: Selector(
+              data: data,
+              label: label,
+              unit: unit,
+              defaultItemIndex: defaultItemIndex,
           ))
         ]),
       ),
@@ -67,14 +69,20 @@ class Selector extends StatelessWidget {
       {@required this.data,
       @required this.label,
       @required this.unit,
-      this.defaultItemIndex = DEFAULT_SELECTED_INDEX});
+      this.onUpdate,
+      this.updateKey,
+      this.defaultItemIndex = DEFAULT_SELECTED_INDEX,
+      this.selectedValue});
 
   final buttonPadding = const EdgeInsets.fromLTRB(0, 8, 0, 0);
 
   final List<dynamic> data;
   final String label;
   final String unit;
+  final String updateKey;
   final int defaultItemIndex;
+  final void Function(String _json) onUpdate;
+  final PrimitiveWrapper selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +145,7 @@ class Selector extends StatelessWidget {
         itemHeight: 56,
         value: value,
         itemBuilder: (context, value) {
+          selectedValue.value = value;
           return Text(value.toString());
         });
   }
