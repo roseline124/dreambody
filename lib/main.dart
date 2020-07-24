@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'widgets/hexColor.dart';
 import 'services/graphqlService.dart';
 
 // authenticate
@@ -16,6 +15,7 @@ import 'screens/typeSelectionScreen/typeSelection.dart';
 import 'screens/homeScreen/homeScreen.dart';
 import 'screens/dashboardScreen/waterDashboard.dart';
 import 'screens/signInScreen/signIn.dart';
+import 'theme/index.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
@@ -41,10 +41,7 @@ class DreamBodyApp extends StatelessWidget {
       client: graphqlService.getClient(authRepository: authRepository),
       child: CacheProvider(
           child: MaterialApp(
-        theme: ThemeData(
-          primaryColor: Color.fromRGBO(127, 102, 255, 1),
-          accentColor: HexColor('#ffcc00'),
-        ),
+        theme: dreamBodyTheme,
         title: 'Dream Body',
         initialRoute: '/',
         routes: {
