@@ -20,7 +20,7 @@ class NutritionScreen extends StatelessWidget {
         }
 
         if (result.loading) {
-          return Text('Loading');
+          return Scaffold(body: Text('Loading'));
         }
 
         User user = User.fromJSON(result.data['userInfo']['user']);
