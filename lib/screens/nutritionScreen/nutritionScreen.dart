@@ -26,9 +26,17 @@ class NutritionScreen extends StatelessWidget {
         User user = User.fromJSON(result.data['userInfo']['user']);
 
         return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leading: BackButton(
+                  color: Theme.of(context).primaryColor,
+                  onPressed: () => Navigator.of(context).pop()),
+            ),
             body: Container(
                 padding: EdgeInsets.all(20.0),
                 child: NutritionSearchForm(token: token)));
+        // child: NutritionSearchForm(token: token)));
       },
     );
   }

@@ -27,6 +27,7 @@ class NutritionSearchForm extends StatelessWidget {
         carbohydrate: food['carbohydrate'],
         protein: food['protein'],
         fat: food['fat'],
+        calorie: food['calorie'],
       );
     });
   }
@@ -44,10 +45,21 @@ class NutritionSearchForm extends StatelessWidget {
       debounceDuration: Duration(milliseconds: 500),
       emptyWidget: Center(child: Text('검색 결과가 없습니다. 다시 검색해보세요 :)')),
       onItemFound: (Food food, int index) {
-        return ListTile(
-          title: Text(food.name),
-          subtitle: Text(
-              '탄수화물: ${food.carbohydrate} / 단백질: ${food.protein} / 지방: ${food.fat}'),
+        return Column(
+          children: [
+            ListTile(
+              title: Text('${food.name} (칼로리: ${food.calorie})'),
+              subtitle: Text(
+                  '탄수화물: ${food.carbohydrate} / 단백질: ${food.protein} / 지방: ${food.fat}'),
+            ),
+            Divider(
+              color: Colors.grey[300],
+              height: 20,
+              thickness: 1,
+              indent: 15,
+              endIndent: 15,
+            )
+          ],
         );
       },
     ));
