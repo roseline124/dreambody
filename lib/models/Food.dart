@@ -1,25 +1,31 @@
-class FoodInfo {
-  final int id;
-  final String foodCode;
+class Food {
+  // final int id;
+  final String code;
   final String name;
+  final String type;
+  final double calorie;
   final double protein;
   final double fat;
   final double carbohydrate;
 
-  FoodInfo({
-    this.id,
-    this.foodCode,
+  Food({
+    // this.id,
+    this.code,
     this.name,
+    this.type,
+    this.calorie,
     this.protein,
     this.fat,
     this.carbohydrate,
   });
 
-  factory FoodInfo.fromJSON(Map<String, dynamic> json) {
-    return FoodInfo(
-      id: json['id'],
-      foodCode: json['foodCode'],
+  factory Food.fromJSON(Map<String, dynamic> json) {
+    return Food(
+      // id: json['id'],
+      code: json['code'],
       name: json['name'],
+      type: json['type'],
+      calorie: json['calorie'],
       protein: json['protein'],
       fat: json['fat'],
       carbohydrate: json['carbohydrate'],

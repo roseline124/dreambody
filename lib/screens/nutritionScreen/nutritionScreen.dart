@@ -27,16 +27,8 @@ class NutritionScreen extends StatelessWidget {
 
         return Scaffold(
             body: Container(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    Text(user.name),
-                    Text(user.email),
-                    NutritionSearchForm(
-                      token: token,
-                    )
-                  ],
-                )));
+                padding: EdgeInsets.all(20.0),
+                child: NutritionSearchForm(token: token)));
       },
     );
   }
