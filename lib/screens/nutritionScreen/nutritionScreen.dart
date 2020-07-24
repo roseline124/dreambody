@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'package:dreambody/graphql/user/getUserInfo.dart';
 import 'package:dreambody/models/User.dart';
-import './nutritionSearch.dart';
+import 'nutritionSearchForm.dart';
 
 class NutritionScreen extends StatelessWidget {
   NutritionScreen({Key key, this.token});
@@ -32,7 +32,7 @@ class NutritionScreen extends StatelessWidget {
                   children: [
                     Text(user.name),
                     Text(user.email),
-                    NutritionSearch(
+                    NutritionSearchForm(
                       token: token,
                     )
                   ],

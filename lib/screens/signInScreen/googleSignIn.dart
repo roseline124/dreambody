@@ -45,8 +45,6 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
             this.token = regExp.firstMatch(url)?.group(1);
             _loginBloc.add(LoginButtonPressed(token: this.token));
 
-            // Navigator.of(context)
-            //     .pushNamed("/nutrition", arguments: {token: this.token});
             Navigator.push(
               context,
               MaterialPageRoute(
