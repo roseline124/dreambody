@@ -34,20 +34,20 @@ A new Flutter project.
 - video: [youtube](https://youtu.be/tfoVp7TQHAE)
 - dashboard
 
-  <img src="./static/images/demo/dashboard-1.png" alt="drawing" width="200"/>
+  <img src="./static/images/demo/dashboard-1.png" alt="drawing" width="300"/>
 
 - water dashboard
 
-  <img src="./static/images/demo/dashboard-2.png" alt="drawing" width="200"/>
+  <img src="./static/images/demo/dashboard-2.png" alt="drawing" width="300"/>
 
 - food search
 
-<img src="./static/images/demo/dashboard-3.png" alt="drawing" width="200"/>
+<img src="./static/images/demo/dashboard-3.png" alt="drawing" width="300"/>
 
 - drawer
 
-  <img src="./static/images/demo/dashboard-4.png" alt="drawing" width="200"/>
+  <img src="./static/images/demo/dashboard-4.png" alt="drawing" width="300"/>
 
 - dashboard after record
 
-  <img src="./static/images/demo/dashboard-5.png" alt="drawing" width="200"/>
+  <img src="./static/images/demo/dashboard-5.png" alt="drawing" width="300"/>
