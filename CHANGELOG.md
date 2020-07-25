@@ -13,3 +13,4 @@
 
 - [GRAPHQL] add graphql client (#17) @roseline124
 - [BLOC] add auth, login blocs for updating auth token (#21) @roseline124
+- [DESIGN] add text, color theme (#23) @roseline124
