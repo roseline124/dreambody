@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import './waterWave.dart';
+import '../dashBoardScreen.dart';
 
 class WaterDashboard extends StatefulWidget {
-  const WaterDashboard({Key key}) : super(key: key);
+  const WaterDashboard({this.dashboard, this.currentWater = 0});
+  final DashBoardScreenState dashboard;
+  final int currentWater;
 
   @override
   _WaterDashboardState createState() => _WaterDashboardState();
 }
 
 class _WaterDashboardState extends State<WaterDashboard> {
-  int glassesOfWater = 0;
+  int glassesOfWater;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      glassesOfWater = widget.currentWater;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +41,10 @@ class _WaterDashboardState extends State<WaterDashboard> {
                 child: Row(children: <Widget>[
                   BackButton(
                       color: Colors.white.withAlpha(200),
-                      onPressed: () => Navigator.of(context).pop())
+                      onPressed: () {
+                        widget.dashboard.updateWater(water: glassesOfWater);
+                        Navigator.of(context).pop();
+                      })
                 ]),
               ),
               Container(

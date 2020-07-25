@@ -5,6 +5,7 @@ import 'package:dreambody/theme/colors.dart';
 // screens
 import 'summaryBoard/perDayDashboard.dart';
 import 'mealBoard/mealDashBoard.dart';
+import 'waterDashBoard/waterDashboard.dart';
 
 // query
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -23,6 +24,13 @@ class DashBoardScreen extends StatefulWidget {
 class DashBoardScreenState extends State<DashBoardScreen> {
   Map<MealType, FoodSum> mealIntakes = new Map<MealType, FoodSum>();
   FoodSum totalIntakes = FoodSum();
+  int totalWater = 0;
+
+  updateWater({@required water}) {
+    setState(() {
+      totalWater = water;
+    });
+  }
 
   updateMealIntakes({@required MealType mealType, @required FoodSum foodSum}) {
     setState(() {
@@ -80,7 +88,11 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/water');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => WaterDashboard(
+                                dashboard: this, currentWater: totalWater)));
                   },
                   child: Container(
                     height: 60,
@@ -101,7 +113,9 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                         ),
                         // todo: 마신 물이 0이 아니면 마신 양을 text로, 아니면 아래 텍스트 보여줌
                         Text(
-                          '${currentUser.user.name}님, 오늘 마신 물을 기록해보세요!',
+                          totalWater == 0
+                              ? '${currentUser.user.name}님, 오늘 마신 물을 기록해보세요!'
+                              : '오늘 마신 물의 양은 ${totalWater * 100}ml입니다.',
                           style: TextStyle(
                               color: customColor.primaryDarkColor,
                               fontWeight: FontWeight.w500),
