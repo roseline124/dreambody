@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dreambody/theme/colors.dart';
 
 class NutrientsCounter extends StatefulWidget {
   NutrientsCounter({
@@ -21,36 +22,36 @@ class _NutrientsCounterState extends State<NutrientsCounter> {
     final double percent = (widget.current / widget.goal);
 
     return Container(
-        child: Column(
-            children: <Widget>[
-              Text('${widget.title}'),
-              SizedBox(height: 5),
-              Container(
-                width: 100,
-                height: 10,
-                child: SliderTheme(
-                  data: SliderTheme.of(context).copyWith(
-                    activeTrackColor: Colors.amberAccent,
-                    inactiveTrackColor: Colors.white,
-                    trackHeight: 3.0,
-                    thumbColor: Colors.amberAccent,
-                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 0.0),
-                    overlayColor: Colors.purple.withAlpha(32),
-                    overlayShape: RoundSliderOverlayShape(overlayRadius: 14.0),
-                  ),
-                  child: Slider(
-                      value: percent,
-                      onChanged: (value) {}),
-                ),
-              ),
-              SizedBox(height: 5),
-              Text('${widget.current} / ${widget.goal}g'),
-            ],
+      child: Column(
+        children: <Widget>[
+          Text(
+            '${widget.current} / ${widget.goal}g',
+            style: TextStyle(color: Colors.white),
           ),
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.all(Radius.circular(15.0)),
-        ),
+          SizedBox(height: 5),
+          Container(
+            width: 100,
+            height: 10,
+            child: SliderTheme(
+              data: SliderTheme.of(context).copyWith(
+                activeTrackColor: Theme.of(context).accentColor,
+                inactiveTrackColor: Colors.white,
+                trackHeight: 3.0,
+                thumbColor: Theme.of(context).accentColor,
+                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 0.0),
+                overlayColor: Colors.purple.withAlpha(32),
+                overlayShape: RoundSliderOverlayShape(overlayRadius: 14.0),
+              ),
+              child: Slider(value: percent, onChanged: (value) {}),
+            ),
+          ),
+          SizedBox(height: 5),
+          Text(
+            '${widget.title}',
+            style: TextStyle(color: customColor.primaryDarkColor),
+          ),
+        ],
+      ),
     );
   }
 }
