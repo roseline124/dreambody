@@ -31,7 +31,7 @@ class PieChart extends CustomPainter {
 
     double arcAngle = 2 * pi * (percentage / 100);
 
-    paint..color = customColor.primaryDarkColor;
+    paint..color = customColor.primaryColor;
     canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -pi / 2,
         arcAngle, false, paint);
 

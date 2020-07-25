@@ -34,10 +34,10 @@ class _NutrientsCounterState extends State<NutrientsCounter> {
             height: 10,
             child: SliderTheme(
               data: SliderTheme.of(context).copyWith(
-                activeTrackColor: Theme.of(context).accentColor,
+                activeTrackColor: Theme.of(context).primaryColor,
                 inactiveTrackColor: Colors.white,
                 trackHeight: 3.0,
-                thumbColor: Theme.of(context).accentColor,
+                thumbColor: Theme.of(context).primaryColor,
                 thumbShape: RoundSliderThumbShape(enabledThumbRadius: 0.0),
                 overlayColor: Colors.purple.withAlpha(32),
                 overlayShape: RoundSliderOverlayShape(overlayRadius: 14.0),
