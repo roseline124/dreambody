@@ -25,20 +25,27 @@ class _WaterDashboardState extends State<WaterDashboard> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: Row(children: <Widget>[
+                  BackButton(
+                      color: Colors.white.withAlpha(200),
+                      onPressed: () => Navigator.of(context).pop())
+                ]),
+              ),
               Container(
-                  padding: EdgeInsets.symmetric(vertical: 50),
                   child: Column(
-                    children: [
-                      Text(
-                        'Drink More Water',
-                        style: TextStyle(color: Colors.white, fontSize: 20.0),
-                      ),
-                      Text(
-                        'Have a glass of water and Record it',
-                        style: TextStyle(color: Colors.white70, fontSize: 16.0),
-                      )
-                    ],
-                  )),
+                children: [
+                  Text(
+                    '꿀꺽꿀꺽! 캬아~',
+                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                  ),
+                  Text(
+                    '물을 마시고 얼마나 마셨는지 기록해보세요',
+                    style: TextStyle(color: Colors.white70, fontSize: 16.0),
+                  )
+                ],
+              )),
               Container(
                 child: WaterWave(value: glassesOfWater),
                 padding: EdgeInsets.symmetric(vertical: 70),
@@ -48,6 +55,9 @@ class _WaterDashboardState extends State<WaterDashboard> {
                   crossAxisCount: 3,
                   children: <Widget>[
                     MaterialButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(70),
+                      ),
                       onPressed: () {
                         if (!(glassesOfWater >= 20)) {
                           setState(() {
@@ -61,6 +71,9 @@ class _WaterDashboardState extends State<WaterDashboard> {
                       ),
                     ),
                     MaterialButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(70),
+                        ),
                         onPressed: () {
                           if (!(glassesOfWater <= 0)) {
                             setState(() {
@@ -70,6 +83,9 @@ class _WaterDashboardState extends State<WaterDashboard> {
                         },
                         child: Icon(Icons.remove, color: Colors.white)),
                     MaterialButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(70),
+                        ),
                         onPressed: () {
                           setState(() {
                             glassesOfWater = 0;
