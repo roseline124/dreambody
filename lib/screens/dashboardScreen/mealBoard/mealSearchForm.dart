@@ -6,8 +6,8 @@ import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:dreambody/config.dart';
 import 'package:dreambody/models/Food.dart';
 
-class NutritionSearchForm extends StatelessWidget {
-  NutritionSearchForm({Key key, this.token});
+class MealSearchForm extends StatelessWidget {
+  MealSearchForm({Key key, this.token});
   final String token;
 
   Future<List<Food>> search(String keyword) async {

@@ -14,7 +14,6 @@ import 'blocs/simpleBlocObserver.dart';
 import 'screens/typeSelectionScreen/typeSelection.dart';
 import 'screens/dashboardScreen/waterDashBoard/waterDashboard.dart';
 import 'screens/signInScreen/googleSignIn.dart';
-import 'screens/dashboardScreen/nutritionSearch/nutritionScreen.dart';
 import 'screens/dashboardScreen/dashBoardScreen.dart';
 
 import 'theme/index.dart';
@@ -52,7 +51,6 @@ class DreamBodyApp extends StatelessWidget {
           '/questions': (context) => TypeSelection(),
           '/dashboard': (context) => DashBoardScreen(),
           '/water': (context) => WaterDashboard(),
-          '/nutrition': (context) => NutritionScreen(),
         },
       )),
     );
