@@ -63,20 +63,23 @@ class _DrawerMenuState extends State<DrawerMenu> {
         color: Theme.of(context).primaryColor,
         padding: EdgeInsets.all(20),
         child: Column(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              widget.open
-                  ? Icon(Icons.arrow_drop_down, color: Colors.white)
-                  : Icon(Icons.arrow_drop_up, color: Colors.white),
-              InkWell(
-                child: Text(
-                  '수정',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500, color: Colors.white),
-                ),
-              )
-            ],
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                widget.open
+                    ? Icon(Icons.arrow_drop_down, color: Colors.white)
+                    : Icon(Icons.arrow_drop_up, color: Colors.white),
+                InkWell(
+                  child: Text(
+                    '수정',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500, color: Colors.white),
+                  ),
+                )
+              ],
+            ),
           ),
           Container(
               height: height - 250,
