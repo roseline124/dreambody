@@ -21,10 +21,5 @@ TextTheme buildDreamBodyTextTheme(TextTheme base) {
         fontFamily: 'NotoSansKR',
         displayColor: customColor.textPrimaryColor,
         bodyColor: customColor.textPrimaryColor,
-      )
-      .apply(
-        fontFamily: 'Montserrat',
-        displayColor: customColor.textPrimaryColor,
-        bodyColor: customColor.textPrimaryColor,
       );
 }
