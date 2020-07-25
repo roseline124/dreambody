@@ -10,10 +10,51 @@ import 'mealBoard/mealDashBoard.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:dreambody/graphql/user/getUserInfo.dart';
 import 'package:dreambody/models/UserInfo.dart';
+import './mealBoard/types.dart';
 
-class DashBoardScreen extends StatelessWidget {
+class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({this.token});
   final String token;
+
+  @override
+  DashBoardScreenState createState() => DashBoardScreenState();
+}
+
+class DashBoardScreenState extends State<DashBoardScreen> {
+  Map<MealType, FoodSum> mealIntakes = new Map<MealType, FoodSum>();
+  FoodSum totalIntakes = FoodSum();
+
+  updateMealIntakes({@required MealType mealType, @required FoodSum foodSum}) {
+    setState(() {
+      mealIntakes[mealType] = foodSum;
+
+      if (mealIntakes[MealType.breakfast] != null) {
+        totalIntakes.calorie = mealIntakes[MealType.breakfast].calorie;
+        totalIntakes.fat = mealIntakes[MealType.breakfast].fat;
+        totalIntakes.protein = mealIntakes[MealType.breakfast].protein;
+        totalIntakes.carbohydrate =
+            mealIntakes[MealType.breakfast].carbohydrate;
+      }
+      if (mealIntakes[MealType.lunch] != null) {
+        totalIntakes.calorie = mealIntakes[MealType.lunch].calorie;
+        totalIntakes.fat = mealIntakes[MealType.lunch].fat;
+        totalIntakes.protein = mealIntakes[MealType.lunch].protein;
+        totalIntakes.carbohydrate = mealIntakes[MealType.lunch].carbohydrate;
+      }
+      if (mealIntakes[MealType.dinner] != null) {
+        totalIntakes.calorie = mealIntakes[MealType.dinner].calorie;
+        totalIntakes.fat = mealIntakes[MealType.dinner].fat;
+        totalIntakes.protein = mealIntakes[MealType.dinner].protein;
+        totalIntakes.carbohydrate = mealIntakes[MealType.dinner].carbohydrate;
+      }
+      if (mealIntakes[MealType.dessert] != null) {
+        totalIntakes.calorie = mealIntakes[MealType.dessert].calorie;
+        totalIntakes.fat = mealIntakes[MealType.dessert].fat;
+        totalIntakes.protein = mealIntakes[MealType.dessert].protein;
+        totalIntakes.carbohydrate = mealIntakes[MealType.dessert].carbohydrate;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +75,7 @@ class DashBoardScreen extends StatelessWidget {
           return GradientPageLayout(
               child: SingleChildScrollView(
             child: Column(children: [
-              PerDayDashboard(intakeCalorie: currentUser.dailyIntakeCalorie),
+              PerDayDashboard(intakes: totalIntakes),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: InkWell(
@@ -70,7 +111,7 @@ class DashBoardScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              MealDashBoard(token: token)
+              MealDashBoard(token: widget.token, dashboard: this)
             ]),
           ));
         });

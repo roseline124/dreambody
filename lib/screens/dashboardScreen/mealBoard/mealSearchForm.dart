@@ -9,21 +9,11 @@ import 'package:dreambody/config.dart';
 import 'package:dreambody/models/Food.dart';
 import './drawerMenu.dart';
 import './mealCard.dart';
-import '../DashBoardScreen.dart';
-
-enum MealType { breakfast, lunch, dinner, dessert }
-
-class FoodSum {
-  double calorie = 0;
-  double fat = 0;
-  double protein = 0;
-  double carbohydrate = 0;
-}
+import './types.dart';
 
 class MealSearchForm extends StatefulWidget {
-  MealSearchForm({@required this.token, @required this.mealType, this.parent});
+  MealSearchForm({@required this.token, this.parent});
   final String token;
-  final MealType mealType;
   final MealCardState parent;
 
   @override

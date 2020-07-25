@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
-import 'mealSearchForm.dart';
+
+import '../dashBoardScreen.dart';
+import './mealSearchForm.dart';
+import './types.dart';
 
 class MealCard extends StatefulWidget {
   const MealCard({
     @required this.title,
     @required this.token,
-    this.subtitle,
-    this.mealType,
+    @required this.mealType,
+    @required this.dashboard,
     this.isLastTile = false,
   });
+  final MealType mealType;
+  final DashBoardScreenState dashboard;
   final String token;
   final String title;
-  final String subtitle;
   final bool isLastTile;
-  final MealType mealType;
 
   @override
   MealCardState createState() => MealCardState();
 }
 
 class MealCardState extends State<MealCard> {
-  MealType mealType;
   int calorieSum = 0;
   int fatSum = 0;
   int proteinSum = 0;
@@ -33,6 +35,9 @@ class MealCardState extends State<MealCard> {
       proteinSum = foodSum.protein.toInt();
       carbohydrateSum = foodSum.carbohydrate.toInt();
     });
+
+    widget.dashboard
+        .updateMealIntakes(mealType: widget.mealType, foodSum: foodSum);
   }
 
   @override
@@ -53,10 +58,8 @@ class MealCardState extends State<MealCard> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => MealSearchForm(
-                      parent: this,
-                      token: widget.token,
-                      mealType: widget.mealType)));
+                  builder: (context) =>
+                      MealSearchForm(parent: this, token: widget.token)));
         },
         icon: Icon(
           Icons.add,

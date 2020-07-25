@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+
+import '../dashBoardScreen.dart';
 import './mealCard.dart';
-import 'mealSearchForm.dart';
+import './types.dart';
 
 class MealDashBoard extends StatefulWidget {
-  MealDashBoard({this.token});
+  MealDashBoard({@required this.token, @required this.dashboard});
+
+  final DashBoardScreenState dashboard;
   final String token;
 
   @override
@@ -25,26 +29,30 @@ class _MealDashBoardState extends State<MealDashBoard> {
       ),
       child: Column(children: [
         MealCard(
-            title: '아침',
-            subtitle: '',
-            token: widget.token,
-            mealType: MealType.breakfast),
+          title: '아침',
+          token: widget.token,
+          dashboard: widget.dashboard,
+          mealType: MealType.breakfast,
+        ),
         MealCard(
-            title: '점심',
-            subtitle: '',
-            token: widget.token,
-            mealType: MealType.lunch),
+          title: '점심',
+          token: widget.token,
+          dashboard: widget.dashboard,
+          mealType: MealType.lunch,
+        ),
         MealCard(
-            title: '저녁',
-            subtitle: '',
-            token: widget.token,
-            mealType: MealType.dinner),
+          title: '저녁',
+          token: widget.token,
+          dashboard: widget.dashboard,
+          mealType: MealType.dinner,
+        ),
         MealCard(
-            title: '간식',
-            subtitle: '',
-            token: widget.token,
-            isLastTile: true,
-            mealType: MealType.dessert),
+          title: '간식',
+          token: widget.token,
+          dashboard: widget.dashboard,
+          mealType: MealType.dessert,
+          isLastTile: true,
+        ),
       ]),
     );
   }

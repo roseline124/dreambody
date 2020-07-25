@@ -37,7 +37,7 @@ class _WaterDashboardState extends State<WaterDashboard> {
                   child: Column(
                 children: [
                   Text(
-                    '꿀꺽꿀꺽! 캬아~',
+                    '꿀꺽꿀꺽! 캬아~ 😆',
                     style: TextStyle(color: Colors.white, fontSize: 20.0),
                   ),
                   Text(
