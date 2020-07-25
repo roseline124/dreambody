@@ -13,9 +13,8 @@ import 'blocs/simpleBlocObserver.dart';
 
 // screens
 import 'screens/typeSelectionScreen/typeSelection.dart';
-import 'screens/homeScreen/homeScreen.dart';
 import 'screens/dashboardScreen/waterDashboard.dart';
-import 'screens/signInScreen/signIn.dart';
+import 'screens/signInScreen/googleSignIn.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
@@ -46,11 +45,12 @@ class DreamBodyApp extends StatelessWidget {
           accentColor: HexColor('#ffcc00'),
         ),
         title: 'Dream Body',
-        initialRoute: '/',
         routes: {
-          '/': (context) => HomeScreen(authRepository: authRepository),
-          '/login': (context) => SignInScreen(authRepository: authRepository),
+          '/': (context) => GoogleSignInScreen(authRepository: authRepository),
+          '/login': (context) =>
+              GoogleSignInScreen(authRepository: authRepository),
           '/questions': (context) => TypeSelection(),
+          '/dashboard': (context) => WaterDashboard(),
           '/water': (context) => WaterDashboard(),
         },
       )),
