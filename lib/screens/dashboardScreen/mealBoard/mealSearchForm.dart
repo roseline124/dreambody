@@ -8,10 +8,23 @@ import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:dreambody/config.dart';
 import 'package:dreambody/models/Food.dart';
 import './drawerMenu.dart';
+import './mealCard.dart';
+import '../DashBoardScreen.dart';
+
+enum MealType { breakfast, lunch, dinner, dessert }
+
+class FoodSum {
+  double calorie = 0;
+  double fat = 0;
+  double protein = 0;
+  double carbohydrate = 0;
+}
 
 class MealSearchForm extends StatefulWidget {
-  MealSearchForm({Key key, this.token});
+  MealSearchForm({@required this.token, @required this.mealType, this.parent});
   final String token;
+  final MealType mealType;
+  final MealCardState parent;
 
   @override
   _MealSearchFormState createState() => _MealSearchFormState();
@@ -42,6 +55,9 @@ class _MealSearchFormState extends State<MealSearchForm> {
 
   bool showBottomMenu = false;
   List<Food> selectedFoods = [];
+
+  static const Widget _NotFoundText =
+      Center(child: Text('검색 결과가 없습니다. 다시 검색해보세요 :)'));
 
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -84,6 +100,26 @@ class _MealSearchFormState extends State<MealSearchForm> {
                                   color: Theme.of(context).primaryColor,
                                   onPressed: () => Navigator.of(context).pop()),
                               InkWell(
+                                onTap: () {
+                                  final foodDefaultSum = FoodSum();
+                                  final foodSum = selectedFoods
+                                      .fold(foodDefaultSum,
+                                          (FoodSum foodSum, Food food) {
+                                    if (food != null && foodSum != null) {
+                                      foodSum.calorie += food.calorie;
+                                      foodSum.fat += food.fat;
+                                      foodSum.protein += food.protein;
+                                      foodSum.carbohydrate += food.carbohydrate;
+                                    }
+
+                                    return foodSum;
+                                  });
+
+                                  widget.parent
+                                      .updateMealInfo(foodSum: foodSum);
+
+                                  Navigator.of(context).pop();
+                                },
                                 child: Text(
                                   '완료',
                                   style: TextStyle(
@@ -112,11 +148,9 @@ class _MealSearchFormState extends State<MealSearchForm> {
                             debounceDuration: Duration(milliseconds: 500),
                             onError: (error) {
                               print(error.toString());
-                              return Center(
-                                  child: Text('검색 결과가 없습니다. 다시 검색해보세요 :)'));
+                              return _NotFoundText;
                             },
-                            emptyWidget: Center(
-                                child: Text('검색 결과가 없습니다. 다시 검색해보세요 :)')),
+                            emptyWidget: _NotFoundText,
                             onItemFound: (Food food, int index) {
                               return Column(
                                 children: [

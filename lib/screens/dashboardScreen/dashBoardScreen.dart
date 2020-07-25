@@ -58,6 +58,7 @@ class DashBoardScreen extends StatelessWidget {
                             width: 30,
                           ),
                         ),
+                        // todo: 마신 물이 0이 아니면 마신 양을 text로, 아니면 아래 텍스트 보여줌
                         Text(
                           '${currentUser.user.name}님, 오늘 마신 물을 기록해보세요!',
                           style: TextStyle(
