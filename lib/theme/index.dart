@@ -7,6 +7,8 @@ ThemeData _buildDreamBodyTheme() {
   final dreamBodyTextTheme = buildDreamBodyTextTheme(base.textTheme);
 
   return base.copyWith(
+    primaryColorLight: customColor.primaryLightColor,
+    primaryColorDark: customColor.primaryDarkColor,
     primaryColor: customColor.primaryColor,
     accentColor: customColor.accentColor,
     scaffoldBackgroundColor: customColor.backgroundColor,

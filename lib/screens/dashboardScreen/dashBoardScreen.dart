@@ -32,44 +32,46 @@ class DashBoardScreen extends StatelessWidget {
           UserInfo currentUser = UserInfo.fromJSON(result.data['userInfo']);
 
           return GradientPageLayout(
-              child: Column(children: [
-            PerDayDashboard(intakeCalorie: currentUser.dailyIntakeCalorie),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20.0),
-              child: InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, '/water');
-                },
-                child: Container(
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(100),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: 5),
-                        child: Image.asset(
-                          'static/images/waterDrop.png',
-                          height: 30,
-                          width: 30,
+              child: SingleChildScrollView(
+            child: Column(children: [
+              PerDayDashboard(intakeCalorie: currentUser.dailyIntakeCalorie),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/water');
+                  },
+                  child: Container(
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withAlpha(100),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Image.asset(
+                            'static/images/waterDrop.png',
+                            height: 30,
+                            width: 30,
+                          ),
                         ),
-                      ),
-                      Text(
-                        '${currentUser.user.name}님, 오늘 마신 물을 기록해보세요!',
-                        style: TextStyle(
-                            color: customColor.primaryDarkColor,
-                            fontWeight: FontWeight.w500),
-                      )
-                    ],
+                        Text(
+                          '${currentUser.user.name}님, 오늘 마신 물을 기록해보세요!',
+                          style: TextStyle(
+                              color: customColor.primaryDarkColor,
+                              fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            MealDashBoard()
-          ]));
+              MealDashBoard(token: token)
+            ]),
+          ));
         });
   }
 }
