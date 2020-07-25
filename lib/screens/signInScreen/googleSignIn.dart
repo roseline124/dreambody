@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:dreambody/screens/nutritionScreen/nutritionScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,13 +44,14 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
             this.token = regExp.firstMatch(url)?.group(1);
             _loginBloc.add(LoginSucceed(token: this.token));
 
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => NutritionScreen(
-                        token: this.token,
-                      )),
-            );
+            Navigator.pushNamed(context, '/dashboard');
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //       builder: (context) => NutritionScreen(
+            //             token: this.token,
+            //           )),
+            // );
             flutterWebviewPlugin.close();
           }
         });
