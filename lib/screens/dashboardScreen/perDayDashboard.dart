@@ -28,7 +28,7 @@ class _PerDayDashboardState extends State<PerDayDashboard> {
           ),
           decoration: BoxDecoration(
             color: Colors.white.withAlpha(100),
-            borderRadius: BorderRadius.all(Radius.circular(15.0)),
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
           ),
           width: 370.0,
           height: 260.0,
