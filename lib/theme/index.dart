@@ -8,7 +8,7 @@ ThemeData _buildDreamBodyTheme() {
 
   return base.copyWith(
     primaryColor: customColor.primaryColor,
-    accentColor: customColor.secondaryColor,
+    accentColor: customColor.accentColor,
     scaffoldBackgroundColor: customColor.backgroundColor,
     cardColor: customColor.backgroundColor,
     textSelectionColor: customColor.primaryLightColor,
