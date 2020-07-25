@@ -26,20 +26,18 @@ A new Flutter project.
 
 - [command `flutter pub run tool/env.dart`. It makes `lib/.env.dart` for env variables used in runtime.](https://medium.com/flutter-community/use-environment-variables-in-ci-cd-for-flutter-apps-cbd6d9ac82c)
 
-## Todos
+## app images & video
 
-- [x] env variable 사용
-- [x] graphql -> graphql_flutter 로 변경
+1. dashboard
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- video: [youtube](https://youtu.be/tfoVp7TQHAE)
+- dashboard:
+  ![dashboard](./static/images/demo/dashboard-1.png)
+- water dashboard:
+  ![dashboard](./static/images/demo/dashboard-2.png)
+- food search:
+  ![dashboard](./static/images/demo/dashboard-3.png)
+- drawer:
+  ![dashboard](./static/images/demo/dashboard-4.png)
+- dashboard after record
+  ![dashboard](./static/images/demo/dashboard-5.png)
