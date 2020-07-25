@@ -5,14 +5,14 @@ abstract class LoginEvent extends Equatable {
   const LoginEvent();
 }
 
-class LoginButtonPressed extends LoginEvent {
+class LoginSucceed extends LoginEvent {
   final String token;
 
-  const LoginButtonPressed({@required this.token});
+  const LoginSucceed({@required this.token});
 
   @override
   List<Object> get props => [token];
 
   @override
-  String toString() => 'LoginButtonPressed { token: $token }';
+  String toString() => 'LoginSucceed { token: $token }';
 }

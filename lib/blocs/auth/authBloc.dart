@@ -12,7 +12,6 @@ class AuthenticationBloc
       : assert(authRepository != null),
         super(null);
 
-  @override
   AuthenticationState get initialState => AuthenticationInitial();
 
   @override
