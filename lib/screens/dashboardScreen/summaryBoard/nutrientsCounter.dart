@@ -26,7 +26,7 @@ class _NutrientsCounterState extends State<NutrientsCounter> {
         children: <Widget>[
           Text(
             '${widget.current} / ${widget.goal}g',
-            style: TextStyle(color: Colors.white, fontSize: 1),
+            style: TextStyle(color: Colors.white, fontSize: 12),
           ),
           SizedBox(height: 5),
           Container(
