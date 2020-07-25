@@ -8,6 +8,7 @@ import 'package:dreambody/blocs/auth/authRepository.dart';
 import 'package:dreambody/blocs/auth/authBloc.dart';
 import 'package:dreambody/blocs/login/loginBloc.dart';
 import 'package:dreambody/blocs/login/events.dart';
+import 'package:dreambody/screens/dashboardScreen/dashBoardScreen.dart';
 
 class GoogleSignInScreen extends StatefulWidget {
   final AuthRepository authRepository;
@@ -44,7 +45,11 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
             this.token = regExp.firstMatch(url)?.group(1);
             _loginBloc.add(LoginSucceed(token: this.token));
 
-            Navigator.of(context).pushNamed("/questions");
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DashBoardScreen(token: this.token)),
+            );
             flutterWebviewPlugin.close();
           }
         });

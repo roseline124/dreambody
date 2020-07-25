@@ -10,7 +10,7 @@ class CutomColor {
   final primaryLightColor = const Color(0xFFBFB3FF);
   final primaryColor = const Color(0xFF7F66FF);
   final primaryDarkColor = const Color(0xFF403380);
-  final secondaryColor = const Color(0xFFFFD680);
+  final accentColor = const Color(0xFFFFD680);
 
   final infoColor = const Color(0xFF0076FF);
   final errorColor = const Color(0xFFFD6776);

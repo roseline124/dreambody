@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flappy_search_bar: ^1.7.2
   graphql: ^3.0.0
   graphql_flutter: ^3.0.1
   flutter_bloc: ^5.0.1
@@ -78,14 +78,6 @@ flutter:
         - asset: fonts/NotoSansKR-Regular.otf
         - asset: fonts/NotoSansKR-Medium.otf
         - asset: fonts/NotoSansKR-Bold.otf
-    - family: Montserrat
-      fonts:
-        - asset: fonts/Montserrat-ExtraLight.ttf
-        - asset: fonts/Montserrat-Light.ttf
-        - asset: fonts/Montserrat-Regular.ttf
-        - asset: fonts/Montserrat-Medium.ttf
-        - asset: fonts/Montserrat-SemiBold.ttf
-        - asset: fonts/Montserrat-Bold.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

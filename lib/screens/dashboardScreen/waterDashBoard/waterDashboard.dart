@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import './waterWave.dart';
+import '../dashBoardScreen.dart';
 
 class WaterDashboard extends StatefulWidget {
-  const WaterDashboard({Key key}) : super(key: key);
+  const WaterDashboard({this.dashboard, this.currentWater = 0});
+  final DashBoardScreenState dashboard;
+  final int currentWater;
 
   @override
   _WaterDashboardState createState() => _WaterDashboardState();
 }
 
 class _WaterDashboardState extends State<WaterDashboard> {
-  int glassesOfWater = 0;
+  int glassesOfWater;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      glassesOfWater = widget.currentWater;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +36,30 @@ class _WaterDashboardState extends State<WaterDashboard> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: Row(children: <Widget>[
+                  BackButton(
+                      color: Colors.white.withAlpha(200),
+                      onPressed: () {
+                        widget.dashboard.updateWater(water: glassesOfWater);
+                        Navigator.of(context).pop();
+                      })
+                ]),
+              ),
               Container(
-                  padding: EdgeInsets.symmetric(vertical: 50),
                   child: Column(
-                    children: [
-                      Text(
-                        'Drink More Water',
-                        style: TextStyle(color: Colors.white, fontSize: 20.0),
-                      ),
-                      Text(
-                        'Have a glass of water and Record it',
-                        style: TextStyle(color: Colors.white70, fontSize: 16.0),
-                      )
-                    ],
-                  )),
+                children: [
+                  Text(
+                    '꿀꺽꿀꺽! 캬아~ 😆',
+                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                  ),
+                  Text(
+                    '물을 마시고 얼마나 마셨는지 기록해보세요',
+                    style: TextStyle(color: Colors.white70, fontSize: 16.0),
+                  )
+                ],
+              )),
               Container(
                 child: WaterWave(value: glassesOfWater),
                 padding: EdgeInsets.symmetric(vertical: 70),
@@ -48,6 +69,9 @@ class _WaterDashboardState extends State<WaterDashboard> {
                   crossAxisCount: 3,
                   children: <Widget>[
                     MaterialButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(70),
+                      ),
                       onPressed: () {
                         if (!(glassesOfWater >= 20)) {
                           setState(() {
@@ -61,6 +85,9 @@ class _WaterDashboardState extends State<WaterDashboard> {
                       ),
                     ),
                     MaterialButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(70),
+                        ),
                         onPressed: () {
                           if (!(glassesOfWater <= 0)) {
                             setState(() {
@@ -70,6 +97,9 @@ class _WaterDashboardState extends State<WaterDashboard> {
                         },
                         child: Icon(Icons.remove, color: Colors.white)),
                     MaterialButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(70),
+                        ),
                         onPressed: () {
                           setState(() {
                             glassesOfWater = 0;

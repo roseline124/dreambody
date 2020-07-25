@@ -1,6 +1,6 @@
 const String getUserInfo = r'''
-  query getUser {
-    getUserInfo {
+  query getUserInfo {
+    userInfo {
         id
         currentWeight
         dailyIntakeCalorie
