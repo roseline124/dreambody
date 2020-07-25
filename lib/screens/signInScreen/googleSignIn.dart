@@ -42,7 +42,7 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
             RegExp regExp = new RegExp("(?<=token=)(.*)");
 
             this.token = regExp.firstMatch(url)?.group(1);
-            _loginBloc.add(LoginButtonPressed(token: this.token));
+            _loginBloc.add(LoginSucceed(token: this.token));
 
             Navigator.of(context).pushNamed("/questions");
             flutterWebviewPlugin.close();
@@ -68,9 +68,6 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
       child: WebviewScaffold(
         userAgent: K_Android_UserAgent,
         url: loginUrl,
-        appBar: new AppBar(
-          title: const Text('구글 로그인'),
-        ),
         withZoom: true,
         withLocalStorage: true,
         hidden: true,
