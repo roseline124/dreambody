@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'questionLayout.dart';
-import 'package:dreambody/screens/dashboardScreen/waterDashboard.dart';
+import 'package:dreambody/screens/dashboardScreen/waterDashBoard/waterDashboard.dart';
 
 class QuestionSix extends StatelessWidget {
   const QuestionSix({Key key}) : super(key: key);

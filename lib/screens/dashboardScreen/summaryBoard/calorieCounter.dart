@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/pie_chart.dart';
+import 'package:dreambody/widgets/pie_chart.dart';
 import 'package:dreambody/theme/colors.dart';
 
 class CalorieCounter extends StatefulWidget {

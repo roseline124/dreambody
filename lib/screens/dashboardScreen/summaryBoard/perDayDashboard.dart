@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './nutrientsCounter.dart';
-import './calorieCounter.dart';
+import 'calorieCounter.dart';
 
 class PerDayDashboard extends StatefulWidget {
   const PerDayDashboard({Key key}) : super(key: key);

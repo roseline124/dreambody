@@ -12,9 +12,9 @@ import 'blocs/simpleBlocObserver.dart';
 
 // screens
 import 'screens/typeSelectionScreen/typeSelection.dart';
-import 'screens/dashboardScreen/waterDashboard.dart';
+import 'screens/dashboardScreen/waterDashBoard/waterDashboard.dart';
 import 'screens/signInScreen/googleSignIn.dart';
-import 'screens/nutritionScreen/nutritionScreen.dart';
+import 'screens/dashboardScreen/nutritionSearch/nutritionScreen.dart';
 import 'screens/dashboardScreen/dashBoardScreen.dart';
 
 import 'theme/index.dart';

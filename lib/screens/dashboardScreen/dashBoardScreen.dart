@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:dreambody/widgets/gradientPageLayout.dart';
-import './perDayDashboard.dart';
+import 'summaryBoard/perDayDashboard.dart';
 import 'package:dreambody/theme/colors.dart';
 
 class DashBoardScreen extends StatelessWidget {
