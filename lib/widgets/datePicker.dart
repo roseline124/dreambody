@@ -1,3 +1,6 @@
+import 'package:dreambody/blocs/userInfo/BlocProvider.dart';
+import 'package:dreambody/blocs/userInfo/states.dart';
+import 'package:dreambody/blocs/userInfo/userInfoBloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 
@@ -24,32 +27,42 @@ class _DatePickerState extends State<DatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: Colors.transparent),
-      padding: EdgeInsets.all(16.0),
-      child: Container(
-        margin: EdgeInsets.only(top: 24.0, bottom: 40.0),
-        child: DatePickerWidget(
-          minDateTime: DateTime.parse(MIN_DATETIME),
-          maxDateTime: now,
-          initialDateTime: DateTime.parse(INIT_DATETIME),
-          dateFormat: DATE_FORMAT,
-          pickerTheme: DateTimePickerTheme(
-            backgroundColor: Colors.transparent,
-            cancelTextStyle: TextStyle(color: Colors.transparent),
-            confirmTextStyle: TextStyle(color: Colors.transparent),
-            itemTextStyle: TextStyle(color: Theme.of(context).accentColor),
-            pickerHeight: 300.0,
-            titleHeight: 0.0,
-            itemHeight: 30.0,
+    final UserInfoBloc bloc = BlocProvider2.of(context);
+    final UserInfoBloc userInfoBloc = BlocProvider2.of<UserInfoBloc>(context);
+
+    return StreamBuilder(
+      initialData: UserInfo(),
+      stream: userInfoBloc.userInfoStream,
+      builder: (BuildContext context, snapshot) {
+        return Container(
+          decoration: BoxDecoration(color: Colors.transparent),
+          padding: EdgeInsets.all(16.0),
+          child: Container(
+            margin: EdgeInsets.only(top: 24.0, bottom: 40.0),
+            child: DatePickerWidget(
+              minDateTime: DateTime.parse(MIN_DATETIME),
+              maxDateTime: now,
+              initialDateTime: DateTime.parse(INIT_DATETIME),
+              dateFormat: DATE_FORMAT,
+              pickerTheme: DateTimePickerTheme(
+                backgroundColor: Colors.transparent,
+                cancelTextStyle: TextStyle(color: Colors.transparent),
+                confirmTextStyle: TextStyle(color: Colors.transparent),
+                itemTextStyle: TextStyle(color: Theme.of(context).accentColor),
+                pickerHeight: 300.0,
+                titleHeight: 0.0,
+                itemHeight: 30.0,
+              ),
+              onChange: (dateTime, selectedIndex) {
+                setState(() {
+                  _dateTime = dateTime;
+                  bloc.UpdateUserInfo('{"dateOfBirth":"' + _dateTime.year.toString() + (_dateTime.month > 9? _dateTime.month.toString() : '0'+_dateTime.month.toString()) + (_dateTime.day > 9? _dateTime.day.toString() : '0'+_dateTime.day.toString()) + '"}');
+                });
+              },
+            ),
           ),
-          onChange: (dateTime, selectedIndex) {
-            setState(() {
-              _dateTime = dateTime;
-            });
-          },
-        ),
-      ),
+        );
+      }
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:dreambody/blocs/auth/authRepository.dart';
-
 import 'package:dreambody/screens/signInScreen/signIn.dart';
 
 class HomeScreen extends StatelessWidget {

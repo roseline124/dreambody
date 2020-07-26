@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +17,10 @@ import 'screens/typeSelectionScreen/typeSelection.dart';
 import 'screens/homeScreen/homeScreen.dart';
 import 'screens/dashboardScreen/waterDashboard.dart';
 import 'screens/signInScreen/signIn.dart';
+
+// user info
+import 'package:dreambody/blocs/userInfo/BlocProvider.dart';
+import 'package:dreambody/blocs/userInfo/userInfoBloc.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
@@ -40,20 +45,24 @@ class DreamBodyApp extends StatelessWidget {
     return GraphQLProvider(
       client: graphqlService.getClient(authRepository: authRepository),
       child: CacheProvider(
+        child: BlocProvider2(
+          bloc: UserInfoBloc(),
           child: MaterialApp(
-        theme: ThemeData(
-          primaryColor: Color.fromRGBO(127, 102, 255, 1),
-          accentColor: HexColor('#ffcc00'),
-        ),
-        title: 'Dream Body',
-        initialRoute: '/',
-        routes: {
-          '/': (context) => HomeScreen(authRepository: authRepository),
-          '/login': (context) => SignInScreen(authRepository: authRepository),
-          '/questions': (context) => TypeSelection(),
-          '/water': (context) => WaterDashboard(),
-        },
-      )),
+            theme: ThemeData(
+              primaryColor: Color.fromRGBO(127, 102, 255, 1),
+              accentColor: HexColor('#ffcc00'),
+            ),
+            title: 'Dream Body',
+            initialRoute: '/',
+            routes: {
+              '/': (context) => HomeScreen(authRepository: authRepository),
+              '/login': (context) => SignInScreen(authRepository: authRepository),
+              '/questions': (context) => TypeSelection(),
+              '/water': (context) => WaterDashboard(),
+            },
+          ),
+        )
+      ),
     );
   }
 }

@@ -1,7 +1,12 @@
+import 'package:dreambody/blocs/userInfo/BlocProvider.dart';
+import 'package:dreambody/blocs/userInfo/states.dart';
+import 'package:dreambody/blocs/userInfo/userInfoBloc.dart';
+import 'package:dreambody/screens/dashboardScreen/perDayDashboard.dart';
 import 'package:flutter/material.dart';
 
 import 'questionLayout.dart';
 import 'package:dreambody/screens/dashboardScreen/waterDashboard.dart';
+import 'package:dreambody/screens/dashboardScreen/perDayDashboard.dart';
 
 class QuestionSix extends StatelessWidget {
   const QuestionSix({Key key}) : super(key: key);
@@ -53,50 +58,69 @@ class _QuestionSixFormState extends State<QuestionSixForm> {
 
   @override
   Widget build(BuildContext context) {
-    return QuestionLayout(
-      questionText: '평소에 얼마나 운동하고 계신가요?',
-      nextQuestion: WaterDashboard(),
-      formWidget: Flex(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 50.0),
-            child: SliderTheme(
-              data: SliderTheme.of(context).copyWith(
-                activeTrackColor: Colors.yellow[700],
-                inactiveTrackColor: Colors.amber[100],
-                trackShape: RectangularSliderTrackShape(),
-                trackHeight: 4.0,
-                thumbColor: Theme.of(context).accentColor,
-                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
-                overlayColor: Colors.amber.withAlpha(32),
-                overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
-                // track
-                tickMarkShape: RoundSliderTickMarkShape(),
-                activeTickMarkColor: Colors.yellow[700],
-                inactiveTickMarkColor: Colors.amber[100],
-                valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-                valueIndicatorColor: Theme.of(context).accentColor,
-                valueIndicatorTextStyle: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              child: Slider(
-                min: 0,
-                max: 4,
-                divisions: 4,
-                label: '${sliderLabel[_value]}',
-                value: _value,
-                onChanged: (value) {
-                  setState(() {
-                    _value = value;
-                  });
-                },
-              ),
+    final UserInfoBloc bloc = BlocProvider2.of(context);
+    final UserInfoBloc userInfoBloc = BlocProvider2.of<UserInfoBloc>(context);
+
+    return StreamBuilder(
+        initialData: UserInfo(),
+        stream: userInfoBloc.userInfoStream,
+        builder: (BuildContext context, snapshot) {
+          return QuestionLayout(
+            questionText: '평소에 얼마나 운동하고 계신가요?',
+            nextQuestion: PerDayDashboard(),//WaterDashboard(),
+            formWidget: Flex(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(bottom: 50.0),
+                  child: SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: Colors.yellow[700],
+                      inactiveTrackColor: Colors.amber[100],
+                      trackShape: RectangularSliderTrackShape(),
+                      trackHeight: 4.0,
+                      thumbColor: Theme.of(context).accentColor,
+                      thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
+                      overlayColor: Colors.amber.withAlpha(32),
+                      overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
+                      // track
+                      tickMarkShape: RoundSliderTickMarkShape(),
+                      activeTickMarkColor: Colors.yellow[700],
+                      inactiveTickMarkColor: Colors.amber[100],
+                      valueIndicatorShape: PaddleSliderValueIndicatorShape(),
+                      valueIndicatorColor: Theme.of(context).accentColor,
+                      valueIndicatorTextStyle: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    child: Slider(
+                      min: 0,
+                      max: 4,
+                      divisions: 4,
+                      label: '${sliderLabel[_value]}',
+                      value: _value,
+                      onChanged: (value) {
+                        setState(() {
+                          _value = value;
+                          bloc.UpdateUserInfo('{"activity":'+ _value.toInt().toString() +'}');
+                          print(
+                            "P: " + snapshot.data.currentWeight.toString() +
+                            "P: " + snapshot.data.goalWeight.toString() +
+                            "P: " + snapshot.data.goal.toString() +
+                            "P: " + snapshot.data.gender.toString() +
+                            "P: " + snapshot.data.dateOfBirth.toString() +
+                            "P: " + snapshot.data.activity.toString()
+                          );
+                        });
+                        // TODO: add mutation
+                      },
+                    ),
+                  ),
+                )
+              ],
+              direction: Axis.vertical,
             ),
-          )
-        ],
-        direction: Axis.vertical,
-      ),
+          );
+        }
     );
   }
 }

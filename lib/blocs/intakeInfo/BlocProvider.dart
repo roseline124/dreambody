@@ -6,8 +6,8 @@ abstract class BlocBase {
   void dispose();
 }
 
-class BlocProvider<T extends BlocBase> extends StatefulWidget {
-  BlocProvider({
+class BlocProvider2<T extends BlocBase> extends StatefulWidget {
+  BlocProvider2({
     Key key,
     @required this.child,
     @required this.bloc,
@@ -27,7 +27,7 @@ class BlocProvider<T extends BlocBase> extends StatefulWidget {
   }
 }
 
-class _BlocProviderState<T extends BlocBase> extends State<BlocProvider<T>> {
+class _BlocProviderState<T extends BlocBase> extends State<BlocProvider2<T>> {
   @override
   void dispose() {
     widget.bloc?.dispose();
