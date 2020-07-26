@@ -15,14 +15,14 @@ class PerDayDashboard extends StatefulWidget {
 class _PerDayDashboardState extends State<PerDayDashboard> {
   @override
   Widget build(BuildContext context) {
-    final IntakeInfoBloc bloc = BlocProvider2.of(context);
-    final IntakeInfoBloc intakeInfoBloc = BlocProvider2.of<IntakeInfoBloc>(context);
+    final IntakeInfoBloc bloc = BlocProvider3.of(context);
+    final IntakeInfoBloc intakeInfoBloc = BlocProvider3.of<IntakeInfoBloc>(context);
+    bloc.UpdateIntakeInfo('{"goalIntakeCalorie": 50, "currentIntakeCalorie": 20}');
 
     return StreamBuilder(
-      initialData: IntakeInfo(goalIntakeCalorie_: 10000),
+      initialData: IntakeInfo(),
       stream: intakeInfoBloc.intakeInfoStream,
       builder: (BuildContext context, snapshot) {
-        bloc.UpdateIntakeInfo('{"goalIntakeCalorie": 40, "currentIntakeCalorie": 20}');
         return Scaffold(
           body: Center(
             child: Container(

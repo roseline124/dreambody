@@ -1,3 +1,5 @@
+import 'package:dreambody/blocs/intakeInfo/BlocProvider.dart';
+import 'package:dreambody/blocs/intakeInfo/intakeInfoBloc.dart';
 import 'package:dreambody/blocs/userInfo/BlocProvider.dart';
 import 'package:dreambody/blocs/userInfo/states.dart';
 import 'package:dreambody/blocs/userInfo/userInfoBloc.dart';
@@ -67,7 +69,10 @@ class _QuestionSixFormState extends State<QuestionSixForm> {
         builder: (BuildContext context, snapshot) {
           return QuestionLayout(
             questionText: '평소에 얼마나 운동하고 계신가요?',
-            nextQuestion: PerDayDashboard(),//WaterDashboard(),
+            nextQuestion: BlocProvider3(
+              bloc: IntakeInfoBloc(),
+              child: PerDayDashboard(),//WaterDashboard(),
+            ),
             formWidget: Flex(
               children: [
                 Padding(

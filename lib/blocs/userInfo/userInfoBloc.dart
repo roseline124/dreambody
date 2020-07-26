@@ -10,7 +10,7 @@ class UserInfoBloc extends BlocBase{
   Sink get infoManagerSink => streamController.sink;
   Stream<UserInfo> get userInfoStream => streamController.stream;
   
-  UserInfo _info = UserInfo(currentWeight_: 0);
+  UserInfo _info = UserInfo();
 
   UpdateUserInfo(String _json){
     _info = _info.concat(jsonDecode(_json));
