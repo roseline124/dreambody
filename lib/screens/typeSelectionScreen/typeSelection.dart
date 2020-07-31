@@ -1,3 +1,6 @@
+import 'package:dreambody/blocs/userInfo/BlocProvider.dart';
+import 'package:dreambody/blocs/userInfo/states.dart';
+import 'package:dreambody/blocs/userInfo/userInfoBloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dreambody/widgets/button.dart';
@@ -35,65 +38,75 @@ class _TypeSelectionFormState extends State<TypeSelectionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                child: Text(
-                  '체중 목표를 설정하세요.',
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w500,
+    final UserInfoBloc bloc = BlocProvider2.of(context);
+    final UserInfoBloc userInfoBloc = BlocProvider2.of<UserInfoBloc>(context);
+
+    return StreamBuilder(
+      initialData: UserInfo(),
+      stream: userInfoBloc.userInfoStream,
+      builder: (BuildContext context, snapshot) {
+        return Container(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    child: Text(
+                      '체중 목표를 설정하세요.',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-          Flex(
-            children: [Text('목표에 따라서 다른 기준을 제공합니다.')],
-            direction: Axis.horizontal,
-          ),
-          SizedBox(height: 145),
-          TypeButton(
-            label: '체중 감량',
-            isSelected: type == 0,
-            onPressed: () => setState(() => type = 0)
-          ),
-          SizedBox(height: 5),
-          TypeButton(
-            label: '체중 유지',
-            isSelected: type == 1,
-            onPressed: () => setState(() => type = 1)
-          ),
-          SizedBox(height: 5),
-          TypeButton(
-            label: '근육 증진',
-            isSelected: type == 2,
-            onPressed: () => setState(() => type = 2)
-          ),
-          SizedBox(height: 137),
-          Flex(
-            direction: Axis.horizontal,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Button(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => QuestionOne()),
-                      );
-                    },
-                    label: '다음'),
+              Flex(
+                children: [Text('목표에 따라서 다른 기준을 제공합니다.')],
+                direction: Axis.horizontal,
               ),
+              SizedBox(height: 145),
+              TypeButton(
+                label: '체중 감량',
+                isSelected: type == 0,
+                onPressed: () => setState(() => type = 0)
+              ),
+              SizedBox(height: 5),
+              TypeButton(
+                label: '체중 유지',
+                isSelected: type == 1,
+                onPressed: () => setState(() => type = 1)
+              ),
+              SizedBox(height: 5),
+              TypeButton(
+                label: '근육 증진',
+                isSelected: type == 2,
+                onPressed: () => setState(() => type = 2)
+              ),
+              SizedBox(height: 137),
+              Flex(
+                direction: Axis.horizontal,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Button(
+                        onPressed: () {
+                          bloc.UpdateUserInfo('{"goal":'+ type.toString() +'}');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => QuestionOne()),
+                          );
+                        },
+                        label: '다음'),
+                  ),
+                ],
+              )
             ],
-          )
-        ],
-      ),
+          ),
+        );
+      }
     );
   }
 }

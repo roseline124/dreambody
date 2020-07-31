@@ -108,12 +108,12 @@ class _QuestionSixFormState extends State<QuestionSixForm> {
                           _value = value;
                           bloc.UpdateUserInfo('{"activity":'+ _value.toInt().toString() +'}');
                           print(
-                            "P: " + snapshot.data.currentWeight.toString() +
-                            "P: " + snapshot.data.goalWeight.toString() +
-                            "P: " + snapshot.data.goal.toString() +
-                            "P: " + snapshot.data.gender.toString() +
-                            "P: " + snapshot.data.dateOfBirth.toString() +
-                            "P: " + snapshot.data.activity.toString()
+                            ", P: " + snapshot.data.currentWeight.toString() +
+                            ", P: " + snapshot.data.goalWeight.toString() +
+                            ", P: " + snapshot.data.goal.toString() +
+                            ", P: " + snapshot.data.gender.toString() +
+                            ", P: " + snapshot.data.dateOfBirth.toString() +
+                            ", P: " + snapshot.data.activity.toString()
                           );
                         });
                         // TODO: add mutation
