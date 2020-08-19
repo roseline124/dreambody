@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -132,7 +133,8 @@ class _MealSearchFormState extends State<MealSearchForm> {
                                               .split('.')
                                               .last;
                                           foodInfo.registrationDate =
-                                              new DateTime.now().toString();
+                                              DateFormat('yyyy-MM-dd')
+                                                  .format(DateTime.now());
 
                                           foodInfo.quantity = 1;
                                           foodInfo.calorie = food.calorie;
