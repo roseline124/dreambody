@@ -29,12 +29,14 @@ class MealCardState extends State<MealCard> {
   int carbohydrateSum = 0;
 
   updateMealInfo({@required FoodSum foodSum}) {
-    setState(() {
-      calorieSum = foodSum.calorie.toInt();
-      fatSum = foodSum.fat.toInt();
-      proteinSum = foodSum.protein.toInt();
-      carbohydrateSum = foodSum.carbohydrate.toInt();
-    });
+    if (mounted) {
+      setState(() {
+        calorieSum = foodSum.calorie.toInt();
+        fatSum = foodSum.fat.toInt();
+        proteinSum = foodSum.protein.toInt();
+        carbohydrateSum = foodSum.carbohydrate.toInt();
+      });
+    }
 
     widget.dashboard
         .updateMealIntakes(mealType: widget.mealType, foodSum: foodSum);
