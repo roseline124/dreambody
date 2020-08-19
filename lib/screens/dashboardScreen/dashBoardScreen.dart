@@ -9,9 +9,20 @@ import 'waterDashBoard/waterDashboard.dart';
 
 // query
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:dreambody/graphql/user/getUserInfo.dart';
 import 'package:dreambody/models/UserInfo.dart';
 import 'mealBoard/types.dart';
+
+const String getUserInfo = r'''
+  query getUserInfo {
+    userInfo {
+        id
+        user {
+            id
+            name
+        }
+    }
+}
+''';
 
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({this.token});
@@ -36,30 +47,30 @@ class DashBoardScreenState extends State<DashBoardScreen> {
     setState(() {
       mealIntakes[mealType] = foodSum;
 
-      if (mealIntakes[MealType.breakfast] != null) {
-        totalIntakes.calorie = mealIntakes[MealType.breakfast].calorie;
-        totalIntakes.fat = mealIntakes[MealType.breakfast].fat;
-        totalIntakes.protein = mealIntakes[MealType.breakfast].protein;
+      if (mealIntakes[MealType.BREAKFAST] != null) {
+        totalIntakes.calorie = mealIntakes[MealType.BREAKFAST].calorie;
+        totalIntakes.fat = mealIntakes[MealType.BREAKFAST].fat;
+        totalIntakes.protein = mealIntakes[MealType.BREAKFAST].protein;
         totalIntakes.carbohydrate =
-            mealIntakes[MealType.breakfast].carbohydrate;
+            mealIntakes[MealType.BREAKFAST].carbohydrate;
       }
-      if (mealIntakes[MealType.lunch] != null) {
-        totalIntakes.calorie = mealIntakes[MealType.lunch].calorie;
-        totalIntakes.fat = mealIntakes[MealType.lunch].fat;
-        totalIntakes.protein = mealIntakes[MealType.lunch].protein;
-        totalIntakes.carbohydrate = mealIntakes[MealType.lunch].carbohydrate;
+      if (mealIntakes[MealType.LUNCH] != null) {
+        totalIntakes.calorie = mealIntakes[MealType.LUNCH].calorie;
+        totalIntakes.fat = mealIntakes[MealType.LUNCH].fat;
+        totalIntakes.protein = mealIntakes[MealType.LUNCH].protein;
+        totalIntakes.carbohydrate = mealIntakes[MealType.LUNCH].carbohydrate;
       }
-      if (mealIntakes[MealType.dinner] != null) {
-        totalIntakes.calorie = mealIntakes[MealType.dinner].calorie;
-        totalIntakes.fat = mealIntakes[MealType.dinner].fat;
-        totalIntakes.protein = mealIntakes[MealType.dinner].protein;
-        totalIntakes.carbohydrate = mealIntakes[MealType.dinner].carbohydrate;
+      if (mealIntakes[MealType.DINNER] != null) {
+        totalIntakes.calorie = mealIntakes[MealType.DINNER].calorie;
+        totalIntakes.fat = mealIntakes[MealType.DINNER].fat;
+        totalIntakes.protein = mealIntakes[MealType.DINNER].protein;
+        totalIntakes.carbohydrate = mealIntakes[MealType.DINNER].carbohydrate;
       }
-      if (mealIntakes[MealType.dessert] != null) {
-        totalIntakes.calorie = mealIntakes[MealType.dessert].calorie;
-        totalIntakes.fat = mealIntakes[MealType.dessert].fat;
-        totalIntakes.protein = mealIntakes[MealType.dessert].protein;
-        totalIntakes.carbohydrate = mealIntakes[MealType.dessert].carbohydrate;
+      if (mealIntakes[MealType.DESSERT] != null) {
+        totalIntakes.calorie = mealIntakes[MealType.DESSERT].calorie;
+        totalIntakes.fat = mealIntakes[MealType.DESSERT].fat;
+        totalIntakes.protein = mealIntakes[MealType.DESSERT].protein;
+        totalIntakes.carbohydrate = mealIntakes[MealType.DESSERT].carbohydrate;
       }
     });
   }
@@ -111,9 +122,8 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                             width: 30,
                           ),
                         ),
-                        // todo: 마신 물이 0이 아니면 마신 양을 text로, 아니면 아래 텍스트 보여줌
                         Text(
-                          totalWater == 0
+                          (totalWater == 0 && currentUser != null)
                               ? '${currentUser?.user?.name}님, 오늘 마신 물을 기록해보세요!'
                               : '오늘 마신 물의 양은 ${totalWater * 100}ml입니다.',
                           style: TextStyle(
