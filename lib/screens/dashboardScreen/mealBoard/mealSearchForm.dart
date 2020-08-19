@@ -108,11 +108,11 @@ class _MealSearchFormState extends State<MealSearchForm> {
                                           .fold(foodDefaultSum,
                                               (FoodSum foodSum, Food food) {
                                         if (food != null && foodSum != null) {
-                                          foodSum.calorie += food.calorie;
-                                          foodSum.fat += food.fat;
-                                          foodSum.protein += food.protein;
+                                          foodSum.calorie += food?.calorie;
+                                          foodSum.fat += food?.fat;
+                                          foodSum.protein += food?.protein;
                                           foodSum.carbohydrate +=
-                                              food.carbohydrate;
+                                              food?.carbohydrate;
                                         }
 
                                         return foodSum;

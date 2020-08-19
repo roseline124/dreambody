@@ -27,15 +27,15 @@ class _PerDayDashboardState extends State<PerDayDashboard> {
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 NutrientsCounter(
                     title: '탄수화물',
-                    current: widget.intakes.carbohydrate.toInt(),
+                    current: widget.intakes.carbohydrate?.toInt(),
                     goal: 100),
                 NutrientsCounter(
                     title: '단백질',
-                    current: widget.intakes.protein.toInt(),
+                    current: widget.intakes.protein?.toInt(),
                     goal: 100),
                 NutrientsCounter(
                     title: '지방',
-                    current: widget.intakes.fat.toInt(),
+                    current: widget.intakes.fat?.toInt(),
                     goal: 100),
               ]),
             ],

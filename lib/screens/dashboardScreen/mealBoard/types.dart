@@ -4,10 +4,26 @@ import 'package:json_annotation/json_annotation.dart';
 enum MealType { BREAKFAST, LUNCH, DINNER, DESSERT }
 
 class FoodSum {
-  double calorie = 0;
-  double fat = 0;
-  double protein = 0;
-  double carbohydrate = 0;
+  dynamic calorie;
+  dynamic fat;
+  dynamic protein;
+  dynamic carbohydrate;
+
+  FoodSum({
+    this.calorie = 0,
+    this.fat = 0,
+    this.protein = 0,
+    this.carbohydrate = 0,
+  });
+
+  factory FoodSum.fromJSON(Map<String, dynamic> json) {
+    return FoodSum(
+      calorie: json['calorie'],
+      protein: json['protein'],
+      fat: json['fat'],
+      carbohydrate: json['carbohydrate'],
+    );
+  }
 }
 
 @JsonSerializable(nullable: false)
