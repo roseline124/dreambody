@@ -4,7 +4,8 @@ import 'calorieCounter.dart';
 import '../mealBoard/types.dart';
 
 class PerDayDashboard extends StatefulWidget {
-  const PerDayDashboard({@required this.intakes});
+  const PerDayDashboard({@required this.goals, @required this.intakes});
+  final FoodSum goals;
   final FoodSum intakes;
 
   @override
@@ -21,22 +22,22 @@ class _PerDayDashboardState extends State<PerDayDashboard> {
           child: Column(
             children: <Widget>[
               CalorieCounter(
-                  current: widget.intakes.calorie.toInt(),
-                  goal: 2280,
-                  consume: 300),
+                  current: widget.intakes?.calorie?.toInt(),
+                  goal: widget.goals?.calorie?.toInt(),
+                  consume: 0),
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 NutrientsCounter(
                     title: '탄수화물',
                     current: widget.intakes.carbohydrate?.toInt(),
-                    goal: 100),
+                    goal: widget.goals.carbohydrate?.toInt()),
                 NutrientsCounter(
                     title: '단백질',
                     current: widget.intakes.protein?.toInt(),
-                    goal: 100),
+                    goal: widget.goals.protein?.toInt()),
                 NutrientsCounter(
                     title: '지방',
                     current: widget.intakes.fat?.toInt(),
-                    goal: 100),
+                    goal: widget.goals.fat?.toInt()),
               ]),
             ],
           ),

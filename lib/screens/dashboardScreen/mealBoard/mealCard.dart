@@ -56,7 +56,6 @@ class MealCardState extends State<MealCard> {
         builder: (QueryResult result,
             {VoidCallback refetch, FetchMore fetchMore}) {
           if (result.hasException) {
-            print(result.exception);
             return null;
           }
 

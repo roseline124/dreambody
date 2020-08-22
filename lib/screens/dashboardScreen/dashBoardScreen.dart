@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 import 'package:dreambody/widgets/gradientPageLayout.dart';
 import 'package:dreambody/theme/colors.dart';
 
@@ -78,7 +80,11 @@ class DashBoardScreenState extends State<DashBoardScreen> {
   @override
   Widget build(BuildContext context) {
     return Query(
-        options: QueryOptions(documentNode: gql(getUserInfo)),
+        options: QueryOptions(documentNode: gql(getSummary), variables: {
+          "requestSummary": {
+            "registrationDate": DateFormat('yyyy-MM-dd').format(DateTime.now()),
+          }
+        }),
         builder: (QueryResult result,
             {VoidCallback refetch, FetchMore fetchMore}) {
           if (result.hasException) {
@@ -89,12 +95,16 @@ class DashBoardScreenState extends State<DashBoardScreen> {
             return Scaffold(body: Text('Loading'));
           }
 
-          UserInfo currentUser = UserInfo.fromJSON(result.data['userInfo']);
+          FoodSum goal = FoodSum.fromJSON(result.data['summary']['goal']);
+          FoodSum intake = FoodSum.fromJSON(result.data['summary']['intake']);
 
           return GradientPageLayout(
               child: SingleChildScrollView(
             child: Column(children: [
-              PerDayDashboard(intakes: totalIntakes),
+              PerDayDashboard(
+                intakes: intake,
+                goals: goal,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: InkWell(
@@ -123,8 +133,8 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                           ),
                         ),
                         Text(
-                          (totalWater == 0 && currentUser != null)
-                              ? '${currentUser?.user?.name}님, 오늘 마신 물을 기록해보세요!'
+                          (totalWater == 0)
+                              ? '오늘 마신 물을 기록해보세요!'
                               : '오늘 마신 물의 양은 ${totalWater * 100}ml입니다.',
                           style: TextStyle(
                               color: customColor.primaryDarkColor,
@@ -141,3 +151,22 @@ class DashBoardScreenState extends State<DashBoardScreen> {
         });
   }
 }
+
+const String getSummary = r'''
+query Summary($requestSummary: RequestSummary) {
+    summary(requestSummary: $requestSummary) {
+        goal {
+            calorie
+            carbohydrate
+            protein
+            fat
+        }
+        intake {
+            calorie
+            carbohydrate
+            protein
+            fat
+        }
+    }
+}
+''';
