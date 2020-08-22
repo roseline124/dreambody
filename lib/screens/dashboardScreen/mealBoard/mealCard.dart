@@ -13,12 +13,14 @@ class MealCard extends StatefulWidget {
     @required this.mealType,
     @required this.dashboard,
     this.isLastTile = false,
+    this.refetchSummary,
   });
   final MealType mealType;
   final DashBoardScreenState dashboard;
   final String token;
   final String title;
   final bool isLastTile;
+  final Function refetchSummary;
 
   @override
   MealCardState createState() => MealCardState();
@@ -49,6 +51,11 @@ class MealCardState extends State<MealCard> {
             return Scaffold(body: Text('Loading'));
           }
 
+          void refetchQuery() {
+            refetch();
+            widget.refetchSummary();
+          }
+
           FoodSum intakes = FoodSum.fromJSON(result.data['summary']['intake']);
           if (!widget.isLastTile) {
             return Column(children: [
@@ -57,6 +64,7 @@ class MealCardState extends State<MealCard> {
                 token: widget.token,
                 mealType: widget.mealType,
                 intakes: intakes,
+                refetchQuery: refetchQuery,
               ),
               Divider(
                   color: Colors.white.withAlpha(100),
@@ -70,7 +78,8 @@ class MealCardState extends State<MealCard> {
               title: widget.title,
               token: widget.token,
               mealType: widget.mealType,
-              intakes: intakes);
+              intakes: intakes,
+              refetchQuery: refetchQuery);
         });
   }
 }
@@ -81,12 +90,14 @@ class MealTile extends StatelessWidget {
     this.token,
     this.intakes,
     this.mealType,
+    this.refetchQuery,
   });
 
   final String title;
   final String token;
   final FoodSum intakes;
   final MealType mealType;
+  final Function refetchQuery;
 
   @override
   Widget build(BuildContext context) {
@@ -106,8 +117,11 @@ class MealTile extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      MealSearchForm(mealType: mealType, token: token)));
+                  builder: (context) => MealSearchForm(
+                        mealType: mealType,
+                        token: token,
+                        refetchQuery: refetchQuery,
+                      )));
         },
         icon: Icon(
           Icons.add,

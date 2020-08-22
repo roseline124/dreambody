@@ -145,7 +145,8 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                   ),
                 ),
               ),
-              MealDashBoard(token: widget.token, dashboard: this)
+              MealDashBoard(
+                  token: widget.token, dashboard: this, refetchSummary: refetch)
             ]),
           ));
         });

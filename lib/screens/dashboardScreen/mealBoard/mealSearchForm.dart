@@ -12,9 +12,10 @@ import './drawerMenu.dart';
 import './types.dart';
 
 class MealSearchForm extends StatefulWidget {
-  MealSearchForm({@required this.token, this.mealType});
+  MealSearchForm({@required this.token, this.mealType, this.refetchQuery});
   final String token;
   final MealType mealType;
+  final Function refetchQuery;
 
   @override
   _MealSearchFormState createState() => _MealSearchFormState();
@@ -61,8 +62,10 @@ class _MealSearchFormState extends State<MealSearchForm> {
 
     return Mutation(
       options: MutationOptions(
-        documentNode: gql(saveMeal),
-      ),
+          documentNode: gql(saveMeal),
+          onCompleted: (onValue) {
+            widget.refetchQuery();
+          }),
       builder: (
         RunMutation saveMeal,
         QueryResult result,
