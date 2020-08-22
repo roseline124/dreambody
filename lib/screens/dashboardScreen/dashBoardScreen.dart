@@ -35,55 +35,18 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class DashBoardScreenState extends State<DashBoardScreen> {
-  Map<MealType, FoodSum> mealIntakes = new Map<MealType, FoodSum>();
-  FoodSum totalIntakes = FoodSum();
-  int totalWater = 0;
-
-  updateWater({@required water}) {
-    setState(() {
-      totalWater = water;
-    });
-  }
-
-  updateMealIntakes({@required MealType mealType, @required FoodSum foodSum}) {
-    setState(() {
-      mealIntakes[mealType] = foodSum;
-
-      if (mealIntakes[MealType.BREAKFAST] != null) {
-        totalIntakes.calorie = mealIntakes[MealType.BREAKFAST].calorie;
-        totalIntakes.fat = mealIntakes[MealType.BREAKFAST].fat;
-        totalIntakes.protein = mealIntakes[MealType.BREAKFAST].protein;
-        totalIntakes.carbohydrate =
-            mealIntakes[MealType.BREAKFAST].carbohydrate;
-      }
-      if (mealIntakes[MealType.LUNCH] != null) {
-        totalIntakes.calorie = mealIntakes[MealType.LUNCH].calorie;
-        totalIntakes.fat = mealIntakes[MealType.LUNCH].fat;
-        totalIntakes.protein = mealIntakes[MealType.LUNCH].protein;
-        totalIntakes.carbohydrate = mealIntakes[MealType.LUNCH].carbohydrate;
-      }
-      if (mealIntakes[MealType.DINNER] != null) {
-        totalIntakes.calorie = mealIntakes[MealType.DINNER].calorie;
-        totalIntakes.fat = mealIntakes[MealType.DINNER].fat;
-        totalIntakes.protein = mealIntakes[MealType.DINNER].protein;
-        totalIntakes.carbohydrate = mealIntakes[MealType.DINNER].carbohydrate;
-      }
-      if (mealIntakes[MealType.DESSERT] != null) {
-        totalIntakes.calorie = mealIntakes[MealType.DESSERT].calorie;
-        totalIntakes.fat = mealIntakes[MealType.DESSERT].fat;
-        totalIntakes.protein = mealIntakes[MealType.DESSERT].protein;
-        totalIntakes.carbohydrate = mealIntakes[MealType.DESSERT].carbohydrate;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final String nowDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
     return Query(
         options: QueryOptions(documentNode: gql(getSummary), variables: {
           "requestSummary": {
-            "registrationDate": DateFormat('yyyy-MM-dd').format(DateTime.now()),
-          }
+            "registrationDate": nowDate,
+          },
+          "waterInfoRequest": {
+            "registrationDate": nowDate,
+          },
         }),
         builder: (QueryResult result,
             {VoidCallback refetch, FetchMore fetchMore}) {
@@ -97,6 +60,7 @@ class DashBoardScreenState extends State<DashBoardScreen> {
 
           FoodSum goal = FoodSum.fromJSON(result.data['summary']['goal']);
           FoodSum intake = FoodSum.fromJSON(result.data['summary']['intake']);
+          int totalWater = result.data['waterInfo']['amountWater'];
 
           return GradientPageLayout(
               child: SingleChildScrollView(
@@ -113,7 +77,8 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => WaterDashboard(
-                                dashboard: this, currentWater: totalWater)));
+                                refetchWater: refetch,
+                                currentWater: totalWater)));
                   },
                   child: Container(
                     height: 60,
@@ -135,7 +100,7 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                         Text(
                           (totalWater == 0)
                               ? '오늘 마신 물을 기록해보세요!'
-                              : '오늘 마신 물의 양은 ${totalWater * 100}ml입니다.',
+                              : '오늘 마신 물의 양은 ${totalWater}ml입니다.',
                           style: TextStyle(
                               color: customColor.primaryDarkColor,
                               fontWeight: FontWeight.w500),
@@ -154,7 +119,7 @@ class DashBoardScreenState extends State<DashBoardScreen> {
 }
 
 const String getSummary = r'''
-query Summary($requestSummary: RequestSummary) {
+query Summary($requestSummary: RequestSummary, $waterInfoRequest: WaterInfoRequest) {
     summary(requestSummary: $requestSummary) {
         goal {
             calorie
@@ -168,6 +133,10 @@ query Summary($requestSummary: RequestSummary) {
             protein
             fat
         }
+    }
+
+    waterInfo(waterInfoRequest: $waterInfoRequest) {
+        amountWater
     }
 }
 ''';
