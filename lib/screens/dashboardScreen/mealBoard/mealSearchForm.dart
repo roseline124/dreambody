@@ -9,13 +9,12 @@ import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:dreambody/config.dart';
 import 'package:dreambody/models/Food.dart';
 import './drawerMenu.dart';
-import './mealCard.dart';
 import './types.dart';
 
 class MealSearchForm extends StatefulWidget {
-  MealSearchForm({@required this.token, this.parent});
+  MealSearchForm({@required this.token, this.mealType});
   final String token;
-  final MealCardState parent;
+  final MealType mealType;
 
   @override
   _MealSearchFormState createState() => _MealSearchFormState();
@@ -103,28 +102,12 @@ class _MealSearchFormState extends State<MealSearchForm> {
                                           Navigator.of(context).pop()),
                                   InkWell(
                                     onTap: () {
-                                      final foodDefaultSum = FoodSum();
-                                      final foodSum = selectedFoods
-                                          .fold(foodDefaultSum,
-                                              (FoodSum foodSum, Food food) {
-                                        if (food != null && foodSum != null) {
-                                          foodSum.calorie += food?.calorie;
-                                          foodSum.fat += food?.fat;
-                                          foodSum.protein += food?.protein;
-                                          foodSum.carbohydrate +=
-                                              food?.carbohydrate;
-                                        }
-
-                                        return foodSum;
-                                      });
-
                                       final foodInfoInputs =
                                           selectedFoods.map((Food food) {
                                         FoodInfoRequest foodInfo =
                                             FoodInfoRequest();
                                         if (food != null) {
-                                          MealType mealType =
-                                              widget.parent.widget.mealType;
+                                          MealType mealType = widget.mealType;
 
                                           foodInfo.code = food.code;
                                           foodInfo.name = food.name;
@@ -148,9 +131,6 @@ class _MealSearchFormState extends State<MealSearchForm> {
 
                                       saveMeal(
                                           {'foodInfoRequest': foodInfoInputs});
-
-                                      widget.parent
-                                          .updateMealInfo(foodSum: foodSum);
 
                                       Navigator.of(context).pop();
                                     },

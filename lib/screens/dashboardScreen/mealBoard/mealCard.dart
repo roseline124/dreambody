@@ -30,20 +30,6 @@ class MealCardState extends State<MealCard> {
   int proteinSum = 0;
   int carbohydrateSum = 0;
 
-  updateMealInfo({@required FoodSum foodSum}) {
-    if (mounted) {
-      setState(() {
-        calorieSum = foodSum?.calorie?.toInt();
-        fatSum = foodSum?.fat?.toInt();
-        proteinSum = foodSum?.protein?.toInt();
-        carbohydrateSum = foodSum?.carbohydrate?.toInt();
-      });
-    }
-
-    widget.dashboard
-        .updateMealIntakes(mealType: widget.mealType, foodSum: foodSum);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Query(
@@ -69,7 +55,7 @@ class MealCardState extends State<MealCard> {
               MealTile(
                 title: widget.title,
                 token: widget.token,
-                state: this,
+                mealType: widget.mealType,
                 intakes: intakes,
               ),
               Divider(
@@ -83,7 +69,7 @@ class MealCardState extends State<MealCard> {
           return MealTile(
               title: widget.title,
               token: widget.token,
-              state: this,
+              mealType: widget.mealType,
               intakes: intakes);
         });
   }
@@ -94,13 +80,13 @@ class MealTile extends StatelessWidget {
     this.title,
     this.token,
     this.intakes,
-    this.state,
+    this.mealType,
   });
 
   final String title;
   final String token;
   final FoodSum intakes;
-  final MealCardState state;
+  final MealType mealType;
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +107,7 @@ class MealTile extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      MealSearchForm(parent: state, token: token)));
+                      MealSearchForm(mealType: mealType, token: token)));
         },
         icon: Icon(
           Icons.add,
