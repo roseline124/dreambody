@@ -1,32 +1,25 @@
 const String getUserInfo = r'''
-  query getUserInfo {
-    userInfo {
-        id
-        currentWeight
-        dailyIntakeCalorie
-        dateOfBirth
-        goalWeight
-        height
-        gender {
-            id
-            gender
-        }
-        goal {
-            id
-            goal
-        }
-        activity {
-            id
-            activity
-        }
-        user {
-            id
-            name
-            email
-            emailVerified
-            provider
-            providerId
-        }
-    }
-}
+  query GetUserInfo {
+      userInfo {
+          id
+          currentWeight
+          dailyIntakeCalorie
+          dateOfBirth
+          goalWeight
+          height
+          genderType
+          goalType
+          activityType
+          user {
+              id
+              name
+              email
+              emailVerified
+              provider
+              providerId
+              answeredQuestion
+              profileImage
+          }
+      }
+  }
 ''';

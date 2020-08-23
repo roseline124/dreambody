@@ -1,4 +1,8 @@
+import 'package:dreambody/blocs/info/events.dart';
+import 'package:dreambody/blocs/info/infoBloc.dart';
+import 'package:dreambody/screens/dashboardScreen/dashBoardScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'questionLayout.dart';
 import 'package:dreambody/screens/dashboardScreen/waterDashBoard/waterDashboard.dart';
@@ -44,18 +48,22 @@ class _QuestionSixFormState extends State<QuestionSixForm> {
   };
 
   double _value;
-
+  InformationBloc _infoBloc;
   @override
   void initState() {
     super.initState();
     _value = 2;
+    _infoBloc = BlocProvider.of<InformationBloc>(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return QuestionLayout(
       questionText: '평소에 얼마나 운동하고 계신가요?',
-      nextQuestion: WaterDashboard(),
+      nextQuestion: DashBoardScreen(),
+      trigger: () => {
+        _infoBloc.add(InformationSix(activityType: "TEST")),
+      },
       formWidget: Flex(
         children: [
           Padding(

@@ -1,4 +1,8 @@
 import 'dart:async';
+import 'package:dreambody/blocs/info/events.dart';
+import 'package:dreambody/blocs/info/infoBloc.dart';
+import 'package:dreambody/blocs/info/infoRepository.dart';
+import 'package:dreambody/screens/typeSelectionScreen/typeSelection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +16,8 @@ import 'package:dreambody/screens/dashboardScreen/dashBoardScreen.dart';
 
 class GoogleSignInScreen extends StatefulWidget {
   final AuthRepository authRepository;
-  GoogleSignInScreen({Key key, this.authRepository});
+  final InfoRepository infoRepository;
+  GoogleSignInScreen({Key key, this.authRepository, this.infoRepository});
 
   @override
   _GoogleSignInScreenState createState() => _GoogleSignInScreenState();
@@ -21,6 +26,7 @@ class GoogleSignInScreen extends StatefulWidget {
 class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
   final flutterWebviewPlugin = new FlutterWebviewPlugin();
   LoginBloc _loginBloc;
+  InformationBloc _infoBloc;
 
   StreamSubscription _onDestroy;
   StreamSubscription<String> _onUrlChanged;
@@ -33,6 +39,11 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
     _loginBloc = LoginBloc(
         authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
         authRepository: widget.authRepository);
+    _infoBloc = InformationBloc(
+        authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
+        authRepository: widget.authRepository,
+        infoRepository: widget.infoRepository,
+    );
     flutterWebviewPlugin.close();
 
     _onDestroy = flutterWebviewPlugin.onDestroy.listen((_) {});
@@ -43,12 +54,13 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
             RegExp regExp = new RegExp("(?<=token=)(.*)");
 
             this.token = regExp.firstMatch(url)?.group(1);
-            _loginBloc.add(LoginSucceed(token: this.token));
-
+            _loginBloc.add(LoginSucceed(token: this.token)); //여기서 토큰 bloc에 넣음.
+            _infoBloc.add(InformationOne(currentWeight: 42));
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => DashBoardScreen(token: this.token)),
+                  builder: (context) => TypeSelection(),
+              )//DashBoardScreen(token: this.token)),
             );
             flutterWebviewPlugin.close();
           }

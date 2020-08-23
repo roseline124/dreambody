@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 
 class DatePicker extends StatefulWidget {
-  DatePicker({Key key}) : super(key: key);
+  String selectedValue;
+  DatePicker({Key key, this.selectedValue}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _DatePickerState();
+  State<StatefulWidget> createState() => _DatePickerState(selectedValue: selectedValue);
 }
 
 final DateTime now = new DateTime.now();
@@ -15,13 +16,15 @@ const String DATE_FORMAT = 'yyyy년,MM월|d일';
 
 class _DatePickerState extends State<DatePicker> {
   DateTime _dateTime;
+  String selectedValue;
 
+  _DatePickerState({this.selectedValue});
   @override
   void initState() {
     super.initState();
     _dateTime = DateTime.parse(INIT_DATETIME);
+    selectedValue = _dateTime.toString().substring(0,10);
   }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,6 +49,9 @@ class _DatePickerState extends State<DatePicker> {
           onChange: (dateTime, selectedIndex) {
             setState(() {
               _dateTime = dateTime;
+              selectedValue = _dateTime.toString().substring(0,10);
+              //TODO: SELECTEDVALUE 수정
+              //_dateTime.year.toString() + (_dateTime.month > 9? _dateTime.month.toString() : '0'+_dateTime.month.toString()) + (_dateTime.day > 9? _dateTime.day.toString() : '0'+_dateTime.day.toString()) 
             });
           },
         ),

@@ -1,6 +1,8 @@
+import 'package:dreambody/blocs/info/infoBloc.dart';
 import 'package:flutter/material.dart';
 import 'package:dreambody/widgets/gradientPageLayout.dart';
 import 'package:dreambody/theme/colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // screens
 import 'summaryBoard/perDayDashboard.dart';
@@ -25,6 +27,14 @@ class DashBoardScreenState extends State<DashBoardScreen> {
   Map<MealType, FoodSum> mealIntakes = new Map<MealType, FoodSum>();
   FoodSum totalIntakes = FoodSum();
   int totalWater = 0;
+
+
+  InformationBloc _infoBloc;
+  bool isUpToDate = true;
+  void initState(){
+    super.initState();
+    _infoBloc = BlocProvider.of<InformationBloc>(context);
+  }
 
   updateWater({@required water}) {
     setState(() {

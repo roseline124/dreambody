@@ -1,11 +1,17 @@
+import 'package:dreambody/blocs/info/events.dart';
+import 'package:dreambody/blocs/info/infoBloc.dart';
+import 'package:dreambody/blocs/info/infoRepository.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dreambody/widgets/button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import './typeButton.dart';
 import '../QuestionScreen/questionOne.dart';
 
 class TypeSelection extends StatelessWidget {
-  const TypeSelection({Key key}) : super(key: key);
+  const TypeSelection({
+    Key key
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +31,7 @@ class TypeSelection extends StatelessWidget {
 
 class TypeSelectionForm extends StatefulWidget {
   TypeSelectionForm({Key key}) : super(key: key);
+  
 
   @override
   _TypeSelectionFormState createState() => _TypeSelectionFormState();
@@ -32,7 +39,11 @@ class TypeSelectionForm extends StatefulWidget {
 
 class _TypeSelectionFormState extends State<TypeSelectionForm> {
   int type = 0;
-
+  InformationBloc _infoBloc;
+  void initState(){
+    super.initState();
+    _infoBloc = _infoBloc = BlocProvider.of<InformationBloc>(context);
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -83,6 +94,7 @@ class _TypeSelectionFormState extends State<TypeSelectionForm> {
                 flex: 1,
                 child: Button(
                     onPressed: () {
+                      _infoBloc.add(InformationType(goalType: "TEST"));
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => QuestionOne()),
