@@ -1,6 +1,5 @@
 import 'package:dreambody/blocs/info/events.dart';
 import 'package:dreambody/blocs/info/infoBloc.dart';
-import 'package:dreambody/blocs/info/infoRepository.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dreambody/widgets/button.dart';
@@ -18,8 +17,6 @@ class TypeSelection extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('체중 목표 설정'),
-        leading: BackButton(
-            color: Colors.white, onPressed: () => Navigator.of(context).pop()),
       ),
       body: Container(
         padding: EdgeInsets.all(20),
@@ -38,7 +35,7 @@ class TypeSelectionForm extends StatefulWidget {
 }
 
 class _TypeSelectionFormState extends State<TypeSelectionForm> {
-  int type = 0;
+  String type = 'WEIGHT_LOSS';
   InformationBloc _infoBloc;
   void initState(){
     super.initState();
@@ -71,20 +68,20 @@ class _TypeSelectionFormState extends State<TypeSelectionForm> {
           SizedBox(height: 145),
           TypeButton(
             label: '체중 감량',
-            isSelected: type == 0,
-            onPressed: () => setState(() => type = 0)
+            isSelected: type == 'WEIGHT_LOSS',
+            onPressed: () => setState(() => type = 'WEIGHT_LOSS')
           ),
           SizedBox(height: 5),
           TypeButton(
             label: '체중 유지',
-            isSelected: type == 1,
-            onPressed: () => setState(() => type = 1)
+            isSelected: type == 'WEIGHT_RETENTION',
+            onPressed: () => setState(() => type = 'WEIGHT_RETENTION')
           ),
           SizedBox(height: 5),
           TypeButton(
             label: '근육 증진',
-            isSelected: type == 2,
-            onPressed: () => setState(() => type = 2)
+            isSelected: type == 'WEIGHT_GAIN',
+            onPressed: () => setState(() => type = 'WEIGHT_GAIN')
           ),
           SizedBox(height: 137),
           Flex(
@@ -94,7 +91,7 @@ class _TypeSelectionFormState extends State<TypeSelectionForm> {
                 flex: 1,
                 child: Button(
                     onPressed: () {
-                      _infoBloc.add(InformationType(goalType: "TEST"));
+                      _infoBloc.add(InformationType(goalType: type));
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => QuestionOne()),

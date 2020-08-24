@@ -1,6 +1,6 @@
 import 'package:dreambody/blocs/info/events.dart';
 import 'package:dreambody/blocs/info/infoBloc.dart';
-import 'package:dreambody/models/IntWrapper.dart';
+import 'package:dreambody/models/PrimitiveWrapper.dart';
 import 'package:flutter/material.dart';
 
 import 'package:direct_select_flutter/direct_select_container.dart';
@@ -20,13 +20,13 @@ class _QuestionTwoState extends State<QuestionTwo> {
   final List<int> weight = new List.generate(200, (index) => index + 1);
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-  IntWrapper selectedValue;
+  PrimitiveWrapper selectedValue;
   InformationBloc _infoBloc;
   void initState(){
     super.initState();
     _infoBloc = BlocProvider.of<InformationBloc>(context);
     if(selectedValue == null){
-      selectedValue = IntWrapper(59);
+      selectedValue = PrimitiveWrapper(59);
     }
   }
   @override

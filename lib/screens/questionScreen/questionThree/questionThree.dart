@@ -34,12 +34,13 @@ class QuestionThreeForm extends StatefulWidget {
 }
 
 class _QuestionThreeFormState extends State<QuestionThreeForm> {
-  String gender; // F or M
+  String gender; // MALE or FEMALE
   
   InformationBloc _infoBloc;
   void initState(){
     super.initState();
     _infoBloc = BlocProvider.of<InformationBloc>(context);
+    gender = 'MALE';
   }
 
   @override

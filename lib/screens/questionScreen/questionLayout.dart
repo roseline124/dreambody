@@ -18,6 +18,10 @@ class QuestionLayout extends StatelessWidget {
   final Widget nextQuestion;
   final Function trigger;
 
+  Future<void> asyncTrigger() async{
+    return trigger();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,11 +60,19 @@ class QuestionLayout extends StatelessWidget {
                   flex: 1,
                   child: Button(
                       onPressed: () async {
-                        if( trigger != null ) await trigger();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => nextQuestion),
-                        );
+                        if( trigger != null ){
+                          asyncTrigger().then((v) => 
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => nextQuestion),
+                            )
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => nextQuestion),
+                          );
+                        }
                       },
                       label: '다음'),
                 )

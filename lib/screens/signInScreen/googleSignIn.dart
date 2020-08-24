@@ -54,8 +54,7 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
             RegExp regExp = new RegExp("(?<=token=)(.*)");
 
             this.token = regExp.firstMatch(url)?.group(1);
-            _loginBloc.add(LoginSucceed(token: this.token)); //여기서 토큰 bloc에 넣음.
-            _infoBloc.add(InformationOne(currentWeight: 42));
+            _loginBloc.add(LoginSucceed(token: this.token));
             Navigator.push(
               context,
               MaterialPageRoute(

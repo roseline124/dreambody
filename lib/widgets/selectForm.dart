@@ -1,7 +1,7 @@
 import 'package:direct_select_flutter/direct_select_container.dart';
 import 'package:direct_select_flutter/direct_select_item.dart';
 import 'package:direct_select_flutter/direct_select_list.dart';
-import 'package:dreambody/models/IntWrapper.dart';
+import 'package:dreambody/models/PrimitiveWrapper.dart';
 import 'package:flutter/material.dart';
 
 const DEFAULT_SELECTED_INDEX = 60;
@@ -78,7 +78,7 @@ class Selector extends StatelessWidget {
   final String label;
   final String unit;
   final int defaultItemIndex;
-  final IntWrapper selectedValue;
+  final PrimitiveWrapper selectedValue;
 
   @override
   Widget build(BuildContext context) {
