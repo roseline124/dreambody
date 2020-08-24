@@ -17,6 +17,8 @@ class TypeSelection extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('체중 목표 설정'),
+        leading: BackButton(
+            color: Colors.white, onPressed: () => Navigator.of(context).pop()),
       ),
       body: Container(
         padding: EdgeInsets.all(20),
