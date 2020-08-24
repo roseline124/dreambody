@@ -11,8 +11,7 @@ class SelectForm extends StatefulWidget {
       {@required this.label,
       @required this.unit,
       @required this.data,
-      this.defaultItemIndex
-      });
+      this.defaultItemIndex});
 
   final String label;
   final String unit;
@@ -69,7 +68,7 @@ class Selector extends StatelessWidget {
       {@required this.data,
       @required this.label,
       @required this.unit,
-      @required this.selectedValue,
+      this.selectedValue,
       this.defaultItemIndex = DEFAULT_SELECTED_INDEX});
 
   final buttonPadding = const EdgeInsets.fromLTRB(0, 8, 0, 0);

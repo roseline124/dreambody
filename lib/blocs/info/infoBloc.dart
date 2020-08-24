@@ -6,22 +6,20 @@ import 'events.dart';
 import 'states.dart';
 import 'infoRepository.dart';
 
-class InformationBloc
-    extends Bloc<InformationEvent, InformationState> {
+class InformationBloc extends Bloc<InformationEvent, InformationState> {
   final InfoRepository infoRepository;
   final AuthRepository authRepository;
   final AuthenticationBloc authenticationBloc;
-  
+
   InformationBloc({
     @required this.infoRepository,
     @required this.authRepository,
     @required this.authenticationBloc,
-    }) : assert(infoRepository != null),
-      assert(authRepository != null),
-      assert(authenticationBloc != null),
-      super(null);
+  })  : assert(infoRepository != null),
+        assert(authRepository != null),
+        assert(authenticationBloc != null),
+        super(null);
 
-  @override
   InformationState get initialState => InformationInitial();
 
   @override
@@ -40,37 +38,37 @@ class InformationBloc
     }
 
     // 저장 이벤트
-    if (event is InformationOne){
+    if (event is InformationOne) {
       yield InformationInProgress();
       infoRepository.saveCurrentWeight(currentWeight: event.currentWeight);
       yield InformationSuccess();
     }
-    if (event is InformationTwo){
+    if (event is InformationTwo) {
       yield InformationInProgress();
       infoRepository.saveGoalWeight(goalWeight: event.goalWeight);
       yield InformationSuccess();
     }
-    if (event is InformationThree){
+    if (event is InformationThree) {
       yield InformationInProgress();
       infoRepository.saveGenderType(genderType: event.genderType);
       yield InformationSuccess();
     }
-    if (event is InformationFour){
+    if (event is InformationFour) {
       yield InformationInProgress();
       infoRepository.saveHeight(height: event.height);
       yield InformationSuccess();
     }
-    if (event is InformationFive){
+    if (event is InformationFive) {
       yield InformationInProgress();
       infoRepository.saveDateOfBirth(dateOfBirth: event.dateOfBirth);
       yield InformationSuccess();
     }
-    if (event is InformationSix){
+    if (event is InformationSix) {
       yield InformationInProgress();
       infoRepository.saveActivityType(activityType: event.activityType);
       yield InformationSuccess();
     }
-    if (event is InformationType){
+    if (event is InformationType) {
       yield InformationInProgress();
       infoRepository.saveGoalType(goalType: event.goalType);
       yield InformationSuccess();

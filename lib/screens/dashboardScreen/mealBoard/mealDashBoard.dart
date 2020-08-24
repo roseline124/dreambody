@@ -5,10 +5,12 @@ import './mealCard.dart';
 import './types.dart';
 
 class MealDashBoard extends StatefulWidget {
-  MealDashBoard({@required this.token, @required this.dashboard});
+  MealDashBoard(
+      {@required this.token, @required this.dashboard, this.refetchSummary});
 
   final DashBoardScreenState dashboard;
   final String token;
+  final Function refetchSummary;
 
   @override
   _MealDashBoardState createState() => _MealDashBoardState();
@@ -32,25 +34,27 @@ class _MealDashBoardState extends State<MealDashBoard> {
           title: '아침',
           token: widget.token,
           dashboard: widget.dashboard,
-          mealType: MealType.breakfast,
+          mealType: MealType.BREAKFAST,
+          refetchSummary: widget.refetchSummary,
         ),
         MealCard(
-          title: '점심',
-          token: widget.token,
-          dashboard: widget.dashboard,
-          mealType: MealType.lunch,
-        ),
+            title: '점심',
+            token: widget.token,
+            dashboard: widget.dashboard,
+            mealType: MealType.LUNCH,
+            refetchSummary: widget.refetchSummary),
         MealCard(
-          title: '저녁',
-          token: widget.token,
-          dashboard: widget.dashboard,
-          mealType: MealType.dinner,
-        ),
+            title: '저녁',
+            token: widget.token,
+            dashboard: widget.dashboard,
+            mealType: MealType.DINNER,
+            refetchSummary: widget.refetchSummary),
         MealCard(
           title: '간식',
           token: widget.token,
           dashboard: widget.dashboard,
-          mealType: MealType.dessert,
+          mealType: MealType.DESSERT,
+          refetchSummary: widget.refetchSummary,
           isLastTile: true,
         ),
       ]),
