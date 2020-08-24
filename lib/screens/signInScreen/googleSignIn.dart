@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:dreambody/blocs/info/events.dart';
-import 'package:dreambody/blocs/info/infoBloc.dart';
 import 'package:dreambody/blocs/info/infoRepository.dart';
 import 'package:dreambody/screens/typeSelectionScreen/typeSelection.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +10,6 @@ import 'package:dreambody/blocs/auth/authRepository.dart';
 import 'package:dreambody/blocs/auth/authBloc.dart';
 import 'package:dreambody/blocs/login/loginBloc.dart';
 import 'package:dreambody/blocs/login/events.dart';
-import 'package:dreambody/screens/dashboardScreen/dashBoardScreen.dart';
 
 class GoogleSignInScreen extends StatefulWidget {
   final AuthRepository authRepository;
@@ -26,7 +23,6 @@ class GoogleSignInScreen extends StatefulWidget {
 class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
   final flutterWebviewPlugin = new FlutterWebviewPlugin();
   LoginBloc _loginBloc;
-  InformationBloc _infoBloc;
 
   StreamSubscription _onDestroy;
   StreamSubscription<String> _onUrlChanged;
@@ -39,11 +35,6 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
     _loginBloc = LoginBloc(
         authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
         authRepository: widget.authRepository);
-    _infoBloc = InformationBloc(
-        authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
-        authRepository: widget.authRepository,
-        infoRepository: widget.infoRepository,
-    );
     flutterWebviewPlugin.close();
 
     _onDestroy = flutterWebviewPlugin.onDestroy.listen((_) {});
@@ -56,11 +47,10 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
             this.token = regExp.firstMatch(url)?.group(1);
             _loginBloc.add(LoginSucceed(token: this.token));
             Navigator.push(
-              context,
-              MaterialPageRoute(
+                context,
+                MaterialPageRoute(
                   builder: (context) => TypeSelection(),
-              )//DashBoardScreen(token: this.token)),
-            );
+                ));
             flutterWebviewPlugin.close();
           }
         });

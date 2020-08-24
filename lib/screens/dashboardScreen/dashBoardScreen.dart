@@ -11,7 +11,6 @@ import 'waterDashBoard/waterDashboard.dart';
 
 // query
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:dreambody/models/UserInfo.dart';
 import 'mealBoard/types.dart';
 
 const String getUserInfo = r'''
@@ -60,7 +59,10 @@ class DashBoardScreenState extends State<DashBoardScreen> {
 
           FoodSum goal = FoodSum.fromJSON(result.data['summary']['goal']);
           FoodSum intake = FoodSum.fromJSON(result.data['summary']['intake']);
-          int totalWater = result.data['waterInfo']['amountWater'];
+
+          int totalWater = result.data['waterInfo'] != null
+              ? result.data['waterInfo']['amountWater']
+              : 0;
 
           return GradientPageLayout(
               child: SingleChildScrollView(
