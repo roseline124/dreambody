@@ -5,7 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import './waterWave.dart';
 
 class WaterDashboard extends StatefulWidget {
-  const WaterDashboard({@required this.refetchWater, this.currentWater = 0});
+  const WaterDashboard({this.refetchWater, this.currentWater = 0});
   final Function refetchWater;
   final int currentWater;
 
