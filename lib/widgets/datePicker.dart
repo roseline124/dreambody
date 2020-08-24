@@ -1,11 +1,13 @@
+import 'package:dreambody/models/StringWrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 
 class DatePicker extends StatefulWidget {
-  DatePicker({Key key}) : super(key: key);
+  StringWrapper selectedValue;
+  DatePicker({Key key, this.selectedValue}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _DatePickerState();
+  State<StatefulWidget> createState() => _DatePickerState(selectedValue: selectedValue);
 }
 
 final DateTime now = new DateTime.now();
@@ -15,13 +17,15 @@ const String DATE_FORMAT = 'yyyy년,MM월|d일';
 
 class _DatePickerState extends State<DatePicker> {
   DateTime _dateTime;
+  StringWrapper selectedValue;
 
+  _DatePickerState({this.selectedValue});
   @override
   void initState() {
     super.initState();
     _dateTime = DateTime.parse(INIT_DATETIME);
+    selectedValue.setValue(_dateTime.toString().substring(0,10));
   }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,6 +50,7 @@ class _DatePickerState extends State<DatePicker> {
           onChange: (dateTime, selectedIndex) {
             setState(() {
               _dateTime = dateTime;
+              selectedValue.setValue(_dateTime.toString().substring(0,10));
             });
           },
         ),

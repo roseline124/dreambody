@@ -1,5 +1,9 @@
+import 'package:dreambody/blocs/info/events.dart';
+import 'package:dreambody/blocs/info/infoBloc.dart';
+import 'package:dreambody/models/StringWrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:dreambody/widgets/datePicker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'questionLayout.dart';
 import './questionSix.dart';
@@ -31,15 +35,26 @@ class QuestionFiveForm extends StatefulWidget {
 }
 
 class _QuestionFiveFormState extends State<QuestionFiveForm> {
+  StringWrapper selectedValue;
+  InformationBloc _infoBloc;
+  void initState(){
+    super.initState();
+    selectedValue = StringWrapper("");
+    _infoBloc = BlocProvider.of<InformationBloc>(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return QuestionLayout(
       questionText: '귀하의 성별은 무엇인가요?',
       nextQuestion: QuestionSix(),
+      trigger: () => {
+        _infoBloc.add(InformationFive(dateOfBirth: selectedValue.value)),
+      },
       formWidget: Flex(
         direction: Axis.vertical,
         children: [
-          Container(height: 400, child: DatePicker()),
+          Container(height: 400, child: DatePicker(selectedValue: selectedValue)),
         ],
       ),
     );
