@@ -13,18 +13,6 @@ import 'waterDashBoard/waterDashboard.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'mealBoard/types.dart';
 
-const String getUserInfo = r'''
-  query getUserInfo {
-    userInfo {
-        id
-        user {
-            id
-            name
-        }
-    }
-}
-''';
-
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({this.token});
   final String token;

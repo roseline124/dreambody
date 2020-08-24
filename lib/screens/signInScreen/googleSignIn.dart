@@ -1,15 +1,25 @@
 import 'dart:async';
 import 'package:dreambody/blocs/info/infoRepository.dart';
+import 'package:dreambody/screens/dashboardScreen/dashBoardScreen.dart';
 import 'package:dreambody/screens/typeSelectionScreen/typeSelection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'package:dreambody/config.dart';
 import 'package:dreambody/blocs/auth/authRepository.dart';
 import 'package:dreambody/blocs/auth/authBloc.dart';
 import 'package:dreambody/blocs/login/loginBloc.dart';
 import 'package:dreambody/blocs/login/events.dart';
+
+const String getUserInfo = r'''
+  query getUserInfo {
+    userInfo {
+        id
+    }
+}
+''';
 
 class GoogleSignInScreen extends StatefulWidget {
   final AuthRepository authRepository;
@@ -38,7 +48,13 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
     flutterWebviewPlugin.close();
 
     _onDestroy = flutterWebviewPlugin.onDestroy.listen((_) {});
-    _onUrlChanged = flutterWebviewPlugin.onUrlChanged.listen((String url) {
+    _onUrlChanged =
+        flutterWebviewPlugin.onUrlChanged.listen((String url) async {
+      GraphQLClient client = GraphQLProvider.of(context).value;
+
+      final result =
+          await client.query(QueryOptions(documentNode: gql(getUserInfo)));
+
       if (mounted) {
         setState(() {
           if (url.startsWith('$serverBaseUrl/oauth2/redirect')) {
@@ -46,11 +62,21 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
 
             this.token = regExp.firstMatch(url)?.group(1);
             _loginBloc.add(LoginSucceed(token: this.token));
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TypeSelection(),
-                ));
+
+            if (result.hasException) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TypeSelection(),
+                  ));
+            } else {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DashBoardScreen(token: this.token),
+                  ));
+            }
+
             flutterWebviewPlugin.close();
           }
         });
