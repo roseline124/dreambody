@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 import 'package:dreambody/widgets/gradientPageLayout.dart';
 import 'package:dreambody/theme/colors.dart';
 
@@ -9,8 +11,6 @@ import 'waterDashBoard/waterDashboard.dart';
 
 // query
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:dreambody/graphql/user/getUserInfo.dart';
-import 'package:dreambody/models/UserInfo.dart';
 import 'mealBoard/types.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -22,52 +22,19 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class DashBoardScreenState extends State<DashBoardScreen> {
-  Map<MealType, FoodSum> mealIntakes = new Map<MealType, FoodSum>();
-  FoodSum totalIntakes = FoodSum();
-  int totalWater = 0;
-
-  updateWater({@required water}) {
-    setState(() {
-      totalWater = water;
-    });
-  }
-
-  updateMealIntakes({@required MealType mealType, @required FoodSum foodSum}) {
-    setState(() {
-      mealIntakes[mealType] = foodSum;
-
-      if (mealIntakes[MealType.breakfast] != null) {
-        totalIntakes.calorie = mealIntakes[MealType.breakfast].calorie;
-        totalIntakes.fat = mealIntakes[MealType.breakfast].fat;
-        totalIntakes.protein = mealIntakes[MealType.breakfast].protein;
-        totalIntakes.carbohydrate =
-            mealIntakes[MealType.breakfast].carbohydrate;
-      }
-      if (mealIntakes[MealType.lunch] != null) {
-        totalIntakes.calorie = mealIntakes[MealType.lunch].calorie;
-        totalIntakes.fat = mealIntakes[MealType.lunch].fat;
-        totalIntakes.protein = mealIntakes[MealType.lunch].protein;
-        totalIntakes.carbohydrate = mealIntakes[MealType.lunch].carbohydrate;
-      }
-      if (mealIntakes[MealType.dinner] != null) {
-        totalIntakes.calorie = mealIntakes[MealType.dinner].calorie;
-        totalIntakes.fat = mealIntakes[MealType.dinner].fat;
-        totalIntakes.protein = mealIntakes[MealType.dinner].protein;
-        totalIntakes.carbohydrate = mealIntakes[MealType.dinner].carbohydrate;
-      }
-      if (mealIntakes[MealType.dessert] != null) {
-        totalIntakes.calorie = mealIntakes[MealType.dessert].calorie;
-        totalIntakes.fat = mealIntakes[MealType.dessert].fat;
-        totalIntakes.protein = mealIntakes[MealType.dessert].protein;
-        totalIntakes.carbohydrate = mealIntakes[MealType.dessert].carbohydrate;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final String nowDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
     return Query(
-        options: QueryOptions(documentNode: gql(getUserInfo)),
+        options: QueryOptions(documentNode: gql(getSummary), variables: {
+          "requestSummary": {
+            "registrationDate": nowDate,
+          },
+          "waterInfoRequest": {
+            "registrationDate": nowDate,
+          },
+        }),
         builder: (QueryResult result,
             {VoidCallback refetch, FetchMore fetchMore}) {
           if (result.hasException) {
@@ -78,12 +45,20 @@ class DashBoardScreenState extends State<DashBoardScreen> {
             return Scaffold(body: Text('Loading'));
           }
 
-          UserInfo currentUser = UserInfo.fromJSON(result.data['userInfo']);
+          FoodSum goal = FoodSum.fromJSON(result.data['summary']['goal']);
+          FoodSum intake = FoodSum.fromJSON(result.data['summary']['intake']);
+
+          int totalWater = result.data['waterInfo'] != null
+              ? result.data['waterInfo']['amountWater']
+              : 0;
 
           return GradientPageLayout(
               child: SingleChildScrollView(
             child: Column(children: [
-              PerDayDashboard(intakes: totalIntakes),
+              PerDayDashboard(
+                intakes: intake,
+                goals: goal,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: InkWell(
@@ -92,7 +67,8 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => WaterDashboard(
-                                dashboard: this, currentWater: totalWater)));
+                                refetchWater: refetch,
+                                currentWater: totalWater)));
                   },
                   child: Container(
                     height: 60,
@@ -111,11 +87,10 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                             width: 30,
                           ),
                         ),
-                        // todo: 마신 물이 0이 아니면 마신 양을 text로, 아니면 아래 텍스트 보여줌
                         Text(
-                          totalWater == 0
-                              ? '${currentUser.user.name}님, 오늘 마신 물을 기록해보세요!'
-                              : '오늘 마신 물의 양은 ${totalWater * 100}ml입니다.',
+                          (totalWater == 0)
+                              ? '오늘 마신 물을 기록해보세요!'
+                              : '오늘 마신 물의 양은 ${totalWater}ml입니다.',
                           style: TextStyle(
                               color: customColor.primaryDarkColor,
                               fontWeight: FontWeight.w500),
@@ -125,9 +100,33 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                   ),
                 ),
               ),
-              MealDashBoard(token: widget.token, dashboard: this)
+              MealDashBoard(
+                  token: widget.token, dashboard: this, refetchSummary: refetch)
             ]),
           ));
         });
   }
 }
+
+const String getSummary = r'''
+query Summary($requestSummary: RequestSummary, $waterInfoRequest: WaterInfoRequest) {
+    summary(requestSummary: $requestSummary) {
+        goal {
+            calorie
+            carbohydrate
+            protein
+            fat
+        }
+        intake {
+            calorie
+            carbohydrate
+            protein
+            fat
+        }
+    }
+
+    waterInfo(waterInfoRequest: $waterInfoRequest) {
+        amountWater
+    }
+}
+''';

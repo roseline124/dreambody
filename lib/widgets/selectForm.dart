@@ -1,6 +1,7 @@
 import 'package:direct_select_flutter/direct_select_container.dart';
 import 'package:direct_select_flutter/direct_select_item.dart';
 import 'package:direct_select_flutter/direct_select_list.dart';
+import 'package:dreambody/models/PrimitiveWrapper.dart';
 import 'package:flutter/material.dart';
 
 const DEFAULT_SELECTED_INDEX = 60;
@@ -67,6 +68,7 @@ class Selector extends StatelessWidget {
       {@required this.data,
       @required this.label,
       @required this.unit,
+      this.selectedValue,
       this.defaultItemIndex = DEFAULT_SELECTED_INDEX});
 
   final buttonPadding = const EdgeInsets.fromLTRB(0, 8, 0, 0);
@@ -75,6 +77,7 @@ class Selector extends StatelessWidget {
   final String label;
   final String unit;
   final int defaultItemIndex;
+  final PrimitiveWrapper selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +140,7 @@ class Selector extends StatelessWidget {
         itemHeight: 56,
         value: value,
         itemBuilder: (context, value) {
+          selectedValue.value = value;
           return Text(value.toString());
         });
   }

@@ -1,4 +1,6 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../dashBoardScreen.dart';
 import './mealSearchForm.dart';
@@ -11,12 +13,14 @@ class MealCard extends StatefulWidget {
     @required this.mealType,
     @required this.dashboard,
     this.isLastTile = false,
+    this.refetchSummary,
   });
   final MealType mealType;
   final DashBoardScreenState dashboard;
   final String token;
   final String title;
   final bool isLastTile;
+  final Function refetchSummary;
 
   @override
   MealCardState createState() => MealCardState();
@@ -28,29 +32,84 @@ class MealCardState extends State<MealCard> {
   int proteinSum = 0;
   int carbohydrateSum = 0;
 
-  updateMealInfo({@required FoodSum foodSum}) {
-    setState(() {
-      calorieSum = foodSum.calorie.toInt();
-      fatSum = foodSum.fat.toInt();
-      proteinSum = foodSum.protein.toInt();
-      carbohydrateSum = foodSum.carbohydrate.toInt();
-    });
+  @override
+  Widget build(BuildContext context) {
+    return Query(
+        options: QueryOptions(documentNode: gql(getSummary), variables: {
+          "requestSummary": {
+            "registrationDate": DateFormat('yyyy-MM-dd').format(DateTime.now()),
+            "mealType": widget.mealType.toString().split('.').last,
+          }
+        }),
+        builder: (QueryResult result,
+            {VoidCallback refetch, FetchMore fetchMore}) {
+          if (result.hasException) {
+            return null;
+          }
 
-    widget.dashboard
-        .updateMealIntakes(mealType: widget.mealType, foodSum: foodSum);
+          if (result.loading) {
+            return Scaffold(body: Text('Loading'));
+          }
+
+          void refetchQuery() {
+            refetch();
+            widget.refetchSummary();
+          }
+
+          FoodSum intakes = FoodSum.fromJSON(result.data['summary']['intake']);
+          if (!widget.isLastTile) {
+            return Column(children: [
+              MealTile(
+                title: widget.title,
+                token: widget.token,
+                mealType: widget.mealType,
+                intakes: intakes,
+                refetchQuery: refetchQuery,
+              ),
+              Divider(
+                  color: Colors.white.withAlpha(100),
+                  thickness: 0.4,
+                  indent: 15,
+                  endIndent: 15)
+            ]);
+          }
+
+          return MealTile(
+              title: widget.title,
+              token: widget.token,
+              mealType: widget.mealType,
+              intakes: intakes,
+              refetchQuery: refetchQuery);
+        });
   }
+}
+
+class MealTile extends StatelessWidget {
+  const MealTile({
+    this.title,
+    this.token,
+    this.intakes,
+    this.mealType,
+    this.refetchQuery,
+  });
+
+  final String title;
+  final String token;
+  final FoodSum intakes;
+  final MealType mealType;
+  final Function refetchQuery;
 
   @override
   Widget build(BuildContext context) {
-    final Widget mealTile = ListTile(
+    return ListTile(
       title: Text(
-        '${widget.title} (칼로리: $calorieSum)',
+        '$title (칼로리: ${intakes?.calorie})',
         style: TextStyle(
             color: Theme.of(context).primaryColorDark,
             fontWeight: FontWeight.w500),
       ),
       subtitle: Text(
-        '탄수화물: $carbohydrateSum / 단백질: $proteinSum / 지방: $fatSum',
+        '탄수화물: ${intakes?.carbohydrate} / 단백질: ${intakes?.protein} / 지방: ${intakes?.fat}',
         style: TextStyle(color: Colors.white.withAlpha(150)),
       ),
       trailing: IconButton(
@@ -58,8 +117,11 @@ class MealCardState extends State<MealCard> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      MealSearchForm(parent: this, token: widget.token)));
+                  builder: (context) => MealSearchForm(
+                        mealType: mealType,
+                        token: token,
+                        refetchQuery: refetchQuery,
+                      )));
         },
         icon: Icon(
           Icons.add,
@@ -68,18 +130,18 @@ class MealCardState extends State<MealCard> {
         ),
       ),
     );
-
-    if (!widget.isLastTile) {
-      return Column(children: [
-        mealTile,
-        Divider(
-            color: Colors.white.withAlpha(100),
-            thickness: 0.4,
-            indent: 15,
-            endIndent: 15)
-      ]);
-    }
-
-    return mealTile;
   }
 }
+
+const String getSummary = r'''
+query Summary($requestSummary: RequestSummary) {
+    summary(requestSummary: $requestSummary) {
+        intake {
+            calorie
+            carbohydrate
+            protein
+            fat
+        }
+    }
+}
+''';

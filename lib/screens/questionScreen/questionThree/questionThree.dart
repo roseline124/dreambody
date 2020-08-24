@@ -1,4 +1,7 @@
+import 'package:dreambody/blocs/info/events.dart';
+import 'package:dreambody/blocs/info/infoBloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../questionFour.dart';
 import './imageButton.dart';
@@ -31,13 +34,21 @@ class QuestionThreeForm extends StatefulWidget {
 }
 
 class _QuestionThreeFormState extends State<QuestionThreeForm> {
-  String gender; // F or M
+  String gender; // MALE or FEMALE
+  
+  InformationBloc _infoBloc;
+  void initState(){
+    super.initState();
+    _infoBloc = BlocProvider.of<InformationBloc>(context);
+    gender = 'MALE';
+  }
 
   @override
   Widget build(BuildContext context) {
     return QuestionLayout(
       questionText: '귀하의 성별은 무엇인가요?',
       nextQuestion: QuestionFour(),
+      trigger: () => _infoBloc.add(InformationThree(genderType: gender)),
       formWidget: Flex(
         children: [
           Padding(
@@ -49,16 +60,16 @@ class _QuestionThreeFormState extends State<QuestionThreeForm> {
                       child: ImageButton(
                         src: 'static/images/maleUser_128.png',
                         label: '남성',
-                        isSelected: gender == 'M',
+                        isSelected: gender == 'MALE',
                       ),
-                      onTap: () => setState(() => gender = 'M')),
+                      onTap: () => setState(() => gender = 'MALE')),
                   InkWell(
                       child: ImageButton(
                         src: 'static/images/femaleUser_128.png',
                         label: '여성',
-                        isSelected: gender == 'F',
+                        isSelected: gender == 'FEMALE',
                       ),
-                      onTap: () => setState(() => gender = 'F')),
+                      onTap: () => setState(() => gender = 'FEMALE')),
                 ]),
           )
         ],

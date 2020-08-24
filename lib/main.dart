@@ -1,3 +1,5 @@
+import 'package:dreambody/blocs/info/infoBloc.dart';
+import 'package:dreambody/blocs/info/infoRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,20 +23,31 @@ import 'theme/index.dart';
 void main() {
   Bloc.observer = SimpleBlocObserver();
   final authRepository = AuthRepository();
+  final infoRepository = InfoRepository();
   runApp(
     BlocProvider<AuthenticationBloc>(
       create: (context) {
         return AuthenticationBloc(authRepository: authRepository)
           ..add(AuthenticationStarted());
       },
-      child: DreamBodyApp(authRepository: authRepository),
+      child: BlocProvider<InformationBloc>(
+        create: (context) {
+          return InformationBloc(
+            authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
+            authRepository: authRepository,
+            infoRepository: infoRepository,
+          );
+        },
+        child: DreamBodyApp(authRepository: authRepository, infoRepository: infoRepository),
+      ),
     ),
   );
 }
 
 class DreamBodyApp extends StatelessWidget {
   final AuthRepository authRepository;
-  const DreamBodyApp({Key key, this.authRepository}) : super(key: key);
+  final InfoRepository infoRepository;
+  const DreamBodyApp({Key key, this.authRepository, this.infoRepository}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +55,16 @@ class DreamBodyApp extends StatelessWidget {
       client: graphqlService.getClient(authRepository: authRepository),
       child: CacheProvider(
           child: MaterialApp(
-        theme: dreamBodyTheme,
-        title: 'Dream Body',
-        routes: {
-          '/': (context) => GoogleSignInScreen(authRepository: authRepository),
-          '/login': (context) =>
-              GoogleSignInScreen(authRepository: authRepository),
-          '/questions': (context) => TypeSelection(),
-          '/dashboard': (context) => DashBoardScreen(),
-          '/water': (context) => WaterDashboard(),
-        },
+            theme: dreamBodyTheme,
+            title: 'Dream Body',
+            routes: {
+              '/': (context) => GoogleSignInScreen(authRepository: authRepository, infoRepository: infoRepository),
+              '/login': (context) =>
+                  GoogleSignInScreen(authRepository: authRepository, infoRepository: infoRepository),
+              '/questions': (context) => TypeSelection(),
+              '/dashboard': (context) => DashBoardScreen(),
+              '/water': (context) => WaterDashboard(),
+            },
       )),
     );
   }

@@ -19,16 +19,20 @@ class UserInfo {
     this.user,
   });
 
+  // ignore: missing_return
   factory UserInfo.fromJSON(Map<String, dynamic> json) {
-    final user = User.fromJSON(json['user']);
-    return UserInfo(
-      id: json['id'],
-      currentWeight: json['currentWeight'],
-      dailyIntakeCalorie: json['dailyIntakeCalorie'],
-      dateOfBirth: json['dateOfBirth'],
-      goalWeight: json['goalWeight'],
-      height: json['height'],
-      user: user,
-    );
+    if (json != null) {
+      final user = User.fromJSON(json['user']);
+
+      return UserInfo(
+        id: json['id'],
+        currentWeight: json['currentWeight'],
+        dailyIntakeCalorie: json['dailyIntakeCalorie'],
+        dateOfBirth: json['dateOfBirth'],
+        goalWeight: json['goalWeight'],
+        height: json['height'],
+        user: user,
+      );
+    }
   }
 }

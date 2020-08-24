@@ -1,8 +1,12 @@
+import 'package:dreambody/blocs/info/events.dart';
+import 'package:dreambody/blocs/info/infoBloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:direct_select_flutter/direct_select_container.dart';
 import 'package:dreambody/widgets/selectForm.dart';
 import 'package:dreambody/widgets/button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dreambody/models/PrimitiveWrapper.dart';
 import './questionTwo.dart';
 
 class QuestionOne extends StatefulWidget {
@@ -16,7 +20,15 @@ class _QuestionOneState extends State<QuestionOne> {
   final List<int> weight = new List.generate(200, (index) => index + 1);
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-
+  PrimitiveWrapper selectedValue;
+  InformationBloc _infoBloc;
+  void initState(){
+    super.initState();
+    _infoBloc = BlocProvider.of<InformationBloc>(context);
+    if(selectedValue == null){
+      selectedValue = PrimitiveWrapper(59);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +68,7 @@ class _QuestionOneState extends State<QuestionOne> {
                     unit: '킬로그램',
                     data: weight,
                     defaultItemIndex: 59,
+                    selectedValue: selectedValue,
                   ),
                   SizedBox(height: 185),
                   Flex(
@@ -65,6 +78,7 @@ class _QuestionOneState extends State<QuestionOne> {
                         flex: 1,
                         child: Button(
                             onPressed: () {
+                              _infoBloc.add(InformationOne(currentWeight: selectedValue.value));
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
