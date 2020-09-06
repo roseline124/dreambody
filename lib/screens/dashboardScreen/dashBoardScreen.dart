@@ -4,6 +4,7 @@ import 'package:calendar_strip/calendar_strip.dart';
 
 import 'package:dreambody/widgets/gradientPageLayout.dart';
 import 'package:dreambody/theme/colors.dart';
+import 'package:dreambody/i18n/kr.dart';
 
 // screens
 import 'summaryBoard/perDayDashboard.dart';
@@ -35,10 +36,13 @@ class DashBoardScreenState extends State<DashBoardScreen> {
     });
   }
 
-  _monthNameWidget(monthName) {
+  _monthNameWidget(String monthName) {
     return Container(
       child: Text(
-        monthName,
+        monthName.replaceAllMapped(
+            RegExp(
+                r'January|February|March|April|May|June|July|August|September|October|November|December'),
+            (Match match) => (monthNameMap[match.group(0)])),
         style: TextStyle(
           fontSize: 17,
           fontWeight: FontWeight.w600,
@@ -60,7 +64,7 @@ class DashBoardScreenState extends State<DashBoardScreen> {
         fontWeight: FontWeight.w800,
         color: customColor.primaryDarkColor);
     List<Widget> _children = [
-      Text(dayName,
+      Text(dayNameMap[dayName],
           style: TextStyle(
               fontSize: 14.5,
               color:
