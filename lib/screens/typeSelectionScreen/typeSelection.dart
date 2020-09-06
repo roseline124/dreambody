@@ -1,11 +1,16 @@
+import 'package:dreambody/blocs/info/events.dart';
+import 'package:dreambody/blocs/info/infoBloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dreambody/widgets/button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import './typeButton.dart';
 import '../QuestionScreen/questionOne.dart';
 
 class TypeSelection extends StatelessWidget {
-  const TypeSelection({Key key}) : super(key: key);
+  const TypeSelection({
+    Key key
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +30,19 @@ class TypeSelection extends StatelessWidget {
 
 class TypeSelectionForm extends StatefulWidget {
   TypeSelectionForm({Key key}) : super(key: key);
+  
 
   @override
   _TypeSelectionFormState createState() => _TypeSelectionFormState();
 }
 
 class _TypeSelectionFormState extends State<TypeSelectionForm> {
-  int type = 0;
-
+  String type = 'WEIGHT_LOSS';
+  InformationBloc _infoBloc;
+  void initState(){
+    super.initState();
+    _infoBloc = _infoBloc = BlocProvider.of<InformationBloc>(context);
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -60,20 +70,20 @@ class _TypeSelectionFormState extends State<TypeSelectionForm> {
           SizedBox(height: 145),
           TypeButton(
             label: '체중 감량',
-            isSelected: type == 0,
-            onPressed: () => setState(() => type = 0)
+            isSelected: type == 'WEIGHT_LOSS',
+            onPressed: () => setState(() => type = 'WEIGHT_LOSS')
           ),
           SizedBox(height: 5),
           TypeButton(
             label: '체중 유지',
-            isSelected: type == 1,
-            onPressed: () => setState(() => type = 1)
+            isSelected: type == 'WEIGHT_RETENTION',
+            onPressed: () => setState(() => type = 'WEIGHT_RETENTION')
           ),
           SizedBox(height: 5),
           TypeButton(
             label: '근육 증진',
-            isSelected: type == 2,
-            onPressed: () => setState(() => type = 2)
+            isSelected: type == 'WEIGHT_GAIN',
+            onPressed: () => setState(() => type = 'WEIGHT_GAIN')
           ),
           SizedBox(height: 137),
           Flex(
@@ -83,6 +93,7 @@ class _TypeSelectionFormState extends State<TypeSelectionForm> {
                 flex: 1,
                 child: Button(
                     onPressed: () {
+                      _infoBloc.add(InformationType(goalType: type));
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => QuestionOne()),

@@ -15,7 +15,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.0+beta3
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -23,6 +23,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flappy_search_bar: ^1.7.2
+  graphql: ^3.0.0
+  graphql_flutter: ^3.0.1
+  flutter_bloc: ^5.0.1
+  bloc: ^5.0.1
+  equatable: ^1.2.0
+  json_serializable: ^3.4.0
+  calendar_strip: ^1.0.6
 
   # OAuth
   http: ^0.12.1
@@ -65,17 +73,14 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: NotoSansKR
+      fonts:
+        - asset: fonts/NotoSansKR-Thin.otf
+        - asset: fonts/NotoSansKR-Light.otf
+        - asset: fonts/NotoSansKR-Regular.otf
+        - asset: fonts/NotoSansKR-Medium.otf
+        - asset: fonts/NotoSansKR-Bold.otf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
