@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -7,20 +6,22 @@ import './mealSearchForm.dart';
 import './types.dart';
 
 class MealCard extends StatefulWidget {
-  const MealCard({
-    @required this.title,
-    @required this.token,
-    @required this.mealType,
-    @required this.dashboard,
-    this.isLastTile = false,
-    this.refetchSummary,
-  });
+  const MealCard(
+      {@required this.title,
+      @required this.token,
+      @required this.mealType,
+      @required this.dashboard,
+      this.isLastTile = false,
+      this.refetchSummary,
+      this.selectedDate});
+
   final MealType mealType;
   final DashBoardScreenState dashboard;
   final String token;
   final String title;
   final bool isLastTile;
   final Function refetchSummary;
+  final String selectedDate;
 
   @override
   MealCardState createState() => MealCardState();
@@ -37,7 +38,7 @@ class MealCardState extends State<MealCard> {
     return Query(
         options: QueryOptions(documentNode: gql(getSummary), variables: {
           "requestSummary": {
-            "registrationDate": DateFormat('yyyy-MM-dd').format(DateTime.now()),
+            "registrationDate": widget.selectedDate,
             "mealType": widget.mealType.toString().split('.').last,
           }
         }),
@@ -65,6 +66,7 @@ class MealCardState extends State<MealCard> {
                 mealType: widget.mealType,
                 intakes: intakes,
                 refetchQuery: refetchQuery,
+                selectedDate: widget.selectedDate,
               ),
               Divider(
                   color: Colors.white.withAlpha(100),
@@ -75,29 +77,32 @@ class MealCardState extends State<MealCard> {
           }
 
           return MealTile(
-              title: widget.title,
-              token: widget.token,
-              mealType: widget.mealType,
-              intakes: intakes,
-              refetchQuery: refetchQuery);
+            title: widget.title,
+            token: widget.token,
+            mealType: widget.mealType,
+            intakes: intakes,
+            refetchQuery: refetchQuery,
+            selectedDate: widget.selectedDate,
+          );
         });
   }
 }
 
 class MealTile extends StatelessWidget {
-  const MealTile({
-    this.title,
-    this.token,
-    this.intakes,
-    this.mealType,
-    this.refetchQuery,
-  });
+  const MealTile(
+      {this.title,
+      this.token,
+      this.intakes,
+      this.mealType,
+      this.refetchQuery,
+      this.selectedDate});
 
   final String title;
   final String token;
   final FoodSum intakes;
   final MealType mealType;
   final Function refetchQuery;
+  final String selectedDate;
 
   @override
   Widget build(BuildContext context) {
@@ -121,6 +126,7 @@ class MealTile extends StatelessWidget {
                         mealType: mealType,
                         token: token,
                         refetchQuery: refetchQuery,
+                        selectedDate: selectedDate,
                       )));
         },
         icon: Icon(

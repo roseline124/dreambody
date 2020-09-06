@@ -87,12 +87,12 @@ class DashBoardScreenState extends State<DashBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String _selectedDateString = getDateString(_selectedDate);
+
     return Query(
         options: QueryOptions(documentNode: gql(getSummary), variables: {
-          "requestSummary": {"registrationDate": getDateString(_selectedDate)},
-          "waterInfoRequest": {
-            "registrationDate": getDateString(_selectedDate)
-          },
+          "requestSummary": {"registrationDate": _selectedDateString},
+          "waterInfoRequest": {"registrationDate": _selectedDateString},
         }),
         builder: (QueryResult result,
             {VoidCallback refetch, FetchMore fetchMore}) {
@@ -143,6 +143,7 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                         MaterialPageRoute(
                             builder: (context) => WaterDashboard(
                                 refetchWater: refetch,
+                                selectedDate: _selectedDateString,
                                 currentWater: totalWater)));
                   },
                   child: Container(
@@ -176,7 +177,11 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                 ),
               ),
               MealDashBoard(
-                  token: widget.token, dashboard: this, refetchSummary: refetch)
+                token: widget.token,
+                dashboard: this,
+                refetchSummary: refetch,
+                selectedDate: _selectedDateString,
+              )
             ]),
           ));
         });
