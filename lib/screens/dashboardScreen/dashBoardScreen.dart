@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:calendar_strip/calendar_strip.dart';
 
 import 'package:dreambody/widgets/gradientPageLayout.dart';
 import 'package:dreambody/theme/colors.dart';
@@ -13,6 +14,8 @@ import 'waterDashBoard/waterDashboard.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'mealBoard/types.dart';
 
+final getDateString = (DateTime date) => DateFormat('yyyy-MM-dd').format(date);
+
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({this.token});
   final String token;
@@ -22,17 +25,73 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class DashBoardScreenState extends State<DashBoardScreen> {
+  DateTime startDate = DateTime.now().subtract(Duration(days: 30));
+  DateTime endDate = DateTime.now().add(Duration(days: 30));
+  DateTime _selectedDate = DateTime.now();
+
+  onSelect(DateTime date) {
+    setState(() {
+      _selectedDate = date;
+    });
+  }
+
+  _monthNameWidget(monthName) {
+    return Container(
+      child: Text(
+        monthName,
+        style: TextStyle(
+          fontSize: 17,
+          fontWeight: FontWeight.w600,
+          color: Colors.white70,
+        ),
+      ),
+      padding: EdgeInsets.only(top: 16, bottom: 4),
+    );
+  }
+
+  dateTileBuilder(
+      date, selectedDate, rowIndex, dayName, isDateMarked, isDateOutOfRange) {
+    bool isSelectedDate = date.compareTo(selectedDate) == 0;
+    Color fontColor = isDateOutOfRange ? Colors.white24 : Colors.white70;
+    TextStyle normalStyle =
+        TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: fontColor);
+    TextStyle selectedStyle = TextStyle(
+        fontSize: 17,
+        fontWeight: FontWeight.w800,
+        color: customColor.primaryDarkColor);
+    List<Widget> _children = [
+      Text(dayName,
+          style: TextStyle(
+              fontSize: 14.5,
+              color:
+                  !isSelectedDate ? fontColor : customColor.primaryDarkColor)),
+      Text(date.day.toString(),
+          style: !isSelectedDate ? normalStyle : selectedStyle),
+    ];
+
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 150),
+      alignment: Alignment.center,
+      padding: EdgeInsets.only(top: 8, left: 5, right: 5, bottom: 5),
+      decoration: BoxDecoration(
+        color: !isSelectedDate
+            ? Colors.transparent
+            : customColor.primaryLightColor,
+        borderRadius: BorderRadius.all(Radius.circular(50)),
+      ),
+      child: Column(
+        children: _children,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final String nowDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-
     return Query(
         options: QueryOptions(documentNode: gql(getSummary), variables: {
-          "requestSummary": {
-            "registrationDate": nowDate,
-          },
+          "requestSummary": {"registrationDate": getDateString(_selectedDate)},
           "waterInfoRequest": {
-            "registrationDate": nowDate,
+            "registrationDate": getDateString(_selectedDate)
           },
         }),
         builder: (QueryResult result,
@@ -55,6 +114,22 @@ class DashBoardScreenState extends State<DashBoardScreen> {
           return GradientPageLayout(
               child: SingleChildScrollView(
             child: Column(children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 40.0),
+                child: SizedBox(
+                  height: 120,
+                  child: CalendarStrip(
+                    startDate: startDate,
+                    endDate: endDate,
+                    onDateSelected: onSelect,
+                    selectedDate: _selectedDate,
+                    dateTileBuilder: dateTileBuilder,
+                    monthNameWidget: _monthNameWidget,
+                    containerDecoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(5)),
+                  ),
+                ),
+              ),
               PerDayDashboard(
                 intakes: intake,
                 goals: goal,
