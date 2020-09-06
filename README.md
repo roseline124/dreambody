@@ -26,15 +26,14 @@ A new Flutter project.
 
 - [command `flutter pub run tool/env.dart`. It makes `lib/.env.dart` for env variables used in runtime.](https://medium.com/flutter-community/use-environment-variables-in-ci-cd-for-flutter-apps-cbd6d9ac82c)
 
-
 ## app images & video
 
 1. dashboard
 
 - video: [youtube](https://youtu.be/tfoVp7TQHAE)
-- dashboard
+- dashboard with calendar
 
-  <img src="./static/images/demo/dashboard-1.png" alt="drawing" width="300"/>
+  <img src="./static/images/demo/calendar.png" alt="drawing" width="300"/>
 
 - water dashboard
 
