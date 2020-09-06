@@ -12,10 +12,15 @@ import './drawerMenu.dart';
 import './types.dart';
 
 class MealSearchForm extends StatefulWidget {
-  MealSearchForm({@required this.token, this.mealType, this.refetchQuery});
+  MealSearchForm(
+      {@required this.token,
+      this.mealType,
+      this.refetchQuery,
+      this.selectedDate});
   final String token;
   final MealType mealType;
   final Function refetchQuery;
+  final String selectedDate;
 
   @override
   _MealSearchFormState createState() => _MealSearchFormState();
@@ -119,8 +124,7 @@ class _MealSearchFormState extends State<MealSearchForm> {
                                               .split('.')
                                               .last;
                                           foodInfo.registrationDate =
-                                              DateFormat('yyyy-MM-dd')
-                                                  .format(DateTime.now());
+                                              widget.selectedDate;
 
                                           foodInfo.quantity = 1;
                                           foodInfo.calorie = food.calorie;

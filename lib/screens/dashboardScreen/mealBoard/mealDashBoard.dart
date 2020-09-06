@@ -6,11 +6,15 @@ import './types.dart';
 
 class MealDashBoard extends StatefulWidget {
   MealDashBoard(
-      {@required this.token, @required this.dashboard, this.refetchSummary});
+      {@required this.token,
+      @required this.dashboard,
+      this.refetchSummary,
+      this.selectedDate});
 
   final DashBoardScreenState dashboard;
   final String token;
   final Function refetchSummary;
+  final String selectedDate;
 
   @override
   _MealDashBoardState createState() => _MealDashBoardState();
@@ -36,19 +40,22 @@ class _MealDashBoardState extends State<MealDashBoard> {
           dashboard: widget.dashboard,
           mealType: MealType.BREAKFAST,
           refetchSummary: widget.refetchSummary,
+          selectedDate: widget.selectedDate,
         ),
         MealCard(
             title: '점심',
             token: widget.token,
             dashboard: widget.dashboard,
             mealType: MealType.LUNCH,
-            refetchSummary: widget.refetchSummary),
+            refetchSummary: widget.refetchSummary,
+            selectedDate: widget.selectedDate),
         MealCard(
             title: '저녁',
             token: widget.token,
             dashboard: widget.dashboard,
             mealType: MealType.DINNER,
-            refetchSummary: widget.refetchSummary),
+            refetchSummary: widget.refetchSummary,
+            selectedDate: widget.selectedDate),
         MealCard(
           title: '간식',
           token: widget.token,

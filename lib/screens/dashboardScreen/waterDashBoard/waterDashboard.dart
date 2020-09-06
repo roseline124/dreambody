@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import './waterWave.dart';
 
 class WaterDashboard extends StatefulWidget {
-  const WaterDashboard({this.refetchWater, this.currentWater = 0});
+  const WaterDashboard(
+      {this.refetchWater, this.selectedDate, this.currentWater = 0});
   final Function refetchWater;
+  final String selectedDate;
   final int currentWater;
 
   @override
@@ -56,8 +57,9 @@ class _WaterDashboardState extends State<WaterDashboard> {
                             onPressed: () {
                               saveWater({
                                 "waterInfoRequest": {
-                                  "registrationDate": DateFormat('yyyy-MM-dd')
-                                      .format(DateTime.now()),
+                                  "registrationDate": widget.selectedDate,
+                                  // "registrationDate": DateFormat('yyyy-MM-dd')
+                                  //     .format(DateTime.now()),
                                   "amountWater": glassesOfWater * 100
                                 }
                               });
