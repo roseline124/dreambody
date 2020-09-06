@@ -48,7 +48,7 @@ class MealCardState extends State<MealCard> {
           }
 
           if (result.loading) {
-            return Scaffold(body: Text('Loading'));
+            return Text('Loading');
           }
 
           void refetchQuery() {
