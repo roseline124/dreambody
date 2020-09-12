@@ -100,12 +100,12 @@ packages:
     source: hosted
     version: "1.14.12"
   connectivity:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: connectivity
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.9"
+    version: "0.4.9+2"
   connectivity_for_web:
     dependency: transitive
     description:
@@ -114,12 +114,12 @@ packages:
     source: hosted
     version: "0.3.0"
   connectivity_macos:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: connectivity_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0+3"
+    version: "0.1.0+4"
   connectivity_platform_interface:
     dependency: transitive
     description:
