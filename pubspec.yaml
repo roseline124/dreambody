@@ -46,6 +46,11 @@ dependencies:
   # water dashboard
   wave: ^0.0.8
 
+  # build apk
+  # https://github.com/flutter/flutter/issues/54460
+  connectivity_macos: ^0.1.0+4
+  connectivity: ^0.4.9+2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
